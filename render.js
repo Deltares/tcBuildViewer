@@ -53,6 +53,10 @@ function renderProject(project) {
 // Add buildType to project.
 function renderBuildType(buildType) {
 
+    // Skip build types with no builds.
+    if (!buildType.builds.build[0])
+        return;
+
     // Add buildType to project.
     var buildTypeDiv = document.createElement("div");
     var parentElement = document.getElementById(buildType.projectId);
