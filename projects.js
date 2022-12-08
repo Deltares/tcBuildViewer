@@ -33,7 +33,6 @@ async function append_projects_recursively(projects, projectId) {
             // Check for builds to add to project
             if (output.buildTypes.buildType) {
                 Object.entries(output.buildTypes.buildType).forEach(([key, value]) => {
-                    renderBuildType(value);
                     add_builds_to_buildtype(output.buildTypes.buildType[key], value.id);
                 });
             }
