@@ -1,0 +1,247 @@
+/* Class to hide any element */
+.hidden {
+    display: none !important;
+}
+
+/* From Deltares.nl */
+body {
+    font-family: "Franca-Book", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    padding-top: 10px;
+}
+
+/* Deltares blue */
+#deltares_logo, h1 {
+    text-align: center;
+    color: #0a28a3;
+    fill: #0a28a3; /* SVG */
+}
+
+h1 {
+    font-size: 24px;
+    font-style: italic;
+    margin-top: 2px;
+}
+
+/* Default link color and styling */
+a {
+    color: black;
+    text-decoration: none;
+}
+
+/* Special link color */
+.build.SUCCESS > a {
+    color: green;
+}
+
+/* Special link color */
+.build.FAILURE > a, .build.UNKNOWN > a{
+    color: red;
+}
+
+/* The ▲ is rather small. */
+.build.UNKNOWN > a{
+    color: black;
+}
+
+/* Overrule link color when hovered */
+a:hover {
+    color: black !important;
+}
+
+/* Project/BuildType link icon ⧉ */
+a > div.linkIcon {
+    font-weight: normal;
+    opacity: 20%;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+/* Project/BuildType link icon ⧉ */
+a:hover > div.linkIcon {
+    opacity: 100%;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+/* This link should blend in */
+#info > a {
+    color: white;
+}
+
+/* Buttons below the page header */
+#buttonList {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+/* Mainly used for UTF-8 symbols */
+.bigger {
+    font-size: 140% !important;
+    font-weight: normal;
+}
+
+/* Hidden divisions */
+#info, #newly_red, #settings {
+    margin: 10px;
+    padding: 10px;
+    color: white;
+    background-color: gray;
+}
+
+/* For better association */
+#newly_red {
+    box-shadow: 0px 0px 10px yellow;
+    background-color: rgba(255,0,0,0.25);
+    color: black;
+}
+
+/* The toggle buttons. */
+#buttonList .toggle {
+    padding: 0px 10px;
+    font-weight: bold;
+    color: white;
+    background-color: gray;
+    border: 3px solid gray;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#buttonList .toggle.green {
+    background-color: green;
+    border-color: green;
+}
+
+#buttonList .toggle.newly_red {
+    background-color: red;
+    border-color: red;
+    box-shadow: 0px 0px 10px yellow;
+}
+
+#buttonList .toggle:hover {
+    border: 3px solid black !important;
+}
+
+/* Any project */
+#_projects .project {
+    margin-left: 20px;
+    border-left: 2px dashed lightgray;
+    border-top: 2px dashed lightgray;
+    padding: 4px;
+    padding-right: 0px;
+}
+
+/* Top level project */
+#_projects.project {
+    margin: 0px 10px;
+    margin-top: 1em;
+}
+
+/* First level of projects. */
+#_projects > div.project_wrapper > div.project {
+    margin-left: 0px;
+    margin-bottom: 2em;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+/* All other levels of projects. */
+#_projects > div.project_wrapper > div.project > div.project {
+    font-size: initial;
+}
+
+/* Hide projects without builds. */
+.project:not(:has(.build)) {
+    display:none;
+}
+
+/* Hide projects with only hidden build types. */
+.project:not(:has(.buildType:not(.hidden))) {
+    display:none;
+}
+
+/* A 'build type' contains builds. */
+.buildType {
+    background-color: #eee;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: initial;
+    padding: 0.2em;
+    margin: 0.2em;
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: auto fit-content(100%) fit-content(100%);
+    column-gap: 5px;
+    grid-template-rows: minmax(1em,);
+}
+
+/* Build types where the last build failed. */
+.buildType:has(div.buildList > .build:last-child.FAILURE) {
+    background-color: #fee !important;
+}
+
+/* Build types where the last build succeeded. */
+.buildType:has(div.buildList > .build:last-child.SUCCESS) {
+    background-color: #efe !important;
+}
+
+/* Build types where the last build succeeded. */
+.buildType:has(div.buildList > .build:last-child.UNKNOWN) {
+    background-color: #fee !important;
+}
+
+/* Hide build types without builds. */
+.buildType:not(:has(.build)) {
+    display:none;
+}
+
+/* Name of the build type. */
+.buildType > a {
+    display: inline-block;
+    grid-column: 1;
+    word-break: break-all;
+}
+
+/* List of builds for the build type. */
+.buildList {
+    display: block;
+    grid-column: 2;
+    text-align: right;
+    white-space: nowrap;
+    letter-spacing: 0.0625em;
+}
+
+/* ⬤ = build */
+.build {
+    display: inline-block;
+    font-style: initial;
+    opacity: 25%;
+    text-decoration: none;
+}
+
+/* Last build of build type. */
+.build:last-child {
+    opacity: 100% !important;
+}
+
+.build:hover {
+    color: black; /* Fix/overrule race-condition in CSS styling */
+    opacity: 100%;
+}
+
+/* Button to expand build list info. */
+.buildListButton {
+    display: inline-block;
+    grid-column: 3;
+}
+
+/* Build steps on expansion of build type. */
+.buildSteps {
+    display: inline-block;
+    margin: 0.5em;
+    padding: 1em;
+    background: white;
+    grid-column: 1;
+    min-width: 0;
+    min-height: 0;
+}
