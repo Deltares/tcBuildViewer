@@ -71,12 +71,8 @@ function renderBuildType(buildType) {
     buildTypeDiv.classList.add('buildType');
     buildTypeDiv.classList.add(buildType.projectId);
 
-    // Hide buildTypes without builds.
-    // Else add status of last build as class.
-    if (!buildType.builds.build || !buildType.builds.build[0])
-        buildTypeDiv.classList.add('hidden');
-    else
-        buildTypeDiv.classList.add(buildType.builds.build[0].status);
+    // Add status of last build as class.
+    buildTypeDiv.classList.add(buildType.builds.build[0].status);
 
     // Link to TeamCity build type page.
     var buildTypeLink = document.createElement("a");
