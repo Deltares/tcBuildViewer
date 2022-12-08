@@ -15,7 +15,7 @@ async function append_projects_recursively(projects, projectId) {
     if (exclude_projects.includes(projectId))
         return;
 
-    fetch(`${teamcity_rest_api_base_url}/projects/id:${projectId}?${project_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -33,14 +33,13 @@ async function append_projects_recursively(projects, projectId) {
             // Check for builds to add to project
             if (output.buildTypes.buildType) {
                 Object.entries(output.buildTypes.buildType).forEach(([key, value]) => {
-                    add_builds_to_buildtype(output.buildTypes.buildType[key], value.id);
                     renderBuildType(value);
+                    add_builds_to_buildtype(output.buildTypes.buildType[key], value.id);
                 });
             }
 
-            projects.push(output);
-
             renderProject(output);
+            projects.push(output);
 
             // Check for sub-projects to add
             if (output.projects.project) {
@@ -54,7 +53,7 @@ async function append_projects_recursively(projects, projectId) {
 }
 
 function add_builds_to_buildtype(buildType) {
-    fetch(`${teamcity_rest_api_base_url}/builds?locator=defaultFilter:false,state:(running:true,finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffDateString},condition:after),count:${build_count}&${buildType_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(running:true,finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffDateString},condition:after),count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
