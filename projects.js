@@ -64,8 +64,10 @@ function add_builds_to_buildtype(buildType) {
             renderBuildType(buildType);
             if (buildType.builds.build) {
                 Object.entries(buildType.builds.build).forEach(([key, build]) => {
-                    if (build.status != 'UNKNOWN')
+                    if (build.finishOnAgentDate)
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
+                    else
+                        console.log(build);
                     renderBuild(build);
                 })
             }
