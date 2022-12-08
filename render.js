@@ -48,13 +48,6 @@ function renderProject(project) {
     projectLinkIcon.classList.add('linkIcon');
     projectLink.appendChild(projectLinkIcon);
 
-    // .buildType[]
-    if (project.buildTypes.buildType) {
-        project.buildTypes.buildType.forEach(buildType => {
-            renderBuildType(buildType);
-        });
-    }
-
 }
 
 // Add buildType to project.

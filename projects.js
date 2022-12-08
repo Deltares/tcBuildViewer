@@ -61,6 +61,7 @@ function add_builds_to_buildtype(buildType) {
         .then((result) => result.json())
         .then((output) => {
             buildType.builds = output;
+            renderBuildType(buildType);
             if (buildType.builds.build) {
                 Object.entries(buildType.builds.build).forEach(([key, value]) => {
                     value.unixTime = tcTimeToUnix(value.finishOnAgentDate);
