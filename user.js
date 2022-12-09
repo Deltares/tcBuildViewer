@@ -1,4 +1,5 @@
 async function getCurrentUser() {
+
     var response = await fetch(`${teamcity_base_url}/app/rest/users/current`, {
         headers: {
             'Accept': 'application/json',
@@ -12,11 +13,11 @@ async function getCurrentUser() {
 
     if (response && response.ok) {
         user = response.json();
+        return user;
     } else {
-        user = null;
         showLogin();
+        return null;
     }
-    return user;
 }
 
 function showLogin() {
