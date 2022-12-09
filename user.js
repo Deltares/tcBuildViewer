@@ -14,6 +14,7 @@ function getCurrentUser() {
             } else {
                 console.log("User is not logged in to TeamCity.");
                 showLogin();
+                return null;
             }
             
         })

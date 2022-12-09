@@ -68,8 +68,8 @@
         if (navigator.userAgent.search("Firefox") > -1)
             document.getElementById('info').classList.toggle('hidden');
 
-        var user;
-        if (user = getCurrentUser()) {
+        var user = getCurrentUser();
+        if (user) {
             console.log(user);
 
             // This is where all fetched API data will be stored.
