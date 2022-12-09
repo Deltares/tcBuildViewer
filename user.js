@@ -7,7 +7,11 @@ function getCurrentUser() {
         mode: 'no-cors',
     })
         .then((result) => {
+
+            console.log(result);
+            
             if (result.ok) {
+                
                 return result.json();
             } else {
                 console.log("User is not logged in to TeamCity.");
