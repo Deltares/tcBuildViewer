@@ -62,9 +62,9 @@
                     Managing your selection
                 </div>
                 <div style="display: block; margin: auto; text-align: left;background: white; color: black; padding: 2em 3em 1em 3em;">
-                    <div style="">
-                        Default behaviour:
-                    </div>
+                    
+                    Default behaviour:
+                    
                     <ol style="display:block; line-height: 150%; padding-left: 0px">
                         <li>When you have clicked 'Save settings to Cookie' before, your selection will be retrieved from your cookie.</li>
                         <li>When no cookie is found, the TeamCity API will be queried for your favorite projects.</li>
@@ -84,7 +84,7 @@
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
-                <button onclick="settings={include_projects: favorite_projects, exclude_projects: []}; updateFormSettings()">TeamCity API</button>
+                <button onclick="getFavoriteProjects().then((favorite_projects) => { settings={include_projects: favorite_projects, exclude_projects: []}}); updateFormSettings()">TeamCity API</button>
                 <button>File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
