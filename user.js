@@ -78,4 +78,6 @@ async function getFavoriteProjects() {
 
     favorite_projects = favoriteProjectObjects.map(x => x.id);
 
+    return favorite_projects;
+
 }
