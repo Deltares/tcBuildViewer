@@ -7,7 +7,7 @@ async function getCurrentUser() {
         } while (!userLoggedIn());
     }
 
-    return user;
+    return await user;
 
 }
 
@@ -27,7 +27,7 @@ async function userLoggedIn() {
         });
 
         if (response && response.ok) {
-            user = response.json();
+            user = await response.json();
             return true;
         } else {
             return false;
