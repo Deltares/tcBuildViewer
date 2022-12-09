@@ -17,7 +17,10 @@ function getCurrentUser() {
             }
             
         })
-        .catch(err => { return null; })
+        .catch(err => {
+            showLogin();
+            return null;
+        })
 }
 
 function showLogin() {
