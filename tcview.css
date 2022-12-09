@@ -10,6 +10,14 @@ body {
     padding-top: 10px;
 }
 
+#user {
+    position: absolute;
+}
+
+#user_name {
+    display: inline;
+}
+
 /* Deltares blue */
 #deltares_logo, h1 {
     text-align: center;
@@ -73,7 +81,7 @@ a:hover > div.linkIcon {
 }
 
 /* This link should blend in */
-#info > a {
+#info > a, #login > a {
     color: white;
 }
 
@@ -91,8 +99,12 @@ a:hover > div.linkIcon {
     font-weight: normal;
 }
 
+#login {
+    text-align: center;
+}
+
 /* Hidden divisions */
-#info, #newly_red, #settings {
+#login, #info, #newly_red, #settings {
     margin: 10px;
     padding: 10px;
     color: white;
@@ -109,12 +121,10 @@ a:hover > div.linkIcon {
 /* The toggle buttons. */
 #buttonList .toggle {
     padding: 0px 10px;
-    font-weight: bold;
     color: white;
     background-color: gray;
     border: 3px solid gray;
     border-radius: 5px;
-    font-size: 14px;
 }
 
 #buttonList .toggle.green {

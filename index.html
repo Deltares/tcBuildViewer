@@ -7,11 +7,16 @@
     <meta name="author" content="Robin van Westrenen">
     <link rel="stylesheet" href="tcview.css" type="text/css" media="all">
     <script src="config.js"></script>
+    <script src="user.js"></script>
     <script src="projects.js"></script>
     <script src="render.js"></script>
 </head>
 
 <body>
+
+    <div id="user">
+        TeamCity user: <div id="user_name">unknown</div>
+    </div>
 
     <div id="deltares_logo">
         <svg xmlns="http://www.w3.org/2000/svg" width="200px" height="40px" viewBox="0 0 200 40">
@@ -20,7 +25,7 @@
             </path>
         </svg>
     </div>
-    <h1>TeamCity Build Viewer</h1>
+    <h1>TeamCity Build Viewer (test)</h1>
     <div id="buttonList">
 
         <button id="toggle_green"     class="toggle green"
@@ -37,20 +42,26 @@
 
     </div>
 
-    <div id="info" class="hidden">
-        Firefox does not fully support the CSS specifications and will not display this page properly.
-        <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2">https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2 ⧉</a>
-        <br /><br />
-        Source code: <a target="_blank" href="https://github.com/robin-deltares/tcBuildViewer">https://github.com/robin-deltares/tcBuildViewer ⧉</a>
+    <div id="login" class="hidden">
+        <button onclick="window.open('https://build.avi.directory.intra/login.html','login','toolbar=no,menubar=no,width=600,height=600');">Log in to TeamCity ⧉</button>
+    </div>
+
+    <div id="newly_red" class="hidden">
+        🚧 Placeholder for list of build types that have become red recently, builds that did not start or build types
+        with a higher urgency.
     </div>
 
     <div id="settings" class="hidden">
         🚧 Placeholder to set project-selection and period.
     </div>
 
-    <div id="newly_red" class="hidden">
-        🚧 Placeholder for list of build types that have become red recently, builds that did not start or build types
-        with a higher urgency.
+    <div id="info" class="hidden">
+        Firefox does not fully support the CSS specifications and will not display this page properly.
+        <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2">https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2 ⧉</a>
+        <br /><br />
+        Source code: <a target="_blank" href="https://github.com/Deltares/tcBuildViewer">https://github.com/Deltares/tcBuildViewer ⧉</a>
+        <br /><br />
+        Bugs or suggestions are welcome: <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
     </div>
 
     <div id="_projects" class="project"></div>
@@ -61,7 +72,10 @@
         if (navigator.userAgent.search("Firefox") > -1)
             document.getElementById('info').classList.toggle('hidden');
 
-        // This is where all fetched API data will be stored.
+        // TeamCity user data.
+        var user;
+
+        // Project data from TeamCity API.
         var my_projects = [];
 
         // Traverse the projects in $include_projects (see config.js)
@@ -71,16 +85,20 @@
             // Empty div#_projects and create elements for projects in $my_projects.
             initiateProjectElements(include_projects); // render.js
 
-            // Fetch projects and sub-projects from $include_projects.
             // Fetched projects will be immediately rendered.
             include_projects.forEach(projectId => {
                 append_projects_recursively(my_projects, projectId); // projects.js
             });
 
         }
+        // Wait until the user is logged into TeamCity,
+        // before fetching data from the TeamCity API.
+        getCurrentUser().then((user) => {
 
-        fetchProjects();
+            fetchProjects();
 
+        });        
+        
     </script>
 
 </body>

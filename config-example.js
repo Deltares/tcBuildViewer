@@ -15,9 +15,9 @@
 //
 
 // If your tcBuildViewer is hosted on the same domain as your TeamCity.
-const teamcity_base_url = '/';
+const teamcity_base_url = '';
 // If you host your tcBuildViewer on a different domain:
-// const teamcity_base_url = 'https://<your-teamcity-domain>/';
+// const teamcity_base_url = 'https://<your-teamcity-domain>';
 
 // Default project IDs to (recursively) view:
 var include_projects = [
