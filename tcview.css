@@ -10,6 +10,14 @@ body {
     padding-top: 10px;
 }
 
+#user {
+    position: absolute;
+}
+
+#user_name {
+    display: inline;
+}
+
 /* Deltares blue */
 #deltares_logo, h1 {
     text-align: center;
