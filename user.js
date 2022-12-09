@@ -1,11 +1,17 @@
-function getCurrentUser() {
+// 1. Check if the user is logged in.
+// 2. Present login button if not logged in.
+// 3. Check every second if the user is logged in.
+// 4. Return user when the user is logged in.
+async function getCurrentUser() {
 
-    if (!userLoggedIn()) {
+    if (!await userLoggedIn()) {
+
         showLogin();
+
         do {
             console.log("sleep some more");
-            sleep(1000);
-        } while (!userLoggedIn());
+            await sleep(1000);
+        } while (! await userLoggedIn());
     }
 
     return user;

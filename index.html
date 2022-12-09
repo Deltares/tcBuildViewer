@@ -72,35 +72,28 @@
         if (navigator.userAgent.search("Firefox") > -1)
             document.getElementById('info').classList.toggle('hidden');
 
-        var user = getCurrentUser().then( user => {
+        var user = getCurrentUser();
 
-            if (user) {
+        document.getElementById('user_name').innerHTML = user.username;
 
-                document.getElementById('user_name').innerHTML = user.username;
+        // This is where all fetched API data will be stored.
+        var my_projects = [];
 
-                // This is where all fetched API data will be stored.
-                var my_projects = [];
+        // Traverse the projects in $include_projects (see config.js)
+        // and append the data to $my_projects[]
+        function fetchProjects() {
 
-                // Traverse the projects in $include_projects (see config.js)
-                // and append the data to $my_projects[]
-                function fetchProjects() {
+            // Empty div#_projects and create elements for projects in $my_projects.
+            initiateProjectElements(include_projects); // render.js
 
-                    // Empty div#_projects and create elements for projects in $my_projects.
-                    initiateProjectElements(include_projects); // render.js
+            // Fetched projects will be immediately rendered.
+            include_projects.forEach(projectId => {
+                append_projects_recursively(my_projects, projectId); // projects.js
+            });
 
-                    // Fetched projects will be immediately rendered.
-                    include_projects.forEach(projectId => {
-                        append_projects_recursively(my_projects, projectId); // projects.js
-                    });
+        }
 
-                }
-
-                fetchProjects();
-            } else {
-                //showLogin();
-            }
-
-        });
+        fetchProjects();
         
     </script>
 
