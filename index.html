@@ -92,7 +92,7 @@
                 initiateProjectElements(favorite_projects); // render.js
 
                 // Fetched projects will be immediately rendered.
-                include_projects.forEach(projectId => {
+                favorite_projects.forEach(projectId => {
                     append_projects_recursively(my_projects, projectId); // projects.js
                 });
             });

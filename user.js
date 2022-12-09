@@ -76,7 +76,7 @@ async function getFavoriteProjects() {
         return project.parentProjectId == '_Root';
     })
 
-    favorite_projects = favoriteProjectObjects.map(x => x.id);
+    var favorite_projects = favoriteProjectObjects.map(x => x.id);
 
     return favorite_projects;
 
