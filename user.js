@@ -63,7 +63,7 @@ async function getFavoriteProjects() {
     // Every child of favorite:
     // https://dpcbuild.deltares.nl/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)
 
-    fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
+    await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -71,7 +71,7 @@ async function getFavoriteProjects() {
     })
         .then((result) => result.json())
         .then((output) => {
-            console.log(await output);
+            console.log(output);
             favorites = output.projects.filter( project => {
                 return project.parentProjectId == '_Root';
             })
