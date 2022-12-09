@@ -90,5 +90,4 @@ function updateFormSettings() {
     };
     settingsDiv.innerText = JSON.stringify(settings, undefined, 2);
     settings_textarea.value = JSON.stringify(settings, undefined, 2);
-    console.log(JSON.stringify(settings, undefined, 2));
 }
