@@ -81,3 +81,14 @@ async function getFavoriteProjects() {
     return favorite_projects;
 
 }
+
+function updateFormSettings() {
+    var settingsDiv = document.getElementById('settings_code');
+    var settings = {
+        include_projects: include_projects,
+        exclude_projects: exclude_projects,
+    };
+    settingsDiv.innerText = JSON.stringify(settings, undefined, 2);
+    settings_textarea.value = JSON.stringify(settings, undefined, 2);
+    console.log(JSON.stringify(settings, undefined, 2));
+}
