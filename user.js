@@ -69,10 +69,13 @@ async function getFavoriteProjects() {
         },
         credentials: 'include',
     });
+
     var projects = await response.json();
-    var favoriteProjectObjects = await output.project.filter( project => {
+
+    var favoriteProjectObjects = await projects.project.filter( project => {
         return project.parentProjectId == '_Root';
     })
+
     favorite_projects = favoriteProjectObjects.map(x => x.id);
 
 }
