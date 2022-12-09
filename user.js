@@ -6,21 +6,15 @@ async function getCurrentUser() {
                 'Accept': 'application/json',
             },
             credentials: 'include',
-        })
-        .catch(err => {
-            user = null;
-            showLogin();
         });
 
         if (response && response.ok) {
             user = response.json();
             return user;
         } else {
-            showLogin();
             return null;
         }
     } catch (err) {
-        showLogin();
         console.log(err);
         return null;
     }
