@@ -8,6 +8,7 @@ async function getCurrentUser() {
 
         // Show login button if the user is not logged in.
         document.getElementById('login').classList.toggle('hidden');
+        document.getElementById('user_name').innerHTML = 'Waiting for user to log into TeamCity.';
 
         do {
             console.log("Waiting for the user to log into TeamCity.");
@@ -18,7 +19,7 @@ async function getCurrentUser() {
 
     // Remove login button if the user is logged in.
     document.getElementById('login').classList.toggle('hidden');
-
+    document.getElementById('user_name').innerHTML = user.username;
     return user;
 
 }
