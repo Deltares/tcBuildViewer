@@ -10,7 +10,7 @@ async function getCurrentUser() {
         showLogin();
     });
 
-    if (await response.ok) {
+    if (response && response.ok) {
         user = response.json();
     } else {
         user = null;
