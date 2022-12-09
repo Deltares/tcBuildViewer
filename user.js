@@ -4,7 +4,12 @@ async function getCurrentUser() {
             'Accept': 'application/json',
         },
         credentials: 'include',
+    })
+    .catch(err => {
+        user = null;
+        showLogin();
     });
+
     if (await response.ok) {
         user = response.json();
     } else {
