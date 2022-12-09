@@ -92,7 +92,7 @@ a:hover > div.linkIcon {
 }
 
 /* Hidden divisions */
-#info, #newly_red, #settings {
+#login, #info, #newly_red, #settings {
     margin: 10px;
     padding: 10px;
     color: white;
