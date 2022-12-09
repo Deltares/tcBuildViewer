@@ -27,6 +27,10 @@ body {
     margin: 0px;
 }
 
+.wide {
+    grid-column: 1/-1;
+}
+
 form {
     height: 100%;
 }
