@@ -120,12 +120,12 @@
                     if (document.cookie != "") {
                     
                         settings = document.cookie.json();
-                        console.log(`Settings loaded from cookie: ${JSON.stringify(settings, undefined, 2)}`);
+                        console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     } else if (favorite_projects.length == 0) {
 
                         settings = default_settings;
-                        console.log(`Settings loaded from config.js: ${JSON.stringify(settings, undefined, 2)}`);
+                        console.log(`Settings loaded from config.js:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     } else {
 
@@ -133,7 +133,7 @@
                             include_projects: favorite_projects,
                             exclude_projects: [],
                         }
-                        console.log(`Settings loaded from TeamCity API: ${JSON.stringify(settings, undefined, 2)}`);
+                        console.log(`Settings loaded from TeamCity API:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     }
 
