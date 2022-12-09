@@ -72,9 +72,10 @@
         if (navigator.userAgent.search("Firefox") > -1)
             document.getElementById('info').classList.toggle('hidden');
 
-        var user = getCurrentUser();
+        // TeamCity user data.
+        var user;
 
-        // This is where all fetched API data will be stored.
+        // Project data from TeamCity API.
         var my_projects = [];
 
         // Traverse the projects in $include_projects (see config.js)
@@ -90,8 +91,13 @@
             });
 
         }
+        // Wait until the user is logged into TeamCity,
+        // before fetching data from the TeamCity API.
+        getCurrentUser().then((user) => {
 
-        fetchProjects();
+            fetchProjects();
+
+        });        
         
     </script>
 
