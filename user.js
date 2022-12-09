@@ -1,14 +1,14 @@
-async function getCurrentUser() {
+function getCurrentUser() {
 
     if (!userLoggedIn()) {
         showLogin();
         do {
-            await sleep(1000);
-
+            console.log("sleep some more");
+            sleep(1000);
         } while (!userLoggedIn());
     }
 
-    return await user;
+    return user;
 
 }
 
