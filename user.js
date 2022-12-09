@@ -11,7 +11,7 @@ async function getCurrentUser() {
         document.getElementById('user_name').innerHTML = 'Waiting for user to log into TeamCity.';
 
         do {
-            console.log("Waiting for the user to log into TeamCity.");
+            console.log("waiting for TeamCity login ...");
             await new Promise(resolve => setTimeout(resolve, 1000));
         } while (! await userLoggedIn());
 
