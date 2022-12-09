@@ -143,7 +143,7 @@
                     initiateProjectElements(settings.include_projects); // render.js
 
                     // Fetched projects will be immediately rendered.
-                    include_projects.forEach(projectId => {
+                    settings.include_projects.forEach(projectId => {
                         append_projects_recursively(my_projects, projectId); // projects.js
                     });
                 });
