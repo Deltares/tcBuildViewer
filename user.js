@@ -71,7 +71,9 @@ async function getFavoriteProjects() {
     })
         .then((result) => result.json())
         .then((output) => {
-            favorites = JSONPath({path: "$.projects[?(@.parentProjectId=='_Root')]"});
+            favorites = output.projects.filter( project => {
+                return project.parentProjectId == '_Root';
+            })
             console.log(favorites);
         })
         .catch(err => { console.log(err) });
