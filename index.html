@@ -128,7 +128,7 @@
 
                     if (document.cookie != "") {
                     
-                        settings = document.cookie.json();
+                        settings = JSON.parse(document.cookie);
                         console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     } else if (favorite_projects.length == 0) {
