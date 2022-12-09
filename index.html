@@ -7,6 +7,7 @@
     <meta name="author" content="Robin van Westrenen">
     <link rel="stylesheet" href="tcview.css" type="text/css" media="all">
     <script src="config.js"></script>
+    <script src="user.js"></script>
     <script src="projects.js"></script>
     <script src="render.js"></script>
 </head>
@@ -38,7 +39,7 @@
     </div>
 
     <div id="login" class="hidden">
-        Log in to TeamCity: <a target="_blank" href="https://build.avi.directory.intra/login.html">https://build.avi.directory.intra/login.html ⧉</a>
+        <button onclick="window.open('https://build.avi.directory.intra/login.html','login','toolbar=no,menubar=no,width=600,height=600');">Log in to TeamCity ⧉</button>
     </div>
 
     <div id="newly_red" class="hidden">
@@ -67,25 +68,30 @@
         if (navigator.userAgent.search("Firefox") > -1)
             document.getElementById('info').classList.toggle('hidden');
 
-        // This is where all fetched API data will be stored.
-        var my_projects = [];
+        var user;
+        if (user = getCurrentUser()) {
+            console.log(user);
 
-        // Traverse the projects in $include_projects (see config.js)
-        // and append the data to $my_projects[]
-        function fetchProjects() {
+            // This is where all fetched API data will be stored.
+            var my_projects = [];
 
-            // Empty div#_projects and create elements for projects in $my_projects.
-            initiateProjectElements(include_projects); // render.js
+            // Traverse the projects in $include_projects (see config.js)
+            // and append the data to $my_projects[]
+            function fetchProjects() {
 
-            // Fetch projects and sub-projects from $include_projects.
-            // Fetched projects will be immediately rendered.
-            include_projects.forEach(projectId => {
-                append_projects_recursively(my_projects, projectId); // projects.js
-            });
+                // Empty div#_projects and create elements for projects in $my_projects.
+                initiateProjectElements(include_projects); // render.js
 
+                // Fetch projects and sub-projects from $include_projects.
+                // Fetched projects will be immediately rendered.
+                include_projects.forEach(projectId => {
+                    append_projects_recursively(my_projects, projectId); // projects.js
+                });
+
+            }
+
+            fetchProjects();
         }
-
-        fetchProjects();
 
     </script>
 
