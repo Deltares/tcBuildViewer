@@ -6,7 +6,7 @@ async function getCurrentUser() {
         credentials: 'include',
     });
     if (await response.ok) {
-        user = result.json();
+        user = response.json();
     } else {
         user = null;
         showLogin();
