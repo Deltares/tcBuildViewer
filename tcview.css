@@ -73,7 +73,7 @@ a:hover > div.linkIcon {
 }
 
 /* This link should blend in */
-#info > a {
+#info > a, #login > a {
     color: white;
 }
 
