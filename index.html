@@ -66,35 +66,28 @@
                         Default behaviour:
                     </div>
                     <ol style="display:block; line-height: 150%; padding-left: 0px">
-                        <li>When you have used this page before, your selection will be retrieved from your cookies.</li>
-                        <li>When no cookies are found, the TeamCity API will be asked for your favorite projects.</li>
+                        <li>When you have clicked 'Save settings to Cookie' before, your selection will be retrieved from your cookie.</li>
+                        <li>When no cookie is found, the TeamCity API will be queried for your favorite projects.</li>
                         <li>When no favorite projects are found, the 'default_settings' variable from config.js is used.</li>
                     </ol>
-                    <div style="">
-                        Change selection:
-                    </div>
-                    <ul style="line-height: 150%; padding-left: 0px">
-                        <li>Load your favorites and remove anything you are not interested in.</li>
-                        <li>When no cookies are found, the TeamCity API will be asked for your favorite projects.</li>
-                        <li>When no favorite projects are found, the 'default_settings' variable from config.js are used.</li>
-                    </ul>
                 </div>
             </div>
-            <div class="header" style="grid-column: 1;">Current settings:</div>
-            <div class="header" style="grid-column: 2;">Edit settings:</div>
-            <div id="settings_code" class="code" style="grid-column: 1;"></div>
-            <div style="grid-column: 2;">
+            <div class="header" style="grid-column: 1;">Edit selection:</div>
+            <div class="header" style="grid-column: 3;">Active selection:</div>
+            <div style="grid-column: 1;">
                 <form spellcheck="false">
                     <textarea id="settings_textarea" class="code"></textarea>
                 </form>
             </div>
-            <div class="header" style="grid-column: 1;">Load settings from ...</div>
-            <div class="header" style="grid-column: 2;">Save settings to ...</div>
+            <button id="apply" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
+            <div id="settings_code" class="code" style="grid-column: 3;"></div>
+            <div class="header" style="grid-column: 1;">Load selection from ...</div>
+            <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
                 <button onclick="settings={include_projects: favorite_projects, exclude_projects: []}; updateFormSettings()">TeamCity API</button>
                 <button>File</button>
             </div>
-            <div style="grid-column: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
+            <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
                 <button onclick="document.cookie = JSON.stringify(settings); alert('Selection saved to cookie!')">Cookie</button>
                 <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(settings, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
             </div>

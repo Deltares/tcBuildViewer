@@ -39,7 +39,7 @@ button:hover {
 
 #settings {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
     column-gap: 2em;
     row-gap: 1em;
     padding: 1em 2em 2em 2em !important;
