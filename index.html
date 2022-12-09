@@ -86,14 +86,17 @@
         // and append the data to $my_projects[]
         function fetchProjects() {
 
-            include_projects = getFavoriteProjects();
+            getFavoriteProjects().then((favorite_projects) => {
 
-            // Empty div#_projects and create elements for projects in $my_projects.
-            initiateProjectElements(include_projects); // render.js
+                include_projects = favorite_projects;
 
-            // Fetched projects will be immediately rendered.
-            include_projects.forEach(projectId => {
-                append_projects_recursively(my_projects, projectId); // projects.js
+                // Empty div#_projects and create elements for projects in $my_projects.
+                initiateProjectElements(include_projects); // render.js
+
+                // Fetched projects will be immediately rendered.
+                include_projects.forEach(projectId => {
+                    append_projects_recursively(my_projects, projectId); // projects.js
+                });
             });
 
         }
