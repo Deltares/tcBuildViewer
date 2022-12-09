@@ -12,6 +12,8 @@ body {
 
 #user {
     position: absolute;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #user_name {
@@ -99,8 +101,15 @@ a:hover > div.linkIcon {
     font-weight: normal;
 }
 
+/* visible when the user is not logged into TeamCity */
 #login {
     text-align: center;
+    font-size: 150%;
+    padding: 1em !important;
+}
+
+#login > button {
+    font-size: 18px;
 }
 
 /* Hidden divisions */
