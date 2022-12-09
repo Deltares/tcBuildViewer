@@ -140,7 +140,7 @@
                     updateFormSettings();
 
                     // Empty div#_projects and create elements for projects in $my_projects.
-                    initiateProjectElements(include_projects); // render.js
+                    initiateProjectElements(settings.include_projects); // render.js
 
                     // Fetched projects will be immediately rendered.
                     include_projects.forEach(projectId => {
