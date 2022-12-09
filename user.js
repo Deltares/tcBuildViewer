@@ -71,8 +71,8 @@ async function getFavoriteProjects() {
     })
         .then((result) => result.json())
         .then((output) => {
-            console.log(output);
-            favorites = output.projects.filter( project => {
+            console.log(output.project);
+            favorites = output.project.filter( project => {
                 return project.parentProjectId == '_Root';
             })
             console.log(favorites);
