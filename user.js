@@ -3,7 +3,8 @@ async function getCurrentUser() {
     if (!userLoggedIn()) {
         showLogin();
         do {
-            await new Promise(r => setTimeout(r, 2000));
+            await sleep(1000);
+
         } while (!userLoggedIn());
     }
 
@@ -38,4 +39,8 @@ async function userLoggedIn() {
         return false;
     }
 
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
