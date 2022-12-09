@@ -21,6 +21,14 @@ h1 {
     font-size: 24px;
     font-style: italic;
     margin-top: 2px;
+    font-weight: normal;
+}
+
+button {
+    font-family: "Franca-Book", Helvetica, Arial, sans-serif !important;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: normal !important;
 }
 
 /* Default link color and styling */
@@ -74,6 +82,7 @@ a:hover > div.linkIcon {
     display: flex;
     justify-content: center;
     column-gap: 10px;
+    margin: 10px;
 }
 
 /* Mainly used for UTF-8 symbols */
