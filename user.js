@@ -4,6 +4,7 @@ function getCurrentUser() {
             'Accept': 'application/json',
         },
         credentials: 'include',
+        mode: 'no-cors',
     })
         .then((result) => {
             if (result.ok) {
