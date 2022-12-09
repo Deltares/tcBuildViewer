@@ -113,12 +113,10 @@ a:hover > div.linkIcon {
 /* The toggle buttons. */
 #buttonList .toggle {
     padding: 0px 10px;
-    font-weight: bold;
     color: white;
     background-color: gray;
     border: 3px solid gray;
     border-radius: 5px;
-    font-size: 14px;
 }
 
 #buttonList .toggle.green {
