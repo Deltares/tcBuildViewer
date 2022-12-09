@@ -15,10 +15,11 @@ async function getCurrentUser() {
             await new Promise(resolve => setTimeout(resolve, 1000));
         } while (! await userLoggedIn());
 
+        // Remove login button if the user is logged in.
+        document.getElementById('login').classList.toggle('hidden');
+
     }
 
-    // Remove login button if the user is logged in.
-    document.getElementById('login').classList.toggle('hidden');
     document.getElementById('user_name').innerHTML = user.username;
     return user;
 
