@@ -1,6 +1,6 @@
 async function checkLogin(){
     var response = getCurrentUser();
-    return await user;
+    await response;
 }
 
 function getCurrentUser() {
