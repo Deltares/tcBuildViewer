@@ -6,22 +6,31 @@ async function getCurrentUser() {
 
     if (!await userLoggedIn()) {
 
-        showLogin();
+        // Show login button if the user is not logged in.
+        document.getElementById('login').classList.toggle('hidden');
 
         do {
-            console.log("sleep some more");
-            await sleep(1000);
+            console.log("Waiting for the user to log into TeamCity.");
+            return new Promise(resolve => setTimeout(resolve, 1000));
         } while (! await userLoggedIn());
+
     }
+
+    // Remove login button if the user is logged in.
+    document.getElementById('login').classList.toggle('hidden');
 
     return user;
 
 }
 
-function showLogin() {
+// Basically just showing a login button.
+function showLoginButton() {
+
     document.getElementById('login').classList.toggle('hidden');
+
 }
 
+// Returns true/false.
 async function userLoggedIn() {
 
     try {
@@ -45,8 +54,4 @@ async function userLoggedIn() {
         return false;
     }
 
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
