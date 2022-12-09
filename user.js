@@ -57,3 +57,23 @@ async function userLoggedIn() {
     }
 
 }
+
+async function getFavoriteProjects() {
+
+    // Every child of favorite:
+    // https://dpcbuild.deltares.nl/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)
+
+    fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+        .then((result) => result.json())
+        .then((output) => {
+            favorites = JSONPath({path: "$.projects[?(@.parentProjectId=='_Root')]"});
+            console.log(favorites);
+        })
+        .catch(err => { console.log(err) });
+
+}
