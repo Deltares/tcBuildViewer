@@ -5,7 +5,7 @@
 
 /* From Deltares.nl */
 body {
-    font-family: "Franca-Book", Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
     padding-top: 10px;
 }
@@ -25,7 +25,7 @@ h1 {
 }
 
 button {
-    font-family: "Franca-Book", Helvetica, Arial, sans-serif !important;
+    font-family: Helvetica, Arial, sans-serif !important;
     font-size: 16px;
     letter-spacing: 1px;
     font-weight: normal !important;
