@@ -1,3 +1,8 @@
+async function checkLogin(){
+    var response = getCurrentUser();
+    return await user;
+}
+
 function getCurrentUser() {
     fetch(`${teamcity_base_url}/app/rest/users/current`, {
         headers: {
@@ -7,20 +12,20 @@ function getCurrentUser() {
     })
         .then((result) => {
 
-            console.log(result);
-
             if (result.ok) {
-                return result.json();
+                user = result.json();
             } else {
                 console.log("User is not logged in to TeamCity.");
                 showLogin();
-                return null;
+                user = null;
             }
             
         })
         .catch(err => {
+
             showLogin();
-            return null;
+            user = null;
+
         })
 }
 
