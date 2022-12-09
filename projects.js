@@ -69,7 +69,7 @@ function add_builds_to_buildtype(buildType) {
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
 
                     renderBuild(build);
-                    
+
                 })
             }
         })
@@ -78,14 +78,14 @@ function add_builds_to_buildtype(buildType) {
 
 // Convert TeamCity's weird time notation to Unix timestamp.
 function tcTimeToUnix(tcTime) {
-    split = tcTime.split('');
-    year = split.slice(0, 4).join('');
-    month = split.slice(4, 6).join('');
-    day = split.slice(6, 8).join('');
-    t = split.slice(8, 9).join('');
-    hour = split.slice(9, 11).join('');
-    minute = split.slice(11, 13).join('');
-    second = split.slice(13, 15).join('');
+    split    = tcTime.split('');
+    year     = split.slice(0, 4).join('');
+    month    = split.slice(4, 6).join('');
+    day      = split.slice(6, 8).join('');
+    t        = split.slice(8, 9).join('');
+    hour     = split.slice(9, 11).join('');
+    minute   = split.slice(11, 13).join('');
+    second   = split.slice(13, 15).join('');
     timezone = split.slice(15, 23).join('');
     var date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}.000${timezone}`);
     return date.getTime(); // Unix timestamp from Date object.
@@ -93,14 +93,14 @@ function tcTimeToUnix(tcTime) {
 
 // Convert Date to TeamCity's weird time notation.
 function DateToTcTime(date) {
-    year = date.toISOString().substr(0, 4);
-    month = date.toISOString().substr(5, 2);
-    day = date.toISOString().substr(8, 2);
-    hour = '00'; // Well... let's not get nitty gritty here.
-    minute = '00';
-    second = '00';
-    timezone = '%2B0000';
-    var tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}`; // 20221206T080035+0100
+    year     = date.toISOString().substr(0, 4);
+    month    = date.toISOString().substr(5, 2);
+    day      = date.toISOString().substr(8, 2);
+    hour     = '00'; // Well... let's not get nitty gritty here.
+    minute   = '00';
+    second   = '00';
+    timezone = '%2B0000'; // +0000
+    var tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}`; // TeamCity time format: 20221206T080035+0100
     return tcTime;
 }
 
