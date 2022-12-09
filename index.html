@@ -39,7 +39,7 @@
                 onclick="document.getElementById('newly_red').classList.toggle('hidden');">Newly red</button>
 
             <button id="toggle_settings"  class="toggle"
-                onclick="document.getElementById('settings').classList.toggle('hidden');">Selected projects</button>
+                onclick="document.getElementById('settings').classList.toggle('hidden');">Selection</button>
 
             <button id="toggle_info" class="toggle"
                 onclick="document.getElementById('info').classList.toggle('hidden');"><span class="bigger">ⓘ</span></button>
@@ -48,7 +48,7 @@
 
         <div id="login" class="hidden">
             For the TeamCity Build Viewer to work, you need to be logged in at TeamCity.<br /><br />
-            <button onclick="window.open('https://build.avi.directory.intra/login.html','login','toolbar=no,menubar=no,width=600,height=600');">TeamCity Login ⧉</button>
+            <button onclick="window.open('https://build.avi.directory.intra/login.html','login','toolbar=no,menubar=no,width=600,height=600');">TeamCity Login ⧉</button><br />
         </div>
 
         <div id="newly_red" class="hidden">
@@ -59,7 +59,7 @@
         <div id="settings">
             <div class="wide" style="text-align: center; display: flex; flex-direction: column;">
                 <div class="header" style="margin-bottom: 1em">Selecting your own projects</div>
-                <div style="display: block; margin: auto; text-align: left;">
+                <div style="display: block; margin: auto; text-align: left;background: white; color: black; padding: 2em 3em;">
                     <div style="">Default behaviour:</div>
                     <ol style="display:block; line-height: 150%; padding-left: 0px">
                         <li>When you have used this page before, your selection will be retrieved from your cookies.</li>
@@ -75,23 +75,32 @@
                     </ul>
                 </div>
             </div>
-            <div class="header">Current settings:</div>
-            <div class="header">Edit settings:</div>
-            <div id="settings_code" class="code"></div>
-            <div>
+            <div class="header" style="grid-column: 1;">Current settings:</div>
+            <div class="header" style="grid-column: 2;">Edit settings:</div>
+            <div id="settings_code" class="code" style="grid-column: 1;"></div>
+            <div style="grid-column: 2;">
                 <form spellcheck="false">
                     <textarea id="settings_textarea" class="code"></textarea>
                 </form>
             </div>
+            <div class="header" style="grid-column: 1;">Load settings from ...</div>
+            <div class="header" style="grid-column: 2;">Save settings to ...</div>
+            <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
+                <button>TeamCity API</button>
+                <button>File</button>
+            </div>
+            <div style="grid-column: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
+                <button onclick="document.cookie = JSON.stringify(settings);">Cookie</button>
+                <button>File</button>
+            </div>
         </div>
 
-        <div id="info" class="hidden">
-            Firefox does not fully support the CSS specifications and will not display this page properly.
-            <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2">https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2 ⧉</a>
-            <br /><br />
-            Source code: <a target="_blank" href="https://github.com/Deltares/tcBuildViewer">https://github.com/Deltares/tcBuildViewer ⧉</a>
-            <br /><br />
-            Bugs or suggestions are welcome: <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
+        <div id="info" class="hidden" style="text-align: center; display: flex; flex-direction: column;">
+            <div class="header">Source code</div>
+            <a target="_blank" href="https://github.com/Deltares/tcBuildViewer">https://github.com/Deltares/tcBuildViewer ⧉</a>
+            <div class="header">Bugs or suggestions</div>
+            <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
+            <br />
         </div>
 
         <div id="_projects" class="project"></div>

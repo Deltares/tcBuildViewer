@@ -10,6 +10,23 @@ body {
     padding-top: 10px;
 }
 
+button {
+    font-family: Helvetica, Arial, sans-serif !important;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: normal !important;
+    color: white;
+    background-color: #666;
+    border: 3px solid #666;
+    padding: 0px 10px;
+    border-radius: 5px;
+    line-height: 1.5em;
+}
+
+button:hover {
+    border: 3px solid black !important;
+}
+
 #body_wrap {
     max-width: 100em;
     margin: auto;
@@ -23,8 +40,9 @@ body {
 #settings {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.5em;
-    margin: 0px;
+    column-gap: 2em;
+    row-gap: 1em;
+    padding: 1em 2em 2em 2em !important;
 }
 
 .wide {
@@ -51,6 +69,7 @@ form {
     color: white;
     font-size: 16px;
     line-height: 1.8em;
+    border-radius: 0.5em;
 }
 
 #user {
@@ -77,13 +96,6 @@ h1 {
     font-weight: normal;
 }
 
-button {
-    font-family: Helvetica, Arial, sans-serif !important;
-    font-size: 16px;
-    letter-spacing: 1px;
-    font-weight: normal !important;
-}
-
 /* Default link color and styling */
 a {
     color: black;
@@ -96,7 +108,7 @@ a {
 }
 
 /* Special link color */
-.build.FAILURE > a, .build.UNKNOWN > a{
+.build.FAILURE > a, .build.UNKNOWN > a {
     color: red;
 }
 
@@ -126,7 +138,7 @@ a:hover > div.linkIcon {
 }
 
 /* This link should blend in */
-#info > a, #login > a {
+#info a, #login a {
     color: white;
 }
 
@@ -138,12 +150,6 @@ a:hover > div.linkIcon {
     margin: 10px;
 }
 
-/* Mainly used for UTF-8 symbols */
-.bigger {
-    font-size: 140% !important;
-    font-weight: normal;
-}
-
 /* visible when the user is not logged into TeamCity */
 #login {
     text-align: center;
@@ -151,12 +157,9 @@ a:hover > div.linkIcon {
     padding: 1em !important;
 }
 
-#login > button {
-    font-size: 18px;
-}
-
 /* Hidden divisions */
 #login, #info, #newly_red, #settings {
+    font-size: 18px;
     margin: 10px;
     padding: 10px;
     color: white;
@@ -166,17 +169,7 @@ a:hover > div.linkIcon {
 /* For better association */
 #newly_red {
     box-shadow: 0px 0px 10px yellow;
-    background-color: rgba(255,0,0,0.25);
-    color: black;
-}
-
-/* The toggle buttons. */
-#buttonList .toggle {
-    padding: 0px 10px;
-    color: white;
-    background-color: gray;
-    border: 3px solid gray;
-    border-radius: 5px;
+    background-color: #800;
 }
 
 #buttonList .toggle.green {
@@ -185,13 +178,9 @@ a:hover > div.linkIcon {
 }
 
 #buttonList .toggle.newly_red {
-    background-color: red;
-    border-color: red;
+    background-color: #800;
+    border-color: #800;
     box-shadow: 0px 0px 10px yellow;
-}
-
-#buttonList .toggle:hover {
-    border: 3px solid black !important;
 }
 
 /* Any project */
