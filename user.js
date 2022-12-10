@@ -84,6 +84,6 @@ async function getFavoriteProjects() {
 
 function updateFormSettings() {
     var settingsDiv = document.getElementById('settings_code');
+    settings_textarea.value = JSON.stringify(edit_settings, undefined, 2);
     settingsDiv.innerText = JSON.stringify(settings, undefined, 2);
-    settings_textarea.value = JSON.stringify(settings, undefined, 2);
 }
