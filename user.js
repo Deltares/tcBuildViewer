@@ -57,3 +57,33 @@ async function userLoggedIn() {
     }
 
 }
+
+async function getFavoriteProjects() {
+
+    // Every child of favorite:
+    // https://dpcbuild.deltares.nl/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)
+
+    var response = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    });
+
+    var projects = await response.json();
+
+    var favoriteProjectObjects = await projects.project.filter( project => {
+        return project.parentProjectId == '_Root';
+    })
+
+    var favorite_projects = favoriteProjectObjects.map(x => x.id);
+
+    return favorite_projects;
+
+}
+
+function updateFormSettings() {
+    var settingsDiv = document.getElementById('settings_code');
+    settings_textarea.value = JSON.stringify(edit_settings, undefined, 2);
+    settingsDiv.innerText = JSON.stringify(settings, undefined, 2);
+}

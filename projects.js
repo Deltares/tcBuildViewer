@@ -12,7 +12,7 @@ var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishO
 async function append_projects_recursively(projects, projectId) {
 
     // Excluded projects are skipped entirely.
-    if (exclude_projects.includes(projectId))
+    if (settings.exclude_projects.includes(projectId))
         return;
 
     fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
