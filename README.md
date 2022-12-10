@@ -1,4 +1,4 @@
-# tcBuildViewer
+# TeamCity Build Viewer
 
 This web-app provides a bird's-eye view on the build-result history/correlations for big projects to help tackle technical debt towards passing test-benches.
 
