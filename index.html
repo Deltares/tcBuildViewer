@@ -79,7 +79,7 @@
                     <textarea id="settings_textarea" class="code"></textarea>
                 </form>
             </div>
-            <button onclick="fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
+            <button onclick="edit_settings = JSON.parse(document.getElementById('settings_textarea').value); fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
             <div id="settings_code" class="code" style="grid-column: 3;"></div>
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
@@ -122,6 +122,8 @@
             // Traverse the projects in $include_projects (see config.js)
             // and append the data to $my_projects[]
             function fetchProjects() {
+
+                my_projects = [];
 
                 getFavoriteProjects().then((favorite_projects) => {
 
