@@ -63,11 +63,11 @@
                 </div>
                 <div style="display: block; margin: auto; text-align: left;background: white; color: black; padding: 2em 3em 1em 3em;">
                     
-                    Default behaviour:
+                    Behaviour:
                     
                     <ol style="display:block; line-height: 150%; padding-left: 0px">
                         <li>When you have clicked 'Save settings to Cookie' before, your selection will be retrieved from your cookie.</li>
-                        <li>When no cookie is found, the TeamCity API will be queried for your favorite projects.</li>
+                        <li>When no cookie is found, the TeamCity API will be queried for your favorite (top-level) projects.</li>
                         <li>When no favorite projects are found, the 'default_settings' variable from config.js is used.</li>
                     </ol>
                 </div>
@@ -115,6 +115,7 @@
             // Included and excluded projects.
             var settings;
             var edit_settings;
+            var api_settings;
 
             // Project data from TeamCity API.
             var my_projects = [];
@@ -125,7 +126,7 @@
 
                 my_projects = [];
 
-                getFavoriteProjects().then((favorite_projects) => {
+                getFavoriteProjects().then((api_settings) => {
 
                     if (edit_settings) {
                         settings = edit_settings;
@@ -134,17 +135,15 @@
                         edit_settings = settings = JSON.parse(document.cookie);
                         console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
-                    } else if (favorite_projects.length == 0) {
+                    } else if (api_settings.include_projects.length == 0) {
 
                         edit_settings = settings = default_settings;
                         console.log(`Settings loaded from config.js:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     } else {
 
-                        edit_settings = settings = {
-                            include_projects: favorite_projects,
-                            exclude_projects: [],
-                        }
+                        edit_settings = settings = api_settings;
+                        
                         console.log(`Settings loaded from TeamCity API:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     }

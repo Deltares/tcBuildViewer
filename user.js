@@ -72,13 +72,20 @@ async function getFavoriteProjects() {
 
     var projects = await response.json();
 
+    var all_project_ids = projects.project.map(x => x.id);
+
     var favoriteProjectObjects = await projects.project.filter( project => {
-        return project.parentProjectId == '_Root';
+        return !all_project_ids.includes(project.parentProjectId);
     })
 
     var favorite_projects = favoriteProjectObjects.map(x => x.id);
 
-    return favorite_projects;
+    var api_settings = {
+        include_projects: favorite_projects,
+        exclude_projects: [],
+    }
+
+    return api_settings;
 
 }
 
