@@ -262,6 +262,10 @@ a:hover > div.linkIcon {
     word-break: break-all;
 }
 
+.buildType.statusChanged {
+    box-shadow: 0px 0px 10px yellow;
+}
+
 /* List of builds for the build type. */
 .buildList {
     display: block;
