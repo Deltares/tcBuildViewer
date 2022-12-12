@@ -149,10 +149,10 @@ function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildStepsText = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildStepsText.innerHTML = "";
+    buildStepsText.classList.add('.code');
     Object.entries(messages).forEach(([key, message]) => {
 
         var messageP = document.createElement('p');
-        messageP.classList.add('.code');
         if (message.status == 2)
             messageP.classList.add('warning');
         if (message.status == 4)
