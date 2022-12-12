@@ -268,7 +268,7 @@ a:hover > div.linkIcon {
 }
 
 /* When the last build has a different status than the second-last. */
-.buildType.statusChanged {
+.statusChanged {
     box-shadow: 0px 0px 10px yellow;
 
 }
