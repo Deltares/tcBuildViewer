@@ -134,7 +134,7 @@ function renderBuild(build) {
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
     //buildLink.setAttribute('href', build.webUrl);
-    buildLink.setAttribute('onclick', get_messages_for_build(buidl.id));
+    buildLink.setAttribute('onclick', get_messages_for_build(build.id));
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
