@@ -19,17 +19,21 @@ const teamcity_base_url = '';
 // If you host your tcBuildViewer on a different domain:
 // const teamcity_base_url = 'https://<your-teamcity-domain>';
 
-// Default project IDs to (recursively) view:
-var include_projects = [
-    "MyProject1",
-    "MyProject2",
-];
+// Which projects to traverse and which to ignore.
+// This is used as a fallback when the user has
+// no favorite ("starred") projects in TeamCity.
+var default_settings = {
 
-// Don't view these project IDs:
-var exclude_projects = [
-    "ArchivedProjects",
-    "ExperimentalProject",
-];
+    include_projects: [
+        "MyProject1",
+        "MyProject2",
+    ],
+
+    exclude_projects:[
+        "ArchivedProjects",
+        "ExperimentalProject",
+    ],
+}
 
 // Retrieve last X builds of every build type:
 var build_count = 14;
