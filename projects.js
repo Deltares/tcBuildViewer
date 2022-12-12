@@ -79,6 +79,8 @@ function add_builds_to_buildtype(buildType) {
 
                     if (build.unixTime > cutoffUnixTime)
                         renderBuild(build);
+                    else
+                        console.log(build.unixTime+'-vs-'+cutoffUnixTime);
                 });
             }
         })
