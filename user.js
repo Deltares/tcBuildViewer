@@ -60,9 +60,6 @@ async function userLoggedIn() {
 
 async function getFavoriteProjects() {
 
-    // Every child of favorite:
-    // https://dpcbuild.deltares.nl/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)
-
     var response = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
         headers: {
             'Accept': 'application/json',
@@ -81,7 +78,7 @@ async function getFavoriteProjects() {
     var favorite_projects = favoriteProjectObjects.map(x => x.id);
 
     var api_settings = {
-        include_projects: favorite_projects,
+        include_projects: await favorite_projects,
         exclude_projects: [],
     }
 
