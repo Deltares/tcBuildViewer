@@ -217,12 +217,12 @@ a:hover > div.linkIcon {
 }
 
 /* Hide projects with only hidden build types. */
-.project:not(:has(.buildType:not(.build.hidden,.build.hidden_statusChanged))) {
+.project:not(:has(.buildType:not(.hidden))) {
     display:none;
 }
 
-/* Hide buildTypes with only hidden build types. */
-.buildType:not(:has(.build):not(.build.hidden,.build.hidden_statusChanged)) {
+/* Hide buildTypes with only hidden builds. */
+.buildType:not(:has(.build:not(.build.hidden,.build.hidden_statusChanged))) {
     display:none;
 }
 
