@@ -128,6 +128,8 @@ function renderBuild(build) {
     buildDiv.classList.add('build');
     buildDiv.classList.add(build.buildTypeId);
     buildDiv.classList.add(build.status);
+    if (build.problemOccurrences && build.problemOccurrences.failed > 0)
+        buildDiv.classList.add('newFailed');
 
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");

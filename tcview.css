@@ -259,7 +259,7 @@ a:hover > div.linkIcon {
 }
 
 /* When the last build has a different status than the second-last. */
-.statusChanged {
+.statusChanged .newFailed {
     border: 3px solid gold;
 }
 
