@@ -152,7 +152,7 @@ function renderMessages(buildId,messages) {
     Object.entries(messages).forEach(([key, message]) => {
 
         var messageP = document.createElement('p');
-        var messageText = JSON.stringify(message);
+        var messageText = JSON.stringify(message.texttext);
         messageP.appendChild(messageText);
         buildStepsText.appendChild(messageP);
 
