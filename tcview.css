@@ -221,6 +221,11 @@ a:hover > div.linkIcon {
     display:none;
 }
 
+/* Hide buildTypes with only hidden build types. */
+.buildType:not(.build.hidden,.build.hidden_statusChanged) {
+    display:none;
+}
+
 /* A 'build type' contains builds. */
 .buildType {
     background-color: #eee;
