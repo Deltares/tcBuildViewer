@@ -1,7 +1,7 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
 var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences)';
-var build_fields = '' //'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart)';
+var build_fields = 'fields=buildType(steps(step))';
 
 /* Recursively add projects as JSON objects to array.
 /
