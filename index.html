@@ -127,9 +127,9 @@
 
                 my_projects = [];
 
-                getFavoriteProjects().then((settings) => {
+                getFavoriteProjects().then((repsonse_settings) => {
 
-                    api_settings = settings;
+                    api_settings = repsonse_settings;
 
                     if (edit_settings) {
                         settings = edit_settings;
