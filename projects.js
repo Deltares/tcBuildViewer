@@ -107,7 +107,7 @@ function get_messages_for_build(buildId) {
     })
         .then((result) => result.json())
         .then((output) => {
-            return output.messages;
+            return output;
         })
         .catch(err => { console.log(err) })
 }
