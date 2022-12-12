@@ -128,7 +128,7 @@ function renderBuild(build) {
     var buildLink = document.createElement("a");
     //buildLink.setAttribute('href', build.webUrl);
     
-    buildLink.setAttribute('onclick', `document.querySelectorAll(".buildType#${build.buildTypeId} > .buildSteps > p")[0].style.opacity = '25%'; get_messages_for_build(${build.id})`);
+    buildLink.setAttribute('onclick', `document.querySelectorAll(".buildType#${build.buildTypeId} > .buildSteps")[0].style.opacity = '25%'; get_messages_for_build(${build.id})`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
@@ -145,6 +145,7 @@ function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildSteps.innerHTML = "";
+    buildSteps.style.opacity = '100%';
     buildSteps.classList.remove('hidden');
     //buildStepsText.classList.add('code');
     Object.entries(messages).forEach(([key, message]) => {
