@@ -94,6 +94,7 @@ function add_buildSteps_to_build(buildId) {
         .then((result) => result.json())
         .then((output) => {
             buildType.builds = output;
+            console.log(output.build)
             // Check if the build result is changed with the last build.
             if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
                 buildType.statusChanged = true;
