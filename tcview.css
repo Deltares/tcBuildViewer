@@ -330,5 +330,5 @@ a:hover > div.linkIcon {
 }
 
 .message {
-    columns: 1;
+    grid-column: 1;
 }
