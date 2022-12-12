@@ -148,7 +148,9 @@ function renderMessages(buildId,messages) {
     buildSteps.classList.remove('hidden');
     var buildHeader = document.createElement('div');
     buildHeader.classList.add('header');
-    buildHeader.appendChild(document.createTextNode(buildId));
+    var buildLink = document.createElement('a');
+    buildLink.setAttribute('href',`${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId}`)
+    buildHeader.appendChild(document.createTextNode(`Build#: ${buildId}`));
     buildSteps.appendChild(buildHeader);
 
     Object.entries(messages).forEach(([key, message]) => {
