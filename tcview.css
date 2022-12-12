@@ -163,7 +163,7 @@ a:hover > div.linkIcon {
 }
 
 /* Hidden divisions */
-#login, #info, #newly_red, #settings {
+#login, #info, #settings {
     font-size: 18px;
     margin: 10px;
     padding: 10px;
@@ -171,21 +171,9 @@ a:hover > div.linkIcon {
     background-color: gray;
 }
 
-/* For better association */
-#newly_red {
-    box-shadow: 0px 0px 10px yellow;
-    background-color: #800;
-}
-
 #buttonList .toggle.green {
     background-color: green;
     border-color: green;
-}
-
-#buttonList .toggle.newly_red {
-    background-color: #800;
-    border-color: #800;
-    box-shadow: 0px 0px 10px yellow;
 }
 
 /* Any project */
@@ -269,7 +257,7 @@ a:hover > div.linkIcon {
 
 /* When the last build has a different status than the second-last. */
 .statusChanged {
-    border: 2px solid yellow;
+    border: 2px solid gold;
 }
 
 /* List of builds for the build type. */
