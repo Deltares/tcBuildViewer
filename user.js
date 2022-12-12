@@ -82,8 +82,6 @@ async function getFavoriteProjects() {
         exclude_projects: [],
     }
 
-    console.log(api_settings);
-
     return api_settings;
 
 }
