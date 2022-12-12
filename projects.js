@@ -1,6 +1,7 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
 var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart)';
+var build_fields = '' //'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart)';
 
 /* Recursively add projects as JSON objects to array.
 /
@@ -53,6 +54,38 @@ async function append_projects_recursively(projects, projectId) {
 
 function add_builds_to_buildtype(buildType) {
     fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(running:true,finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffDateString},condition:after),count:${build_count}&${buildType_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+        .then((result) => result.json())
+        .then((output) => {
+            buildType.builds = output;
+            // Check if the build result is changed with the last build.
+            if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
+                buildType.statusChanged = true;
+            } else {
+                buildType.statusChanged = false;
+            }
+            renderBuildType(buildType);
+            if (buildType.builds.build) {
+
+                Object.entries(buildType.builds.build).forEach(([key, build]) => {
+
+                    if (build.finishOnAgentDate)
+                        build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
+
+                    renderBuild(build);
+
+                });
+            }
+        })
+        .catch(err => { console.log(err) })
+}
+
+function add_buildSteps_to_build(buildId) {
+    fetch(`${teamcity_base_url}/app/rest/build?locator=id:${buildId}&${build_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
