@@ -76,6 +76,7 @@ form {
     line-height: 1.8em;
     border-radius: 0.5em;
     overflow: scroll;
+    min-height: 15rem;
 }
 
 #user {
