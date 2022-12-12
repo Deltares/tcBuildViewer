@@ -148,9 +148,7 @@ function renderBuild(build) {
 function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildStepsText = document.querySelectorAll(`#${parentElementId} > .buildSteps`);
-    console.log(`#${parentElementId} > .buildSteps`);
-    console.log(buildStepsText);
-    buildStepsText.innerHTML = JSON.stringify(buildStepsText);
+    buildStepsText.innerHTML = JSON.stringify(messages);
 }
 
 // Show or hide all build types of which the last build was successful.
