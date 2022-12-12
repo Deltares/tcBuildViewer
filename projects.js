@@ -70,7 +70,12 @@ function add_builds_to_buildtype(buildType) {
 
                     renderBuild(build);
 
-                })
+                });
+
+                // Check if the build result is changed with the last build.
+                if (buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
+                    buildType.builds.build.statusChanged = true;
+                }
             }
         })
         .catch(err => { console.log(err) })
