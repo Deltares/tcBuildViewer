@@ -77,10 +77,9 @@ function add_builds_to_buildtype(buildType) {
                     if (build.finishOnAgentDate)
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
 
-                    if (build.unixTime > cutoffUnixTime)
+                    if (build.unixTime > cutoffUnixTime())
                         renderBuild(build);
-                        
-                    console.log(build.unixTime+'-vs-'+cutoffUnixTime);
+
                 });
             }
         })
@@ -145,4 +144,4 @@ function DateToTcTime(date) {
 
 // Cut-off date in TeamCity's weird time notation.
 var cutoffDateString = DateToTcTime(new Date(new Date().getDate() - build_cutoff_days));
-var cutoffUnixTime = new Date(new Date().getDate() - build_cutoff_days).getTime();
+var cutoffUnixTime = function () {var d = new Date(); d.setDate(d.getDate()-60); return d.getTime()};
