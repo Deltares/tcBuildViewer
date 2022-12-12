@@ -99,16 +99,18 @@ function get_buildSteps_for_buildType(buildId) {
         .catch(err => { console.log(err) })
 }
 
-async function get_messages_for_build(buildId) {
-    output = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+function get_messages_for_build(buildId) {
+    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
     })
         .then((result) => result.json())
+        .then((output) => {
+            return output.messages;
+        })
         .catch(err => { console.log(err) });
-    return await output.messages;
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.
