@@ -263,6 +263,10 @@ a:hover > div.linkIcon {
     border: 3px solid gold;
 }
 
+.buildType:not(.statusChanged) {
+    border: 3px solid white;
+}
+
 /* List of builds for the build type. */
 .buildList {
     display: block;
