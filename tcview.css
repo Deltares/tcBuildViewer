@@ -331,4 +331,6 @@ a:hover > div.linkIcon {
 
 .message {
     grid-column: 1;
+    margin: 0.5em;
+    background: #eee;
 }
