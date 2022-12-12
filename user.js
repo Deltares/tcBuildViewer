@@ -72,7 +72,7 @@ async function getFavoriteProjects() {
 
     var projects = await response.json();
 
-    var all_project_ids = projects.map(x => x.id);
+    var all_project_ids = projects.project.map(x => x.id);
 
     var favoriteProjectObjects = await projects.project.filter( project => {
         return !all_project_ids.includes(project.parentProjectId);
