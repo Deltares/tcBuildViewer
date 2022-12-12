@@ -84,11 +84,11 @@
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
-                <button onclick="getFavoriteProjects().then((favorite_projects) => { edit_settings=favorite_projects}); updateFormSettings()">TeamCity API</button>
+                <button onclick="getFavoriteProjects().then((favorite_projects) => { edit_settings={include_projects: favorite_projects, exclude_projects: []}}); updateFormSettings()">TeamCity API</button>
                 <button style="opacity: 50%">File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
-                <button onclick="setCookie('tcSelection',JSON.stringify(settings)); alert('Selection saved to cookie!')">Cookie</button>
+                <button onclick="document.cookie = JSON.stringify(settings); alert('Selection saved to cookie!')">Cookie</button>
                 <!-- Create virtual anchor to attach file and let JavaScript click it. -->
                 <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(settings, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
             </div>
@@ -135,7 +135,7 @@
                         settings = edit_settings;
                     } else if (document.cookie != "") {
                     
-                        edit_settings = settings = JSON.parse(getCookie('tcSelection'));
+                        edit_settings = settings = JSON.parse(document.cookie);
                         console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
                     } else if (api_settings.include_projects.length == 0) {
