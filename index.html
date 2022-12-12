@@ -57,6 +57,14 @@
             with a higher urgency.
         </div>
 
+        <div id="info" class="hidden" style="text-align: center; display: flex; flex-direction: column;">
+            <div class="header">Source code</div>
+            <a target="_blank" href="https://github.com/Deltares/tcBuildViewer">https://github.com/Deltares/tcBuildViewer ⧉</a>
+            <div class="header">Bugs or suggestions</div>
+            <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
+            <br />
+        </div>
+
         <div id="settings" class="hidden">
             <div class="wide" style="text-align: center; display: flex; flex-direction: column;">
                 <div class="header" style="margin-bottom: 1em">
@@ -85,7 +93,7 @@
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
-                <button onclick="getFavoriteProjects().then((favorite_projects) => { edit_settings=favorite_projects}); updateFormSettings()">TeamCity API</button>
+                <button onclick="getFavoriteProjects().then((favorite_projects) => {edit_settings=favorite_projects;updateFormSettings()});">TeamCity API</button>
                 <button style="opacity: 50%">File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
@@ -93,14 +101,6 @@
                 <!-- Create virtual anchor to attach file and let JavaScript click it. -->
                 <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(settings, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
             </div>
-        </div>
-
-        <div id="info" class="hidden" style="text-align: center; display: flex; flex-direction: column;">
-            <div class="header">Source code</div>
-            <a target="_blank" href="https://github.com/Deltares/tcBuildViewer">https://github.com/Deltares/tcBuildViewer ⧉</a>
-            <div class="header">Bugs or suggestions</div>
-            <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
-            <br />
         </div>
 
         <div id="_projects" class="project"></div>
