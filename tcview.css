@@ -259,7 +259,7 @@ a:hover > div.linkIcon {
 }
 
 /* When the last build has a different status than the second-last. */
-.buildType.statusChanged, .buildType.newFailed {
+#toggle_unchanged, .buildType.statusChanged {
     border: 3px solid gold;
 }
 
