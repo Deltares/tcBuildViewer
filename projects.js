@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart)';
+var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences)';
 var build_fields = '' //'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart)';
 
 /* Recursively add projects as JSON objects to array.
@@ -85,7 +85,7 @@ function add_builds_to_buildtype(buildType) {
 }
 
 function add_buildSteps_to_build(buildId) {
-    fetch(`${teamcity_base_url}/app/rest/build?locator=id:${buildId}&${build_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}&${build_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
