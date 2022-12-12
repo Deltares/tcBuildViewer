@@ -99,8 +99,8 @@ function get_buildSteps_for_buildType(buildId) {
         .catch(err => { console.log(err) })
 }
 
-function get_messages_for_build(buildId) {
-    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+async function get_messages_for_build(buildId) {
+    return await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -108,7 +108,7 @@ function get_messages_for_build(buildId) {
     })
         .then((result) => result.json())
         .then((output) => {
-            return output;
+            return output.messages;
         })
         .catch(err => { console.log(err) })
 }
