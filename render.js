@@ -148,7 +148,7 @@ function renderBuild(build) {
 function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.id;
     var buildStepsText = document.querySelectorAll(`${parentElementId} > .buildSteps`);
-    console.log(buildStepsText);
+    console.log(parentElementId);
     buildStepsText.innerHTML(JSON.stringify(buildStepsText));
 }
 
