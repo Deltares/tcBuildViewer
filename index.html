@@ -127,9 +127,9 @@
 
                 my_projects = [];
 
-                getFavoriteProjects().then((api_settings) => {
+                getFavoriteProjects().then((settings) => {
 
-                    api_settings = this.api_settings;
+                    api_settings = settings;
 
                     if (edit_settings) {
                         settings = edit_settings;
