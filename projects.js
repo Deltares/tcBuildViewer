@@ -54,7 +54,7 @@ async function append_projects_recursively(projects, projectId) {
 }
 
 function add_builds_to_buildtype(buildType) {
-    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(running:true,finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffDateString},condition:after),count:${build_count}&${buildType_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(running:true,finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -143,8 +143,13 @@ function DateToTcTime(date) {
 }
 
 // Cut-off date in TeamCity's weird time notation.
-var cutoffDateString = DateToTcTime(new Date(new Date().getDate() - build_cutoff_days));
+var cutoffTcString = function () {
+    var d = new Date();
+    d.setDate(d.getDate()-build_cutoff_days);
+    return DateToTcTime(d)
+}
 
+// Ol' reliable Unix-time.
 var cutoffUnixTime = function () {
     var d = new Date();
     d.setDate(d.getDate()-build_cutoff_days);
