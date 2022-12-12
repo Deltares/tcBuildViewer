@@ -100,6 +100,8 @@ function get_buildSteps_for_buildType(buildId) {
 }
 
 function get_messages_for_build(buildId) {
+    console.log('click')
+    return;
     fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
