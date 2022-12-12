@@ -148,9 +148,9 @@ function renderMessages(buildId,messages) {
     buildSteps.classList.remove('hidden');
     var buildHeader = document.createElement('div');
     buildHeader.classList.add('header');
-    var buildLink = document.createElement('a');
+    var buildLink = document.createElement('button');
     //buildLink.setAttribute('href',`${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId}`)
-    buildLink.appendChild(document.createTextNode(`Build#: ${buildId}`));
+    //buildLink.appendChild(document.createTextNode(`Build#: ${buildId}`));
     buildLink.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
     buildLink.appendChild(document.createTextNode('Click here to close'));
     buildHeader.appendChild(buildLink);
