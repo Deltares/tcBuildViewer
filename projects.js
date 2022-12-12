@@ -74,11 +74,10 @@ function add_builds_to_buildtype(buildType) {
 
                 Object.entries(buildType.builds.build).forEach(([key, build]) => {
 
-                    if (build.finishOnAgentDate)
+                    if (build.finishOnAgentDate) {
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
-
-                    if (build.unixTime > cutoffUnixTime())
-                        renderBuild(build);
+                    }
+                    renderBuild(build);
 
                 });
             }
