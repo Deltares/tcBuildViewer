@@ -296,7 +296,7 @@ a:hover > div.linkIcon {
 
 .build.newFailed > a {
     border: none;
-    text-shadow: 0px 0px 3px gold;
+    -webkit-text-stroke: 3px gold;
 }
 
 /* Button to expand build list info. */
