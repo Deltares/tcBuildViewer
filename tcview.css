@@ -198,6 +198,10 @@ a:hover > div.linkIcon {
 #_projects > div.project_wrapper > div.project {
     margin-left: 0px;
     margin-bottom: 2em;
+}
+
+/* Title/link of first level of projects. */
+#_projects > div.project_wrapper > div.project > a {
     font-weight: bold;
     font-size: 150%;
 }
