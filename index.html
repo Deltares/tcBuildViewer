@@ -138,7 +138,7 @@
                         edit_settings = settings = JSON.parse(getCookie('tcSelection'));
                         console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
 
-                    } else if (api_settings.include_projects.length == 0) {
+                    } else if (api_settings.include_projects && api_settings.include_projects.length == 0) {
 
                         edit_settings = settings = default_settings;
                         console.log(`Settings loaded from config.js:\n\n${JSON.stringify(settings, undefined, 2)}`);
