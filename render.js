@@ -69,7 +69,7 @@ function renderBuildType(buildType) {
     buildTypeDiv.classList.add(buildType.projectId);
 
     // Add status of last build as class.
-    buildTypeDiv.classList.add(buildType.builds.build[0].status);statusChanged
+    buildTypeDiv.classList.add(buildType.builds.build[0].status);
 
     // Add statusChanged when the last build status is different.
     if (buildType.statusChanged) {
