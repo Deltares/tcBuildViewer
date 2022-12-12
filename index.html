@@ -133,7 +133,7 @@
 
                     if (edit_settings) {
                         settings = edit_settings;
-                    } else if (document.cookie != "") {
+                    } else if (getCookie('tcSelection')!= "") {
                     
                         edit_settings = settings = JSON.parse(getCookie('tcSelection'));
                         console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
