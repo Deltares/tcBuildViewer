@@ -153,7 +153,7 @@ function renderMessages(buildId,messages) {
 
         var messageP = document.createElement('p');
         var messageText = JSON.stringify(message.text);
-        messageP.innerText(messageText);
+        messageP.innerText = messageText;
         buildStepsText.appendChild(messageP);
 
     });
