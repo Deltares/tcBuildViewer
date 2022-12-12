@@ -292,7 +292,7 @@ a:hover > div.linkIcon {
 .build:hover {
     color: black; /* Fix/overrule race-condition in CSS styling */
     opacity: 100%;
-    cursor: hand;
+    cursor: pointer;
 }
 
 .build.newFailed > a {
