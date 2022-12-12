@@ -226,7 +226,7 @@ a:hover > div.linkIcon {
     margin: 0.2em;
     margin-left: 20px;
     display: grid;
-    grid-template-columns: auto fit-content(100%) fit-content(100%);
+    grid-template-columns: auto fit-content(100%);
     column-gap: 5px;
     grid-template-rows: minmax(1em,);
 }
