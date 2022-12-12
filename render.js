@@ -69,7 +69,12 @@ function renderBuildType(buildType) {
     buildTypeDiv.classList.add(buildType.projectId);
 
     // Add status of last build as class.
-    buildTypeDiv.classList.add(buildType.builds.build[0].status);
+    buildTypeDiv.classList.add(buildType.builds.build[0].status);statusChanged
+
+    // Add statusChanged when the last build status is different.
+    if (buildType.statusChanged) {
+        buildTypeDiv.classList.add('statusChanged');
+    }
 
     // Link to TeamCity build type page.
     var buildTypeLink = document.createElement("a");

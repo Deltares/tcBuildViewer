@@ -61,14 +61,15 @@ function add_builds_to_buildtype(buildType) {
         .then((result) => result.json())
         .then((output) => {
             buildType.builds = output;
+            // Check if the build result is changed with the last build.
+            if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
+                buildType.statusChanged = true;
+            } else {
+                buildType.statusChanged = false;
+            }
             renderBuildType(buildType);
             if (buildType.builds.build) {
-                // Check if the build result is changed with the last build.
-                if (buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
-                    buildType.builds.statusChanged = true;
-                } else {
-                    buildType.builds.statusChanged = false;
-                }
+
                 Object.entries(buildType.builds.build).forEach(([key, build]) => {
 
                     if (build.finishOnAgentDate)
