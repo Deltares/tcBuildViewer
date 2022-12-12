@@ -153,3 +153,14 @@ function toggleGreen() {
     };
 
 };
+
+// Show or hide all build types of which the last build was successful.
+function toggleUnchangedBuildTypes() {
+
+    var unchangedBuildTypes = document.querySelectorAll('#_projects div.buildType:not(.statusChanged)');
+
+    for (item of unchangedBuildTypes) {
+        item.classList.toggle('hidden_statusChanged');
+    };
+
+};
