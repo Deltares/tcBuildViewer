@@ -75,6 +75,7 @@ form {
     font-size: 16px;
     line-height: 1.8em;
     border-radius: 0.5em;
+    overflow: scroll;
 }
 
 #user {
