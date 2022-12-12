@@ -146,7 +146,11 @@ function renderMessages(buildId,messages) {
     var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildSteps.innerHTML = "";
     buildSteps.classList.remove('hidden');
-    //buildStepsText.classList.add('code');
+    var buildHeader = document.createElement('div');
+    buildHeader.classList.add('buildHeader');
+    buildHeader.appendChild(document.createTextNode(buildId));
+    buildSteps.appendChild(buildHeader);
+
     Object.entries(messages).forEach(([key, message]) => {
 
         var messageP = document.createElement('p');
