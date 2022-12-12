@@ -150,8 +150,9 @@ function renderMessages(buildId,messages) {
     buildHeader.classList.add('header');
     var buildLink = document.createElement('a');
     buildLink.setAttribute('href',`${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId}`)
-    buildHeader.appendChild(document.createTextNode(`Build#: ${buildId}`));
-    buildSteps.appendChild(buildHeader);
+    buildLink.appendChild(document.createTextNode(`Build#: ${buildId}`));
+    buildHeader.appendChild(buildLinks);
+    buildSteps.appendChild(buildLink);
 
     Object.entries(messages).forEach(([key, message]) => {
 
