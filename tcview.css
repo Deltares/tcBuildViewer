@@ -316,3 +316,8 @@ a:hover > div.linkIcon {
     min-width: 0;
     min-height: 0;
 }
+
+.buildSteps > p.error {
+    font-weight: bold;
+    color: red;
+}

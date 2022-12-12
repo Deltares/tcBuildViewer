@@ -152,6 +152,11 @@ function renderMessages(buildId,messages) {
     Object.entries(messages).forEach(([key, message]) => {
 
         var messageP = document.createElement('p');
+        messageP.classList.add('.code');
+        if (message.status == 2)
+            messageP.classList.add('warning');
+        if (message.status == 4)
+            messageP.classList.add('error');
         var messageText = JSON.stringify(message.text);
         messageP.innerText = messageText;
         buildStepsText.appendChild(messageP);
