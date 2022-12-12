@@ -311,7 +311,6 @@ a:hover > div.linkIcon {
     display: inline-block;
     margin: 0.5em;
     padding: 1em;
-    background: white;
     grid-column: 1;
     min-width: 0;
     min-height: 0;
@@ -319,7 +318,7 @@ a:hover > div.linkIcon {
 
 .buildSteps > p.error {
     font-weight: bold;
-    color: red;
+    color: rgb(207, 69, 69);
 }
 
 .buildSteps > p.warning {
