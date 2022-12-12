@@ -146,11 +146,12 @@ a:hover > div.linkIcon {
 }
 
 /* This link should blend in */
-#info a, #login a {Close
+#info a, #login a {
     display: flex;
     justify-content: center;
     column-gap: 10px;
     margin: 10px;
+    color: white;
 }
 
 /* visible when the user is not logged into TeamCity */
