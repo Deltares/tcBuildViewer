@@ -314,6 +314,10 @@ a:hover > div.linkIcon {
     min-height: 0;
 }
 
+.buildSteps > .header {
+    text-align: center;
+}
+
 .buildSteps > a {
     font-weight: bold;
 }
