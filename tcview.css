@@ -294,6 +294,11 @@ a:hover > div.linkIcon {
     opacity: 100%;
 }
 
+.build.newFailed {
+    border: none;
+    box-shadow: 0px 0px 10px yellow;
+}
+
 /* Button to expand build list info. */
 .buildListButton {
     display: inline-block;
