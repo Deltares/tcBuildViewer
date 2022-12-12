@@ -84,7 +84,7 @@ function add_builds_to_buildtype(buildType) {
         .catch(err => { console.log(err) })
 }
 
-function add_buildSteps_to_build(buildId) {
+function get_buildSteps_for_buildType(buildId) {
     fetch(`${teamcity_base_url}/app/rest/builds/${buildId}?${build_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -93,22 +93,21 @@ function add_buildSteps_to_build(buildId) {
     })
         .then((result) => result.json())
         .then((output) => {
-            var steps = output.buildType.steps.step;
-            console.log(steps)
-            // Check if the build result is changed with the last build.
-            /*renderBuildType(buildType);
-            if (buildType.builds.build) {
+            return output.buildType.steps.step;
+        })
+        .catch(err => { console.log(err) })
+}
 
-                Object.entries(buildType.builds.build).forEach(([key, build]) => {
-
-                    if (build.finishOnAgentDate)
-                        build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
-
-                    renderBuild(build);
-
-                });
-            }
-            */
+function get_messages_for_build(buildId) {
+    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+        .then((result) => result.json())
+        .then((output) => {
+            return output.messages;
         })
         .catch(err => { console.log(err) })
 }
