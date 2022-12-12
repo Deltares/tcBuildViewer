@@ -331,7 +331,10 @@ a:hover > div.linkIcon {
 
 .message {
     grid-column: 1;
-    margin: 0.2em;
+    margin: 0px;
     padding: 0.2em;
+}
+
+.message:nth-child(odd) {
     background: #eee;
 }
