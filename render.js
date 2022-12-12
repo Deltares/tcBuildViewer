@@ -71,6 +71,11 @@ function renderBuildType(buildType) {
     // Add status of last build as class.
     buildTypeDiv.classList.add(buildType.builds.build[0].status);
 
+    // Add statusChanged when the last build status is different.
+    if (buildType.statusChanged) {
+        buildTypeDiv.classList.add('statusChanged');
+    }
+
     // Link to TeamCity build type page.
     var buildTypeLink = document.createElement("a");
     buildTypeLink.setAttribute('href', buildType.webUrl);
@@ -145,6 +150,17 @@ function toggleGreen() {
 
     for (item of greenBuildTypes) {
         item.classList.toggle('hidden');
+    };
+
+};
+
+// Show or hide all build types of which the last build was successful.
+function toggleUnchangedBuildTypes() {
+
+    var unchangedBuildTypes = document.querySelectorAll('#_projects div.buildType:not(.statusChanged)');
+
+    for (item of unchangedBuildTypes) {
+        item.classList.toggle('hidden_statusChanged');
     };
 
 };
