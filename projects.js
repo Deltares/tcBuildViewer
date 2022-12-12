@@ -85,7 +85,7 @@ function add_builds_to_buildtype(buildType) {
 }
 
 function add_buildSteps_to_build(buildId) {
-    fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}&${build_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds/${buildId}?${build_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
