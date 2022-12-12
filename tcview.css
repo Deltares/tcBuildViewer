@@ -309,9 +309,10 @@ a:hover > div.linkIcon {
 
 /* Build steps on expansion of build type. */
 .buildSteps {
-    display: inline-block;
+    display: grid;
+    grid-template-columns: auto fit-content(100%);
     background: white;
-    margin: 0.5em;
+    /*margin: 0.5em;*/
     padding: 1em;
     grid-column: 1 / -1;
     min-width: 0;
@@ -326,4 +327,8 @@ a:hover > div.linkIcon {
 .buildSteps > p.warning {
     font-weight: bold;
     color: goldenrod;
+}
+
+.message {
+    columns: 1;
 }

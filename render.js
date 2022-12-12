@@ -149,6 +149,7 @@ function renderMessages(buildId,messages) {
     Object.entries(messages).forEach(([key, message]) => {
 
         var messageP = document.createElement('p');
+        messageP.classList.add('message');
         if (message.status == 2)
             messageP.classList.add('warning');
         if (message.status == 4)
