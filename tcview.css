@@ -321,3 +321,8 @@ a:hover > div.linkIcon {
     font-weight: bold;
     color: red;
 }
+
+.buildSteps > p.warning {
+    font-weight: bold;
+    color: goldenrod;
+}
