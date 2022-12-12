@@ -99,15 +99,6 @@ function renderBuildType(buildType) {
     buildListDiv.classList.add('buildList');
     buildTypeDiv.appendChild(buildListDiv);
 
-    /*
-    var buildListButtonText = document.createTextNode('✚');
-    var buildListButton = document.createElement("button");
-    buildListButton.appendChild(buildListButtonText);
-    buildListButton.classList.add('buildListButton');
-    buildListButton.setAttribute('onclick',`document.querySelectorAll('#${buildType.id} > .buildSteps')[0].classList.toggle('hidden');`);
-    buildTypeDiv.appendChild(buildListButton);
-    */
-
     var buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.');
     var buildSteps = document.createElement("div");
     buildSteps.appendChild(buildStepsText);
@@ -136,7 +127,8 @@ function renderBuild(build) {
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
     //buildLink.setAttribute('href', build.webUrl);
-    buildLink.setAttribute('onclick', `get_messages_for_build(${build.id})`);
+    
+    buildLink.setAttribute('onclick', `document.querySelectorAll(#${build.buildTypeId} > .buildSteps)[0].innerHTML = ""; get_messages_for_build(${build.id})`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
@@ -152,7 +144,6 @@ function renderBuild(build) {
 function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildStepsText = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
-    buildStepsText.innerHTML = "";
     buildStepsText.classList.remove('hidden');
     //buildStepsText.classList.add('code');
     Object.entries(messages).forEach(([key, message]) => {
