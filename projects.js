@@ -93,15 +93,10 @@ function add_buildSteps_to_build(buildId) {
     })
         .then((result) => result.json())
         .then((output) => {
-            buildType.builds = output;
-            console.log(output.build)
+            var steps = output.buildType.steps.step;
+            console.log(steps)
             // Check if the build result is changed with the last build.
-            if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
-                buildType.statusChanged = true;
-            } else {
-                buildType.statusChanged = false;
-            }
-            renderBuildType(buildType);
+            /*renderBuildType(buildType);
             if (buildType.builds.build) {
 
                 Object.entries(buildType.builds.build).forEach(([key, build]) => {
@@ -113,6 +108,7 @@ function add_buildSteps_to_build(buildId) {
 
                 });
             }
+            */
         })
         .catch(err => { console.log(err) })
 }
