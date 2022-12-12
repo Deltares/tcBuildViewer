@@ -142,12 +142,11 @@ function DateToTcTime(date) {
     return tcTime;
 }
 
-// Cut-off date in Unix time.
+// Cut-off date in TeamCity's weird time notation.
+var cutoffDateString = DateToTcTime(new Date(new Date().getDate() - build_cutoff_days));
+
 var cutoffUnixTime = function () {
     var d = new Date();
     d.setDate(d.getDate()-build_cutoff_days);
     return d.getTime()
 };
-
-// Cut-off date in TeamCity's weird time notation.
-var cutoffDateString = DateToTcTime(cutoffUnixTime);
