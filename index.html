@@ -89,6 +89,7 @@
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
                 <button onclick="document.cookie = JSON.stringify(settings); alert('Selection saved to cookie!')">Cookie</button>
+                <!-- Create virtual anchor to attach file and let JavaScript click it. -->
                 <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(settings, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
             </div>
         </div>
@@ -127,6 +128,8 @@
                 my_projects = [];
 
                 getFavoriteProjects().then((api_settings) => {
+
+                    api_settings = this.api_settings;
 
                     if (edit_settings) {
                         settings = edit_settings;
