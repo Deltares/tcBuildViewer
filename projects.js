@@ -77,7 +77,7 @@ function add_builds_to_buildtype(buildType) {
                     if (build.finishOnAgentDate)
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
 
-                    if (build.unixTime > cutoffUnixTime())
+                    //if (build.unixTime > cutoffUnixTime())
                         renderBuild(build);
 
                 });
