@@ -99,13 +99,6 @@ function renderBuildType(buildType) {
     buildListDiv.classList.add('buildList');
     buildTypeDiv.appendChild(buildListDiv);
 
-    var buildListButtonText = document.createTextNode('✚');
-    var buildListButton = document.createElement("button");
-    buildListButton.appendChild(buildListButtonText);
-    buildListButton.classList.add('buildListButton');
-    buildListButton.setAttribute('onclick',`document.querySelectorAll('#${buildType.id} > .buildSteps')[0].classList.toggle('hidden');`);
-    buildTypeDiv.appendChild(buildListButton);
-
     var buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.');
     var buildSteps = document.createElement("div");
     buildSteps.appendChild(buildStepsText);
@@ -128,10 +121,14 @@ function renderBuild(build) {
     buildDiv.classList.add('build');
     buildDiv.classList.add(build.buildTypeId);
     buildDiv.classList.add(build.status);
+    if (build.problemOccurrences && build.problemOccurrences.newFailed > 0)
+        buildDiv.classList.add('newFailed');
 
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
-    buildLink.setAttribute('href', build.webUrl);
+    //buildLink.setAttribute('href', build.webUrl);
+    
+    buildLink.setAttribute('onclick', `get_messages_for_build(${build.id})`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
@@ -140,6 +137,38 @@ function renderBuild(build) {
     //var buildText = document.createTextNode(build.status=='UNKNOWN'?'⚠':'⬤');
     var buildText = document.createTextNode('⬤');
     buildLink.appendChild(buildText);
+
+}
+
+
+function renderMessages(buildId,messages) {
+    var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
+    var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
+    buildSteps.innerHTML = "";
+    buildSteps.classList.remove('hidden');
+    var buildHeader = document.createElement('div');
+    buildHeader.classList.add('header');
+    var buildLink = document.createElement('button');
+    //buildLink.setAttribute('href',`${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId}`)
+    //buildLink.appendChild(document.createTextNode(`Build#: ${buildId}`));
+    buildLink.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
+    buildLink.appendChild(document.createTextNode('Click here to close'));
+    buildHeader.appendChild(buildLink);
+    buildSteps.appendChild(buildLink);
+
+    Object.entries(messages).forEach(([key, message]) => {
+
+        var messageP = document.createElement('p');
+        messageP.classList.add('message');
+        if (message.status == 2)
+            messageP.classList.add('warning');
+        if (message.status == 4)
+            messageP.classList.add('error');
+        var messageText = JSON.stringify(message.text);
+        messageP.innerText = messageText;
+        buildSteps.appendChild(messageP);
+
+    });
 
 }
 

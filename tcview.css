@@ -71,7 +71,7 @@ form {
     padding: 1em;
     font-family: 'Courier New', Courier, monospace;
     white-space: pre;
-    background-color: #666;
+    background-color: #666 !important;
     color: white;
     font-size: 16px;
     line-height: 1.8em;
@@ -226,7 +226,7 @@ a:hover > div.linkIcon {
     margin: 0.2em;
     margin-left: 20px;
     display: grid;
-    grid-template-columns: auto fit-content(100%) fit-content(100%);
+    grid-template-columns: auto fit-content(100%);
     column-gap: 5px;
     grid-template-rows: minmax(1em,);
 }
@@ -259,7 +259,7 @@ a:hover > div.linkIcon {
 }
 
 /* When the last build has a different status than the second-last. */
-.statusChanged {
+#toggle_unchanged, .buildType.statusChanged {
     border: 3px solid gold;
 }
 
@@ -292,6 +292,13 @@ a:hover > div.linkIcon {
 .build:hover {
     color: black; /* Fix/overrule race-condition in CSS styling */
     opacity: 100%;
+    cursor: pointer;
+}
+
+.build.newFailed > a {
+    border: none;
+    color: gold;
+    -webkit-text-stroke: 2px red;
 }
 
 /* Button to expand build list info. */
@@ -302,11 +309,41 @@ a:hover > div.linkIcon {
 
 /* Build steps on expansion of build type. */
 .buildSteps {
-    display: inline-block;
-    margin: 0.5em;
-    padding: 1em;
+    display: grid;
+    grid-template-columns: auto fit-content(100%);
     background: white;
-    grid-column: 1;
+    margin: 1em;
+    padding: 1em;
+    grid-column: 1 / -1;
     min-width: 0;
     min-height: 0;
+}
+
+.buildSteps > a {
+    text-align: center;
+    font-weight: bold;
+}
+
+.buildSteps > a:hover {
+    cursor: pointer;
+}
+
+.buildSteps > p.error {
+    font-weight: bold;
+    color: rgb(207, 69, 69);
+}
+
+.buildSteps > p.warning {
+    font-weight: bold;
+    color: goldenrod;
+}
+
+.message {
+    grid-column: 1;
+    margin: 0px;
+    padding: 0.5em;
+}
+
+.message:nth-child(odd) {
+    background: #eee;
 }

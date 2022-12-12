@@ -1,6 +1,8 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart)';
+var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences)';
+var build_fields = 'fields=buildType(steps(step))';
+var message_fields = 'fields=messages';
 
 /* Recursively add projects as JSON objects to array.
 /
@@ -81,6 +83,34 @@ function add_builds_to_buildtype(buildType) {
             }
         })
         .catch(err => { console.log(err) })
+}
+
+function get_buildSteps_for_buildType(buildId) {
+    fetch(`${teamcity_base_url}/app/rest/builds/${buildId}?${build_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+        .then((result) => result.json())
+        .then((output) => {
+            return output.buildType.steps.step;
+        })
+        .catch(err => { console.log(err) })
+}
+
+function get_messages_for_build(buildId) {
+    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+        .then((result) => result.json())
+        .then((output) => {
+            renderMessages(buildId,output.messages);
+        })
+        .catch(err => { console.log(err) });
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.
