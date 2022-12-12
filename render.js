@@ -99,12 +99,14 @@ function renderBuildType(buildType) {
     buildListDiv.classList.add('buildList');
     buildTypeDiv.appendChild(buildListDiv);
 
+    /*
     var buildListButtonText = document.createTextNode('✚');
     var buildListButton = document.createElement("button");
     buildListButton.appendChild(buildListButtonText);
     buildListButton.classList.add('buildListButton');
     buildListButton.setAttribute('onclick',`document.querySelectorAll('#${buildType.id} > .buildSteps')[0].classList.toggle('hidden');`);
     buildTypeDiv.appendChild(buildListButton);
+    */
 
     var buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.');
     var buildSteps = document.createElement("div");
@@ -151,6 +153,7 @@ function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildStepsText = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildStepsText.innerHTML = "";
+    buildStepsText.classList.remove('hidden');
     //buildStepsText.classList.add('code');
     Object.entries(messages).forEach(([key, message]) => {
 
