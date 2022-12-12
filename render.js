@@ -148,7 +148,16 @@ function renderBuild(build) {
 function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildStepsText = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
-    buildStepsText.innerHTML = JSON.stringify(messages);
+
+    Object.entries(messages).forEach(([key, message]) => {
+
+        var messageP = document.createElement('p');
+        var messageText = JSON.stringify(message);
+        messageP.appendChild(messageText);
+        buildStepsText.appendChild(messageP);
+
+    });
+
 }
 
 // Show or hide all build types of which the last build was successful.
