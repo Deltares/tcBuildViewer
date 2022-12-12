@@ -147,7 +147,7 @@ function renderMessages(buildId,messages) {
     buildSteps.innerHTML = "";
     buildSteps.classList.remove('hidden');
     var buildHeader = document.createElement('div');
-    buildHeader.classList.add('buildHeader');
+    buildHeader.classList.add('header');
     buildHeader.appendChild(document.createTextNode(buildId));
     buildSteps.appendChild(buildHeader);
 
