@@ -143,8 +143,9 @@ function renderBuild(build) {
 
 function renderMessages(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
-    var buildStepsText = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
-    buildStepsText.classList.remove('hidden');
+    var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
+    buildSteps.innerHTML = "";
+    buildSteps.classList.remove('hidden');
     //buildStepsText.classList.add('code');
     Object.entries(messages).forEach(([key, message]) => {
 
@@ -156,7 +157,7 @@ function renderMessages(buildId,messages) {
             messageP.classList.add('error');
         var messageText = JSON.stringify(message.text);
         messageP.innerText = messageText;
-        buildStepsText.appendChild(messageP);
+        buildSteps.appendChild(messageP);
 
     });
 
