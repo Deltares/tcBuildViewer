@@ -78,7 +78,12 @@ async function getFavoriteProjects() {
 
     var favorite_projects = favoriteProjectObjects.map(x => x.id);
 
-    return favorite_projects;
+    var api_settings = {
+        include_projects: favorite_projects,
+        exclude_projects: [],
+    }
+
+    return api_settings;
 
 }
 
