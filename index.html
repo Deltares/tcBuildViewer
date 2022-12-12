@@ -84,7 +84,7 @@
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
-                <button onclick="getFavoriteProjects().then((favorite_projects) => { edit_settings={include_projects: favorite_projects, exclude_projects: []}}); updateFormSettings()">TeamCity API</button>
+                <button onclick="getFavoriteProjects().then((favorite_projects) => { edit_settings=favorite_projects}); updateFormSettings()">TeamCity API</button>
                 <button style="opacity: 50%">File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
