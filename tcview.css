@@ -146,12 +146,7 @@ a:hover > div.linkIcon {
 }
 
 /* This link should blend in */
-#info a, #login a {
-    color: white;
-}
-
-/* Buttons below the page header */
-#buttonList {
+#info a, #login a {Close
     display: flex;
     justify-content: center;
     column-gap: 10px;
@@ -312,11 +307,19 @@ a:hover > div.linkIcon {
     display: grid;
     grid-template-columns: auto fit-content(100%);
     background: white;
-    margin-top: 0.5em;
+    margin: 1em;
     padding: 1em;
     grid-column: 1 / -1;
     min-width: 0;
     min-height: 0;
+}
+
+.buildSteps > a {
+    font-weight: bold;
+}
+
+.buildSteps > a:hover {
+    cursor: pointer;
 }
 
 .buildSteps > p.error {
