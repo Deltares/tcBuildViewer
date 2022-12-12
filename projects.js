@@ -2,6 +2,7 @@
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
 var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences)';
 var build_fields = 'fields=buildType(steps(step))';
+var message_fields = 'fields=messages';
 
 /* Recursively add projects as JSON objects to array.
 /
@@ -99,7 +100,7 @@ function get_buildSteps_for_buildType(buildId) {
 }
 
 function get_messages_for_build(buildId) {
-    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}`, {
+    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}?${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
