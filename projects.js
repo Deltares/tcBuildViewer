@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences)';
+var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
 var build_fields = 'fields=buildType(steps(step))';
 var message_fields = 'fields=messages';
 
@@ -65,6 +65,8 @@ function add_builds_to_buildtype(buildType) {
             buildType.builds = output;
             // Check if the build result is changed with the last build.
             if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
+                buildType.statusChanged = true;
+            } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build.testOccurrences && buildType.builds.build[0].testOccurrences.passed != buildType.builds.build[1].testOccurrences.passed) {
                 buildType.statusChanged = true;
             } else {
                 buildType.statusChanged = false;
