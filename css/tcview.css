@@ -123,7 +123,7 @@ form {
     font-family: 'Courier New', Courier, monospace;
     display: grid;
     grid-template-columns: auto auto;
-    column-gap: 1em;
+    column-gap: 0.5em;
 }
 
 #user_name {
