@@ -10,6 +10,7 @@
 
 .collapsed > .project, .collapsed > .buildType {
     display: none;
+    background: gray;
 }
 
 .collapse_button {
