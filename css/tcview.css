@@ -126,10 +126,6 @@ form {
     column-gap: 0.5em;
 }
 
-#user_name {
-    display: inline;
-}
-
 /* Deltares blue */
 #deltares_logo, h1 {
     text-align: center;
