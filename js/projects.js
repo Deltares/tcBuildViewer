@@ -4,6 +4,9 @@ var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishO
 var build_fields = 'fields=buildType(steps(step))';
 var message_fields = 'fields=messages';
 
+// Keep track of pending downloads.
+var download_queue_length = 0;
+
 /* Recursively add projects as JSON objects to array.
 /
 /  projects[]: Array to append projects to
@@ -16,6 +19,8 @@ async function append_projects_recursively(projects, projectId) {
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
         return;
+    
+    checkFilterButtons(download_queue_length++);
 
     fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
         headers: {
@@ -51,6 +56,8 @@ async function append_projects_recursively(projects, projectId) {
 
         })
         .catch(err => { console.log(err) })
+    
+    checkFilterButtons(download_queue_length--);
 }
 
 function add_builds_to_buildtype(buildType) {
