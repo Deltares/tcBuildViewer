@@ -53,12 +53,15 @@ async function append_projects_recursively(projects, projectId) {
                     append_projects_recursively(projects, value.id);
                 });
             }
-            checkFilterButtons(--download_queue_length);
         })
         .catch(err => { console.log(err) })
+        .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
 function add_builds_to_buildtype(buildType) {
+
+    checkFilterButtons(++download_queue_length);
+
     fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -92,12 +95,15 @@ function add_builds_to_buildtype(buildType) {
                     renderBuild(build);
 
                 });
+
             }
         })
         .catch(err => { console.log(err) })
+        .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
 function get_buildSteps_for_buildType(buildId) {
+    checkFilterButtons(++download_queue_length);
     fetch(`${teamcity_base_url}/app/rest/builds/${buildId}?${build_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -109,6 +115,7 @@ function get_buildSteps_for_buildType(buildId) {
             return output.buildType.steps.step;
         })
         .catch(err => { console.log(err) })
+        .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
 function get_messages_for_build(buildId) {

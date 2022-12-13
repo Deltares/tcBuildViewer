@@ -117,14 +117,13 @@ form {
     min-height: 20em;
 }
 
-#user {
+#stats {
     position: absolute;
     padding: 10px;
     font-family: 'Courier New', Courier, monospace;
-}
-
-#user_name {
-    display: inline;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.5em;
 }
 
 /* Deltares blue */

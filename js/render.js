@@ -1,4 +1,5 @@
 function checkFilterButtons(downloadQueueLength) {
+    document.getElementById('queue_number').innerHTML = downloadQueueLength;
     if (downloadQueueLength > 1) {
         return;
     }
