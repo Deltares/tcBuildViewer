@@ -205,6 +205,7 @@ a:hover > div.linkIcon {
 #_projects.project {
     margin: 0px 10px;
     margin-top: 1em;
+    border-bottom: 2px dashed lightgray;
 }
 
 /* First level of projects. */
