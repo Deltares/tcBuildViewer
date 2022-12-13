@@ -57,7 +57,7 @@ async function append_projects_recursively(projects, projectId) {
         })
         .catch(err => { console.log(err) })
     
-    checkFilterButtons(download_queue_length--);
+    checkFilterButtons(--download_queue_length);
 }
 
 function add_builds_to_buildtype(buildType) {
