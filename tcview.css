@@ -12,7 +12,11 @@
     display: none;
 }
 
-.collapsed > .collapse_button {
+.collapse_button:after {
+    content: '▼';
+}
+
+.collapsed > .collapse_button:after {
     content: '▶';
 }
 
