@@ -23,6 +23,7 @@
 .collapse_button {
     display: inline-block;
     margin-right: 0.2em;
+    width: 1em;
 }
 
 .collapse_button:hover {
