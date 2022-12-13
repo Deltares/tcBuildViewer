@@ -52,6 +52,8 @@ button {
 
 button:disabled {
     opacity: 25%;
+    background-color: #666;
+    border: 3px solid #666;
 }
 
 button.toggle.active {
