@@ -150,14 +150,14 @@ a:hover {
 /* Project/BuildType link icon ⧉ */
 a > div.linkIcon {
     font-weight: normal;
-    opacity: 20%;
+    color: #ddd;
     margin-left: 5px;
     display: inline-block;
 }
 
 /* Project/BuildType link icon ⧉ */
 a:hover > div.linkIcon {
-    opacity: 100%;
+    color: black;
     margin-left: 5px;
     display: inline-block;
 }
