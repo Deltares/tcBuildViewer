@@ -8,6 +8,10 @@
     display: none !important;
 }
 
+.collapsed > * {
+    display: none;
+}
+
 /* From Deltares.nl */
 body {
     font-family: Helvetica, Arial, sans-serif;
