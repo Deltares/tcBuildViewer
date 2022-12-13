@@ -30,6 +30,19 @@
     cursor: pointer;
 }
 
+#legend {
+    background: white;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    padding: 5px;
+    border-radius: 0px 0px 0px 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.5em;
+    font-size: 0.8em;
+}
+
 /* From Deltares.nl */
 body {
     font-family: Helvetica, Arial, sans-serif;
@@ -124,6 +137,7 @@ form {
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 0.5em;
+    font-size: 0.8em
 }
 
 /* Deltares blue */
