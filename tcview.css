@@ -18,7 +18,7 @@
 
 .collapse_button {
     display: inline-block;
-    margin-right: 1em;
+    margin-right: 0.2em;
 }
 
 .collapse_button:hover {
@@ -214,7 +214,8 @@ a:hover > div.linkIcon {
 }
 
 /* Title/link of first level of projects. */
-#_projects > div.project_wrapper > div.project > a {
+#_projects > div.project_wrapper > div.project > a,
+#_projects > div.project_wrapper > div.project > div.collapse_button {
     font-size: 150%;
 }
 
