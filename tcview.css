@@ -45,6 +45,10 @@ button {
     line-height: 1.5em;
 }
 
+button.toggle.active {
+    background-color: black;
+}
+
 button:hover {
     border: 3px solid black !important;
 }
