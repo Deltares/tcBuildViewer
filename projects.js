@@ -65,7 +65,7 @@ function add_builds_to_buildtype(buildType) {
             buildType.builds = output;
             // Check if the build result is changed with the last build.
             
-            if (buildType.builds.build && buildType.builds.build[0].problemOccurrences && buildType.builds.build[0].problemOccurrences.newFailed && buildType.builds.build[0].problemOccurrences.newFailed > 0) {
+            if (buildType.builds.build && buildType.builds.build.length > 0 && buildType.builds.build[0].problemOccurrences && buildType.builds.build[0].problemOccurrences.newFailed && buildType.builds.build[0].problemOccurrences.newFailed > 0) {
                 buildType.statusChanged = true;
                 
             } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
