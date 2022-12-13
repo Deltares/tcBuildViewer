@@ -3,10 +3,10 @@ function disableFilterButtons(downloadQueueLength) {
         return;
     }
     else if (downloadQueueLength == 1) {
-        document.getElementsByClassName('filter_button').forEach(button => {button.disabled = true;});
+        document.querySelectorAll('.filter_button').forEach(button => {button.disabled = true;});
     }
     else {
-        document.getElementsByClassName('filter_button').forEach(button => {button.disabled = false;});
+        document.querySelectorAll('.filter_button').forEach(button => {button.disabled = false;});
     }
 }
 
