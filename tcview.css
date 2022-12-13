@@ -213,6 +213,7 @@ a:hover > div.linkIcon {
     margin-left: 0px;
     margin-bottom: 2em;
     font-weight: bold;
+    border-bottom: 2px dashed lightgray;
 }
 
 /* Title/link of first level of projects. */
