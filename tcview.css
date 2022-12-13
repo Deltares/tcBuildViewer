@@ -45,6 +45,10 @@ button {
     line-height: 1.5em;
 }
 
+button.toggle.active {
+    background-color: black;
+}
+
 button:hover {
     border: 3px solid black !important;
 }
@@ -191,11 +195,6 @@ a:hover > div.linkIcon {
     background-color: gray;
 }
 
-#buttonList .toggle.green {
-    background-color: green;
-    border-color: green;
-}
-
 /* Any project */
 #_projects .project {
     margin-left: 20px;
@@ -276,7 +275,7 @@ a:hover > div.linkIcon {
 }
 
 /* When the last build has a different status than the second-last. */
-#toggle_unchanged, .buildType.statusChanged {
+.buildType.statusChanged {
     border: 3px solid gold;
 }
 

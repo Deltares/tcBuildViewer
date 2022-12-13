@@ -59,6 +59,17 @@ function renderProject(project) {
     projectLinkIcon.classList.add('linkIcon');
     projectLink.appendChild(projectLinkIcon);
 
+    // Collapse button.
+    var collapseDiv = document.createElement("div");
+    collapseDiv.classList.add('collapse_button');
+    collapseDiv.setAttribute('title','collapse');
+    collapseDiv.setAttribute('onclick', `this.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`);
+    projectDiv.appendChild(collapseDiv);
+
+    // Collapse button text.
+    var collapseDivText = document.createTextNode('▼');
+    collapseDiv.appendChild(collapseDivText);
+
 }
 
 // Add buildType to project.
