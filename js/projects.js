@@ -14,7 +14,7 @@ var download_queue_length = 0;
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projects, projectId) {
+async function append_projects_recursively(projectId) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
@@ -45,12 +45,11 @@ async function append_projects_recursively(projects, projectId) {
             }
 
             renderProject(output);
-            projects.push(output);
 
             // Check for sub-projects to add
             if (output.projects.project) {
                 Object.entries(output.projects.project).forEach(([key, value]) => {
-                    append_projects_recursively(projects, value.id);
+                    append_projects_recursively(value.id);
                 });
             }
         })
