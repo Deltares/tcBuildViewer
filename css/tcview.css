@@ -296,11 +296,11 @@ a:hover > div.linkIcon {
 }
 
 .build.FAILURE > a {
-    color: #a66;
+    color: #F0C0B3;
 }
 
 .build.SUCCESS > a {
-    color: #6a6;
+    color: #B5DBB6;
 }
 
 .build.UNKNOWN > a {
@@ -309,8 +309,8 @@ a:hover > div.linkIcon {
 
 .build.newFailed > a {
     border: none;
-    color: #cc6;
-    -webkit-text-stroke: 2px #a66;
+    color: #FFE8B3;
+    -webkit-text-stroke: 2px #F0C0B3;
 }
 
 .build.FAILURE:last-child > a {
