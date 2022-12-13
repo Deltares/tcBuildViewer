@@ -141,10 +141,6 @@ a {
     color: red;
 }
 
-/* The ▲ is rather small. */
-.build.UNKNOWN > a{
-    color: black;
-}
 
 /* Overrule link color when hovered */
 a:hover {
@@ -299,31 +295,45 @@ a:hover > div.linkIcon {
     text-decoration: none;
 }
 
-.build.FAILURE {
+.build.FAILURE > a {
     color: #a66;
 }
 
-.build.SUCCESS {
+.build.SUCCESS > a {
     color: #6a6;
 }
 
-.build.FAILURE:last-child {
+.build.UNKNOWN > a {
+    color: #666;
+}
+
+.build.newFailed > a {
+    border: none;
+    color: #cc6;
+    -webkit-text-stroke: 2px #a66;
+}
+
+.build.FAILURE:last-child > a {
     color: red;
 }
 
-.build.SUCCESS:last-child {
+.build.SUCCESS:last-child > a {
     color: green;
+}
+
+.build.UNKNOWN:last-child > a {
+    color: black;
+}
+
+.build.newFailed:last-child > a {
+    border: none;
+    color: gold;
+    -webkit-text-stroke: 2px red;
 }
 
 .build:hover {
     color: black; /* Fix/overrule race-condition in CSS styling */
     cursor: pointer;
-}
-
-.build.newFailed > a {
-    border: none;
-    color: gold;
-    -webkit-text-stroke: 2px red;
 }
 
 /* Button to expand build list info. */
