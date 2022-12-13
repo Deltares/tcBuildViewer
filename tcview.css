@@ -19,6 +19,7 @@
 .collapse_button {
     display: inline-block;
     margin-right: 0.2em;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .collapse_button:hover {
