@@ -89,7 +89,10 @@ function add_builds_to_buildtype(buildType) {
                 Object.entries(buildType.builds.build).forEach(([key, build]) => {
 
                     if (buildType.builds.build[key+1]) {
-                        build.previousBuild = buildType.builds.build[key+1];
+                        if (buildType.builds.build[key+1].testOccurrences && build.testOccurrences &&
+                            buildType.builds.build[key+1].testOccurrences.passed != build.testOccurrences.passed) {
+                            build.statusChanged = true;
+                        }
                     }
 
                     if (build.finishOnAgentDate) {
