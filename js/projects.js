@@ -14,7 +14,7 @@ var download_queue_length = 0;
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projects, projectId) {
+async function append_projects_recursively(projectId) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
@@ -45,12 +45,11 @@ async function append_projects_recursively(projects, projectId) {
             }
 
             renderProject(output);
-            projects.push(output);
 
             // Check for sub-projects to add
             if (output.projects.project) {
                 Object.entries(output.projects.project).forEach(([key, value]) => {
-                    append_projects_recursively(projects, value.id);
+                    append_projects_recursively(value.id);
                 });
             }
         })
@@ -85,34 +84,26 @@ function add_builds_to_buildtype(buildType) {
             }
             renderBuildType(buildType);
             if (buildType.builds.build) {
+                
+                for (i=0; i<buildType.builds.build.length; i++) {
 
-                Object.entries(buildType.builds.build).forEach(([key, build]) => {
-
-                    if (build.finishOnAgentDate) {
-                        build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
+                    if (buildType.builds.build[i+1]) {
+                        
+                        if (buildType.builds.build[i].testOccurrences && buildType.builds.build[i+1].testOccurrences &&
+                            buildType.builds.build[i].testOccurrences.passed != buildType.builds.build[i+1].testOccurrences.passed) {
+                            buildType.builds.build[i].statusChanged = true;
+                        }
                     }
 
-                    renderBuild(build);
+                    if (buildType.builds.build[i].finishOnAgentDate) {
+                        buildType.builds.build[i].unixTime = tcTimeToUnix(buildType.builds.build[i].finishOnAgentDate);
+                    }
 
-                });
+                    renderBuild(buildType.builds.build[i]);
+
+                };
 
             }
-        })
-        .catch(err => { console.log(err) })
-        .finally(() => {checkFilterButtons(--download_queue_length);});
-}
-
-function get_buildSteps_for_buildType(buildId) {
-    checkFilterButtons(++download_queue_length);
-    fetch(`${teamcity_base_url}/app/rest/builds/${buildId}?${build_fields}`, {
-        headers: {
-            'Accept': 'application/json',
-        },
-        credentials: 'include',
-    })
-        .then((result) => result.json())
-        .then((output) => {
-            return output.buildType.steps.step;
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length);});

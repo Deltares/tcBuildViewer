@@ -123,14 +123,10 @@
             var edit_selection;
             var api_selection;
 
-            // Project data from TeamCity API.
-            var my_projects;
-
             // Traverse the projects in $include_projects (see config.js)
             // and append the data to $my_projects[]
             function fetchProjects() {
 
-                my_projects = [];
                 download_queue_length = 0;
 
                 getFavoriteProjects().then((repsonse_selection) => {
@@ -159,12 +155,12 @@
 
                     updateSelectionForm();
 
-                    // Empty div#_projects and create elements for projects in $my_projects.
+                    // Empty div#_projects and create elements for projects.
                     initiateProjectElements(selection.include_projects); // render.js
 
                     // Fetched projects will be immediately rendered.
                     selection.include_projects.forEach(projectId => {
-                        append_projects_recursively(my_projects, projectId); // projects.js
+                        append_projects_recursively(projectId); // projects.js
                     });
                 });
 
