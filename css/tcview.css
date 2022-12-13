@@ -52,6 +52,10 @@ button {
 
 button:disabled {
     opacity: 25%;
+}
+
+button:disabled:hover {
+    opacity: 25%;
     background-color: #666 !important;
     border: 3px solid #666 !important;
 }
