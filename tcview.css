@@ -9,7 +9,7 @@
 }
 
 .collapsed {
-    background: #ddd;
+    background: #eee;
 }
 
 .collapsed > .project, .collapsed > .buildType {
