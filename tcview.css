@@ -201,11 +201,14 @@ a:hover > div.linkIcon {
     padding-right: 0px;
 }
 
+.project_wrapper {
+    border-bottom: 2px dashed lightgray;
+}
+
 /* Top level project */
 #_projects.project {
     margin: 0px 10px;
     margin-top: 1em;
-    border-bottom: 2px dashed lightgray;
 }
 
 /* First level of projects. */
