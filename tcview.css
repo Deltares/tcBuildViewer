@@ -8,7 +8,7 @@
     display: none !important;
 }
 
-.collapsed > * {
+.collapsed > div {
     display: none;
 }
 
