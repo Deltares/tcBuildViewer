@@ -53,11 +53,9 @@ async function append_projects_recursively(projects, projectId) {
                     append_projects_recursively(projects, value.id);
                 });
             }
-
+            checkFilterButtons(--download_queue_length);
         })
         .catch(err => { console.log(err) })
-    
-    checkFilterButtons(--download_queue_length);
 }
 
 function add_builds_to_buildtype(buildType) {
