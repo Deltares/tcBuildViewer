@@ -51,7 +51,7 @@ function renderProject(project) {
     // Collapse button.
     var collapseDiv = document.createElement("div");
     collapseDiv.classList.add('collapse_button');
-    collapseDiv.setAttribute('onclick', `this.parentElement.classList.toggle('collapsed');`);
+    collapseDiv.setAttribute('onclick', `this.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`);
     projectDiv.appendChild(collapseDiv);
 
     // Collapse button text.

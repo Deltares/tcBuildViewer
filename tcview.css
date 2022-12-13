@@ -12,14 +12,6 @@
     display: none;
 }
 
-.collapse_button:after {
-    content: '▼';
-}
-
-.collapsed > .collapse_button:after {
-    content: '▶';
-}
-
 .collapse_button {
     display: inline-block;
     margin-left: 1em;
