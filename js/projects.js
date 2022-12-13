@@ -14,7 +14,7 @@ var message_fields = 'fields=messages';
 async function append_projects_recursively(projects, projectId) {
 
     // Excluded projects are skipped entirely.
-    if (settings.exclude_projects.includes(projectId))
+    if (selection.exclude_projects.includes(projectId))
         return;
 
     fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
@@ -27,7 +27,7 @@ async function append_projects_recursively(projects, projectId) {
             if (result.status == 200) {
                 return result.json();
             } else {
-                throw 'Did not receive 200 OK.';
+                return Promise.reject('User not logged in.');
             }
         })
         .then((output) => {
