@@ -1,3 +1,7 @@
+:root {
+    --deltares-blue: #0a28a3;
+}
+
 /* Class to hide any element */
 .hidden {
     display: none !important;
@@ -38,8 +42,8 @@ button {
     letter-spacing: 1px;
     font-weight: normal !important;
     color: white;
-    background-color: #666;
-    border: 3px solid #666;
+    background-color: var(--deltares-blue);
+    border: 3px solid var(--deltares-blue);
     padding: 0px 10px;
     border-radius: 5px;
     line-height: 1.5em;
@@ -114,8 +118,8 @@ form {
 /* Deltares blue */
 #deltares_logo, h1 {
     text-align: center;
-    color: #0a28a3;
-    fill: #0a28a3; /* SVG */
+    color: var(--deltares-blue);
+    fill: var(--deltares-blue); /* SVG */
 }
 
 h1 {
