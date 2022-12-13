@@ -73,7 +73,7 @@ function add_builds_to_buildtype(buildType) {
             } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build.testOccurrences && buildType.builds.build[0].testOccurrences.passed != buildType.builds.build[1].testOccurrences.passed) {
                 buildType.statusChanged = true;
             } else {
-                console.log(buildType.builds.build[0].problemOccurrences);
+                console.log(buildType.builds.build[0].problemOccurrences.newFailed);
                 buildType.statusChanged = false;
             }
             renderBuildType(buildType);
