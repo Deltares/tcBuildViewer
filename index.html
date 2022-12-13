@@ -7,6 +7,7 @@
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
     <link rel="stylesheet" href="css/tcview.css" type="text/css" media="all">
+    <link rel="manifest" href="img/manifest.json">
     <script src="config.js"></script>
     <script src="js/user.js"></script>
     <script src="js/projects.js"></script>
@@ -39,8 +40,8 @@
             <button id="toggle_unchanged" class="toggle statusChanged"
                 onclick="toggleUnchangedBuildTypes();this.classList.toggle('active')">Hide unchanged</button>
 
-            <button id="toggle_settings" class="toggle"
-                onclick="document.getElementById('settings').classList.toggle('hidden');this.classList.toggle('active')">Project Selection</button>
+            <button id="toggle_selection" class="toggle"
+                onclick="document.getElementById('selection').classList.toggle('hidden');this.classList.toggle('active')">Project Selection</button>
 
             <button id="toggle_info" class="toggle"
                 onclick="document.getElementById('info').classList.toggle('hidden');this.classList.toggle('active')"><span class="bigger">ⓘ</span></button>
@@ -65,7 +66,7 @@
             <br />
         </div>
 
-        <div id="settings" class="hidden">
+        <div id="selection" class="hidden">
             <div class="wide" style="text-align: center; display: flex; flex-direction: column;">
                 <div class="header" style="margin-bottom: 1em">
                     Managing your selection
@@ -75,9 +76,9 @@
                     Behaviour:
                     
                     <ol style="display:block; line-height: 150%; padding-left: 0px">
-                        <li>When you have clicked 'Save settings to Cookie' before, your selection will be retrieved from your cookie.</li>
+                        <li>When you have clicked 'Save selection to Cookie' before, your selection will be retrieved from your cookie.</li>
                         <li>When no cookie is found, the TeamCity API will be queried for your favorite projects.</li>
-                        <li>When no favorite projects are found, the 'default_settings' variable from config.js is used.</li>
+                        <li>When no favorite projects are found, the 'default_selection' variable from config.js is used.</li>
                     </ol>
                 </div>
             </div>
@@ -85,21 +86,21 @@
             <div class="header" style="grid-column: 3;">Active selection:</div>
             <div style="grid-column: 1;">
                 <form spellcheck="false">
-                    <textarea id="settings_textarea" class="code"></textarea>
+                    <textarea id="selection_textarea" class="code"></textarea>
                 </form>
             </div>
-            <button onclick="edit_settings = JSON.parse(document.getElementById('settings_textarea').value); fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
-            <div id="settings_code" class="code" style="grid-column: 3;"></div>
+            <button onclick="edit_selection = JSON.parse(document.getElementById('selection_textarea').value); fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
+            <div id="selection_code" class="code" style="grid-column: 3;"></div>
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
-                <button onclick="getFavoriteProjects().then((favorite_projects) => {edit_settings=favorite_projects;updateFormSettings()});">TeamCity API</button>
+                <button onclick="getFavoriteProjects().then((favorite_projects) => {edit_selection=favorite_projects;updateSelectionForm()});">TeamCity API</button>
                 <button style="opacity: 50%">File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
-                <button onclick="setCookie('tcSelection',JSON.stringify(settings)); alert('Selection saved to cookie!')">Cookie</button>
+                <button onclick="setCookie('tcSelection',JSON.stringify(selection)); alert('Selection saved to cookie!')">Cookie</button>
                 <!-- Create virtual anchor to attach file and let JavaScript click it. -->
-                <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(settings, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
+                <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(selection, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
             </div>
         </div>
 
@@ -111,12 +112,12 @@
             var user;
 
             // Included and excluded projects.
-            var settings;
-            var edit_settings;
-            var api_settings;
+            var selection;
+            var edit_selection;
+            var api_selection;
 
             // Project data from TeamCity API.
-            var my_projects = [];
+            var my_projects;
 
             // Traverse the projects in $include_projects (see config.js)
             // and append the data to $my_projects[]
@@ -124,37 +125,37 @@
 
                 my_projects = [];
 
-                getFavoriteProjects().then((repsonse_settings) => {
+                getFavoriteProjects().then((repsonse_selection) => {
 
-                    api_settings = repsonse_settings;
+                    api_selection = repsonse_selection;
 
-                    if (edit_settings) {
-                        settings = edit_settings;
+                    if (edit_selection) {
+                        selection = edit_selection;
                     } else if (getCookie('tcSelection')!= "") {
                     
-                        edit_settings = settings = JSON.parse(getCookie('tcSelection'));
-                        console.log(`Settings loaded from cookie:\n\n${JSON.stringify(settings, undefined, 2)}`);
+                        edit_selection = selection = JSON.parse(getCookie('tcSelection'));
+                        console.log(`Project selection loaded from cookie:\n\n${JSON.stringify(selection, undefined, 2)}`);
 
-                    } else if (api_settings.include_projects && api_settings.include_projects.length == 0) {
+                    } else if (api_selection.include_projects && api_selection.include_projects.length == 0) {
 
-                        edit_settings = settings = default_settings;
-                        console.log(`Settings loaded from config.js:\n\n${JSON.stringify(settings, undefined, 2)}`);
+                        edit_selection = selection = default_selection;
+                        console.log(`Project selection loaded from config.js:\n\n${JSON.stringify(selection, undefined, 2)}`);
 
                     } else {
 
-                        edit_settings = settings = api_settings;
+                        edit_selection = selection = api_selection;
                         
-                        console.log(`Settings loaded from TeamCity API:\n\n${JSON.stringify(settings, undefined, 2)}`);
+                        console.log(`Project selection loaded from TeamCity API:\n\n${JSON.stringify(selection, undefined, 2)}`);
 
                     }
 
-                    updateFormSettings();
+                    updateSelectionForm();
 
                     // Empty div#_projects and create elements for projects in $my_projects.
-                    initiateProjectElements(settings.include_projects); // render.js
+                    initiateProjectElements(selection.include_projects); // render.js
 
                     // Fetched projects will be immediately rendered.
-                    settings.include_projects.forEach(projectId => {
+                    selection.include_projects.forEach(projectId => {
                         append_projects_recursively(my_projects, projectId); // projects.js
                     });
                 });

@@ -77,19 +77,19 @@ async function getFavoriteProjects() {
 
     var favorite_projects = favoriteProjectObjects.map(x => x.id);
 
-    var api_settings = {
+    var api_selection = {
         include_projects: favorite_projects,
         exclude_projects: [],
     }
 
-    return api_settings;
+    return api_selection;
 
 }
 
-function updateFormSettings() {
-    var settingsDiv = document.getElementById('settings_code');
-    settings_textarea.value = JSON.stringify(edit_settings, undefined, 2);
-    settingsDiv.innerText = JSON.stringify(settings, undefined, 2);
+function updateSelectionForm() {
+    var selectionDiv = document.getElementById('selection_code');
+    selection_textarea.value = JSON.stringify(edit_selection, undefined, 2);
+    selectionDiv.innerText = JSON.stringify(selection, undefined, 2);
 }
 
 function setCookie(cname, cvalue, exdays) {
