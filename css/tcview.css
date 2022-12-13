@@ -296,18 +296,27 @@ a:hover > div.linkIcon {
 .build {
     display: inline-block;
     font-style: initial;
-    /*opacity: 25%;*/
     text-decoration: none;
 }
 
-/* Last build of build type. */
-.build:last-child {
-    opacity: 100% !important;
+.build.FAILURE {
+    color: #a66;
+}
+
+.build.SUCCESS {
+    color: #6a6;
+}
+
+.build.FAILURE:last-child {
+    color: red;
+}
+
+.build.SUCCESS:last-child {
+    color: green;
 }
 
 .build:hover {
     color: black; /* Fix/overrule race-condition in CSS styling */
-    opacity: 100%;
     cursor: pointer;
 }
 
