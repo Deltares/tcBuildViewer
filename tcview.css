@@ -202,7 +202,7 @@ a:hover > div.linkIcon {
 }
 
 /* Top level project */
-#projects_wrapper > .project {
+#project_wrapper > .project {
     margin: 0px 10px;
     margin-top: 1em;
     border-bottom: 2px dashed lightgray;
