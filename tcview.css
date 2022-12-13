@@ -195,10 +195,6 @@ a:hover > div.linkIcon {
     background-color: gray;
 }
 
-#buttonList .toggle.green {
-    border-color: green;
-}
-
 /* Any project */
 #_projects .project {
     margin-left: 20px;
@@ -278,7 +274,7 @@ a:hover > div.linkIcon {
 }
 
 /* When the last build has a different status than the second-last. */
-#toggle_unchanged, .buildType.statusChanged {
+.buildType.statusChanged {
     border: 3px solid gold;
 }
 
