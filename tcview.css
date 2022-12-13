@@ -18,11 +18,11 @@
 
 .collapse_button {
     display: inline-block;
+    margin-left: 1em;
 }
 
 .collapse_button:hover {
     cursor: pointer;
-    margin-left: 1em;
 }
 
 /* From Deltares.nl */
