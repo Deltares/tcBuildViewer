@@ -55,7 +55,7 @@ function renderProject(project) {
 
     // Collapse button text.
     var collapseDivText = document.createTextNode('▼');
-    projecollapseDiv.appendChild(collapseDivText);
+    collapseDiv.appendChild(collapseDivText);
 
 }
 
