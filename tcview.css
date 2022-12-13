@@ -12,8 +12,17 @@
     display: none;
 }
 
+.collapsed > .collapse_button {
+    content: '▶';
+}
+
 .collapse_button {
     display: inline-block;
+}
+
+.collapse_button:hover {
+    cursor: pointer;
+    margin-left: 1em;
 }
 
 /* From Deltares.nl */
