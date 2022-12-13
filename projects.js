@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences)';
+var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
 var build_fields = 'fields=buildType(steps(step))';
 var message_fields = 'fields=messages';
 
@@ -54,7 +54,7 @@ async function append_projects_recursively(projects, projectId) {
 }
 
 function add_builds_to_buildtype(buildType) {
-    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(running:true,finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -64,7 +64,13 @@ function add_builds_to_buildtype(buildType) {
         .then((output) => {
             buildType.builds = output;
             // Check if the build result is changed with the last build.
-            if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
+            
+            if (buildType.builds.build && buildType.builds.build.length > 0 && buildType.builds.build[0].problemOccurrences && buildType.builds.build[0].problemOccurrences.newFailed && buildType.builds.build[0].problemOccurrences.newFailed > 0) {
+                buildType.statusChanged = true;
+                
+            } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
+                buildType.statusChanged = true;
+            } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].testOccurrences && buildType.builds.build[0].testOccurrences.passed != buildType.builds.build[1].testOccurrences.passed) {
                 buildType.statusChanged = true;
             } else {
                 buildType.statusChanged = false;
@@ -77,6 +83,7 @@ function add_builds_to_buildtype(buildType) {
                     if (build.finishOnAgentDate) {
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
                     }
+
                     renderBuild(build);
 
                 });
