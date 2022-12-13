@@ -18,8 +18,9 @@
 
     <div id="body_wrap">
 
-        <div id="user">
-            username: <div id="user_name">unknown</div>
+        <div id="stats">
+            username: <span id="user_name">unknown</span><br />
+            download queue: <span id="queue_number">0</span>
         </div>
 
         <div id="deltares_logo">
@@ -124,6 +125,7 @@
             function fetchProjects() {
 
                 my_projects = [];
+                download_queue_length = 0;
 
                 getFavoriteProjects().then((repsonse_selection) => {
 
