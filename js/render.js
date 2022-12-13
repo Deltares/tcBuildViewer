@@ -1,3 +1,15 @@
+function checkFilterButtons(downloadQueueLength) {
+    if (downloadQueueLength > 1) {
+        return;
+    }
+    else if (downloadQueueLength == 1) {
+        document.querySelectorAll('.filter_button').forEach(button => {button.disabled = true;});
+    }
+    else {
+        document.querySelectorAll('.filter_button').forEach(button => {button.disabled = false;});
+    }
+}
+
 /*  Input: array of project IDs to render. */
 function initiateProjectElements(include_projects) {
 
