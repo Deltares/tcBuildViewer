@@ -296,7 +296,7 @@ a:hover > div.linkIcon {
 .build {
     display: inline-block;
     font-style: initial;
-    opacity: 25%;
+    /*opacity: 25%;*/
     text-decoration: none;
 }
 
