@@ -117,10 +117,13 @@ form {
     min-height: 20em;
 }
 
-#user {
+#stats {
     position: absolute;
     padding: 10px;
     font-family: 'Courier New', Courier, monospace;
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 1em;
 }
 
 #user_name {
