@@ -43,7 +43,7 @@ button {
     font-weight: normal !important;
     color: white;
     background-color: #666;
-    border: 3px solid #555;
+    border: 3px solid #666;
     padding: 0px 10px;
     border-radius: 5px;
     line-height: 1.5em;
@@ -55,6 +55,7 @@ button.toggle.active {
 
 button:hover {
     border: 3px solid black !important;
+    background-color: #777;
 }
 
 #body_wrap {
