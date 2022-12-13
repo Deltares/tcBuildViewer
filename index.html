@@ -6,11 +6,11 @@
     <meta charset="utf-8">
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
-    <link rel="stylesheet" href="tcview.css" type="text/css" media="all">
+    <link rel="stylesheet" href="css/tcview.css" type="text/css" media="all">
     <script src="config.js"></script>
-    <script src="user.js"></script>
-    <script src="projects.js"></script>
-    <script src="render.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/render.js"></script>
 </head>
 
 <body>
@@ -106,10 +106,6 @@
         <div id="_projects" class="project"></div>
 
         <script>
-
-            // On firefox, show the info panel showing lack of compatibility.
-            if (navigator.userAgent.search("Firefox") > -1)
-                document.getElementById('info').classList.toggle('hidden');
 
             // TeamCity user data.
             var user;

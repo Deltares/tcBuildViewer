@@ -27,7 +27,7 @@ async function append_projects_recursively(projects, projectId) {
             if (result.status == 200) {
                 return result.json();
             } else {
-                throw 'Did not receive 200 OK.';
+                return Promise.reject('User not logged in.');
             }
         })
         .then((output) => {
