@@ -1,4 +1,4 @@
-function disableFilterButtons(downloadQueueLength) {
+function checkFilterButtons(downloadQueueLength) {
     if (downloadQueueLength > 1) {
         return;
     }
