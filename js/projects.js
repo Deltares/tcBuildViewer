@@ -20,7 +20,7 @@ async function append_projects_recursively(projects, projectId) {
     if (selection.exclude_projects.includes(projectId))
         return;
     
-    checkFilterButtons(download_queue_length++);
+    checkFilterButtons(++download_queue_length);
 
     fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
         headers: {

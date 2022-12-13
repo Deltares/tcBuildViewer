@@ -1,4 +1,5 @@
 function checkFilterButtons(downloadQueueLength) {
+    console.log(downloadQueueLength);
     if (downloadQueueLength > 1) {
         return;
     }
