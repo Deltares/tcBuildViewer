@@ -8,9 +8,12 @@
     display: none !important;
 }
 
+.collapsed {
+    background: gray;
+}
+
 .collapsed > .project, .collapsed > .buildType {
     display: none;
-    background: gray;
 }
 
 .collapse_button {
