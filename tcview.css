@@ -12,6 +12,10 @@
     display: none;
 }
 
+.collapse_button {
+    display: inline-block;
+}
+
 /* From Deltares.nl */
 body {
     font-family: Helvetica, Arial, sans-serif;
