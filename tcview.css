@@ -8,6 +8,23 @@
     display: none !important;
 }
 
+.collapsed {
+    background: #eee;
+}
+
+.collapsed > .project, .collapsed > .buildType {
+    display: none;
+}
+
+.collapse_button {
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.collapse_button:hover {
+    cursor: pointer;
+}
+
 /* From Deltares.nl */
 body {
     font-family: Helvetica, Arial, sans-serif;
@@ -188,17 +205,12 @@ a:hover > div.linkIcon {
     padding-right: 0px;
 }
 
-/* Top level project */
-#_projects.project {
-    margin: 0px 10px;
-    margin-top: 1em;
-}
-
 /* First level of projects. */
 #_projects > div.project_wrapper > div.project {
     margin-left: 0px;
     margin-bottom: 2em;
     font-weight: bold;
+    border-bottom: 2px dashed lightgray;
 }
 
 /* Title/link of first level of projects. */
