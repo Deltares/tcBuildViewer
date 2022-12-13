@@ -88,6 +88,10 @@ function add_builds_to_buildtype(buildType) {
 
                 Object.entries(buildType.builds.build).forEach(([key, build]) => {
 
+                    if (buildType.builds.build[key+1]) {
+                        build.previousBuild = buildType.builds.build[key+1];
+                    }
+
                     if (build.finishOnAgentDate) {
                         build.unixTime = tcTimeToUnix(build.finishOnAgentDate);
                     }
@@ -97,22 +101,6 @@ function add_builds_to_buildtype(buildType) {
                 });
 
             }
-        })
-        .catch(err => { console.log(err) })
-        .finally(() => {checkFilterButtons(--download_queue_length);});
-}
-
-function get_buildSteps_for_buildType(buildId) {
-    checkFilterButtons(++download_queue_length);
-    fetch(`${teamcity_base_url}/app/rest/builds/${buildId}?${build_fields}`, {
-        headers: {
-            'Accept': 'application/json',
-        },
-        credentials: 'include',
-    })
-        .then((result) => result.json())
-        .then((output) => {
-            return output.buildType.steps.step;
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length);});
