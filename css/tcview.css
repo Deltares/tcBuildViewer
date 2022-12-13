@@ -137,6 +137,7 @@ form {
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 0.5em;
+    font-size: 0.8em
 }
 
 /* Deltares blue */
