@@ -235,6 +235,10 @@ function renderBuildDetails(buildId,messages,changes) {
 
     });
 
+    if (changes.length == 0) {
+        changesDiv.innerHTML = 'Nobody to blame... 😭';
+    }
+
     Object.entries(changes).forEach(([key, change]) => {
 
         var versionDiv = document.createElement('div');
