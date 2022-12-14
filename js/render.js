@@ -181,7 +181,8 @@ function renderBuildDetails(buildId,messages) {
     // Show logs
     var buildChangesButton = document.createElement('button');
     buildChangesButton.setAttribute('onclick',``)
-    buildChangesButton.classList.add('toggle active')
+    buildChangesButton.classList.add('toggle');
+    buildChangesButton.classList.add('active');
     buildChangesButton.appendChild(document.createTextNode('Logs'));
     buildButtonBar.appendChild(buildChangesButton);
 
