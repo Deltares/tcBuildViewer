@@ -421,3 +421,7 @@ a:hover > div.linkIcon {
     grid-template-columns: fit-content(25%) auto fit-content(25%);
     gap: 1em;
 }
+
+.changes > * {
+    background: #eee;
+}
