@@ -244,7 +244,7 @@ function renderBuildDetails(buildId,messages,changes) {
         versionDiv.innerHTML = `#${change.version}`;
         var fileList = change.files.file.map(file => file.relative-file);
         linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}'>#${change.comment}</a>`;
-        userDiv.innerHTML = `${change.user.name} (${new Date(tcTimeToUnix(change.date)).toLocaleString()})`;
+        userDiv.innerHTML = `${change.user.name}<br /><span class='smaller'>(${new Date(tcTimeToUnix(change.date)).toLocaleString()})</span>`;
         changesDiv.appendChild(versionDiv);
         changesDiv.appendChild(linkDiv);
         changesDiv.appendChild(userDiv);
