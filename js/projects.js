@@ -130,7 +130,7 @@ async function get_build_details(buildId) {
 
     let changes = await changesRequest.json().changes;
 
-    renderBuildDetails(buildId,await messages,await changes);
+    renderBuildDetails(buildId, messages, changes);
 }
 
 function get_build_details(buildId) {
