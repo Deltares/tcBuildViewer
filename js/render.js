@@ -152,7 +152,7 @@ function renderBuild(build) {
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
     
-    buildLink.setAttribute('onclick', `get_build_details(${build.id});console.log('get_build_details2');`);
+    buildLink.setAttribute('onclick', `get_build_details(${build.id});`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);

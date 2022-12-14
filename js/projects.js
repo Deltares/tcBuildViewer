@@ -111,7 +111,7 @@ function add_builds_to_buildtype(buildType) {
 }
 
 async function get_build_details(buildId) {
-    console.log('get_build_details');
+    
     let messagesRequest = fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -131,10 +131,6 @@ async function get_build_details(buildId) {
     let changes = await changesRequest.json().changes;
 
     renderBuildDetails(buildId, messages, changes);
-}
-
-function get_build_details(buildId) {
-
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.
