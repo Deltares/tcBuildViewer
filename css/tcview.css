@@ -96,7 +96,7 @@ button:hover {
     font-size: 1.5rem;
 }
 
-.build_button_bar {
+.buildButtonBar {
     display: grid;
     grid-template-columns: repeat(1fr);
 }
