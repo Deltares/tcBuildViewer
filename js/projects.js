@@ -3,6 +3,7 @@ var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),bu
 var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
 var build_fields = 'fields=buildType(steps(step))';
 var message_fields = 'fields=messages';
+var change_fields = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
 
 // Keep track of pending downloads.
 var download_queue_length = 0;
@@ -109,18 +110,31 @@ function add_builds_to_buildtype(buildType) {
         .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
-function get_messages_for_build(buildId) {
-    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+async function get_build_details(buildId) {
+
+    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
-    })
-        .then((result) => result.json())
-        .then((output) => {
-            renderMessages(buildId,output.messages);
-        })
-        .catch(err => { console.log(err) });
+    });
+
+    let messagesJSON = await messagesRequest.json();
+
+    var messages = messagesJSON.messages;
+
+    let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    });
+
+    let changesJSON = await changesRequest.json();
+
+    var changes = changesJSON.change;
+
+    renderBuildDetails(buildId, await messages, await changes);
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.

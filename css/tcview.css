@@ -369,21 +369,25 @@ a:hover > div.linkIcon {
 }
 
 /* Button to expand build list info. */
-.buildListButton {
-    display: inline-block;
-    grid-column: 3;
+.buildButtonBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 1em;
+    margin: 0.8em 0px;
 }
 
 /* Build steps on expansion of build type. */
 .buildSteps {
-    display: grid;
-    grid-template-columns: auto fit-content(100%);
+    display: flex;
+    flex-direction: column;
     background: white;
     margin: 1em;
-    padding: 1em;
+    padding: 0em 1em 1em 1em;
     grid-column: 1 / -1;
     min-width: 0;
     min-height: 0;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .buildSteps > a {
@@ -405,12 +409,41 @@ a:hover > div.linkIcon {
     color: goldenrod;
 }
 
-.message {
+.message, .change {
     grid-column: 1;
     margin: 0px;
     padding: 0.5em;
 }
 
-.message:nth-child(odd) {
+.message:nth-child(odd), .change:nth-child(odd) {
     background: #eee;
+}
+
+.changes {
+    display: grid;
+    grid-template-columns: fit-content(25%) auto fit-content(50%) fit-content(50%);
+    gap: 0.5em;
+}
+
+.changes > * {
+    padding: 0.5em;
+    background: #eee;
+    border-radius: 10px;
+}
+
+.smaller {
+    font-size: 0.8em;
+}
+
+.build_user {
+}
+
+.build_user_name {
+    text-align: center;
+    font-weight: bolder;
+}
+
+.build_user_time {
+    text-align: right;
+    white-space: nowrap;
 }

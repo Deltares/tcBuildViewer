@@ -151,35 +151,75 @@ function renderBuild(build) {
 
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
-    //buildLink.setAttribute('href', build.webUrl);
     
-    buildLink.setAttribute('onclick', `get_messages_for_build(${build.id})`);
+    buildLink.setAttribute('onclick', `get_build_details(${build.id});`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
 
     // Text for TeamCity build link.
-    //var buildText = document.createTextNode(build.status=='UNKNOWN'?'⚠':'⬤');
     var buildText = document.createTextNode('⬤');
     buildLink.appendChild(buildText);
 
 }
 
-
-function renderMessages(buildId,messages) {
+function renderBuildDetails(buildId,messages,changes) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
-    var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
-    buildSteps.innerHTML = "";
-    buildSteps.classList.remove('hidden');
-    var buildHeader = document.createElement('div');
-    buildHeader.classList.add('header');
+    var buildDetails = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
+    buildDetails.innerHTML = "";
+    buildDetails.classList.remove('hidden');
+
+    // Build button-bar
+    var buildButtonBar = document.createElement('div');
+    buildButtonBar.classList.add('header');
+    buildButtonBar.classList.add('buildButtonBar');
+    buildDetails.appendChild(buildButtonBar);
+
+    // Show logs
+    var buildMessagesButton = document.createElement('button');
+    buildMessagesButton.classList.add('toggle');
+    buildMessagesButton.classList.add('active');
+    buildMessagesButton.setAttribute('onclick',
+        `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
+        this.classList.add('active');
+        this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden');
+        this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden');`);
+    buildMessagesButton.appendChild(document.createTextNode('Logs'));
+    buildButtonBar.appendChild(buildMessagesButton);
+
+    // Show changes
+    var buildChangesButton = document.createElement('button');
+    buildChangesButton.classList.add('toggle');
+    buildChangesButton.setAttribute('onclick',
+    `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
+    this.classList.add('active');
+    this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
+    this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden');`);
+    buildChangesButton.appendChild(document.createTextNode('Blame'));
+    buildButtonBar.appendChild(buildChangesButton);
+
+    // Open build in TeamCity
     var buildLink = document.createElement('button');
-    //buildLink.setAttribute('href',`${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId}`)
-    //buildLink.appendChild(document.createTextNode(`Build#: ${buildId}`));
-    buildLink.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
-    buildLink.appendChild(document.createTextNode('Click here to close'));
-    buildHeader.appendChild(buildLink);
-    buildSteps.appendChild(buildLink);
+    buildLink.setAttribute('onclick',`window.open('${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId};','build_${buildId}','fullscreen=yes');`)
+    buildLink.appendChild(document.createTextNode(`Open in TeamCity ⧉`));
+    buildButtonBar.appendChild(buildLink);
+
+    // Close build details
+    var buildCloseButton = document.createElement('button');
+    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
+    buildCloseButton.appendChild(document.createTextNode('Close'));
+    buildButtonBar.appendChild(buildCloseButton);
+
+    // Messages DIV
+    var messagesDiv = document.createElement('div');
+    messagesDiv.classList.add('messages');
+    buildDetails.appendChild(messagesDiv);
+
+    // Changes DIV
+    var changesDiv = document.createElement('div');
+    changesDiv.classList.add('changes');
+    changesDiv.classList.add('hidden');
+    buildDetails.appendChild(changesDiv);  
 
     Object.entries(messages).forEach(([key, message]) => {
 
@@ -191,7 +231,31 @@ function renderMessages(buildId,messages) {
             messageP.classList.add('error');
         var messageText = JSON.stringify(message.text);
         messageP.innerText = messageText;
-        buildSteps.appendChild(messageP);
+        messagesDiv.appendChild(messageP);
+
+    });
+
+    if (changes.length == 0) {
+        changesDiv.innerHTML = 'Nobody to blame... 😭';
+    }
+
+    Object.entries(changes).forEach(([key, change]) => {
+
+        var versionDiv = document.createElement('div');
+        var linkDiv = document.createElement('div');
+        var userDiv = document.createElement('div');
+        var timeDiv = document.createElement('div');
+        userDiv.classList.add('build_user');
+        //var filesDiv = document.createElement('div');
+        versionDiv.innerHTML = `#${change.version}`;
+        var fileList = change.files.file.map(file => file['relative-file']).join('\n');
+        linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}'>#${change.comment}</a>`;
+        userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:'🤖'}</span>`;
+        timeDiv.innerHTML = `<span class='build_time smaller'>${new Date(tcTimeToUnix(change.date)).toLocaleString()}</span>`;
+        changesDiv.appendChild(versionDiv);
+        changesDiv.appendChild(linkDiv);
+        changesDiv.appendChild(userDiv);
+        changesDiv.appendChild(timeDiv);
 
     });
 
