@@ -373,7 +373,8 @@ a:hover > div.linkIcon {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 1em;
-    margin: 1em 0px;
+    margin: 0.8em 0px;
+    border: 1px solid black;
 }
 
 /* Build steps on expansion of build type. */
