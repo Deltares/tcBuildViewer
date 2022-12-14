@@ -339,10 +339,16 @@ a:hover > div.linkIcon {
     color: #666;
 }
 
-.build.newFailed > a {
+.build.newFailed.FAILURE > a {
     border: none;
     color: #FFE8B3;
     -webkit-text-stroke: 2px #F0C0B3;
+}
+
+.build.newFailed.SUCCESS > a {
+    border: none;
+    color: #FFE8B3;
+    -webkit-text-stroke: 2px #B5DBB6;
 }
 
 .build.FAILURE:last-child > a {
@@ -357,10 +363,16 @@ a:hover > div.linkIcon {
     color: black;
 }
 
-.build.newFailed:last-child > a {
+.build.newFailed.FAILURE:last-child > a {
     border: none;
     color: gold;
     -webkit-text-stroke: 2px red;
+}
+
+.build.newFailed.SUCCESS:last-child > a {
+    border: none;
+    color: gold;
+    -webkit-text-stroke: 2px green;
 }
 
 .build:hover {
