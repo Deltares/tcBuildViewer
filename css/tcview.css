@@ -425,4 +425,5 @@ a:hover > div.linkIcon {
 .changes > * {
     padding: 0.5em;
     background: #eee;
+    border-radius: 10px;
 }

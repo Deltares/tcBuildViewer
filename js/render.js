@@ -242,7 +242,7 @@ function renderBuildDetails(buildId,messages,changes) {
         var userDiv = document.createElement('div');
         //var filesDiv = document.createElement('div');
         versionDiv.innerHTML = `#${change.version}`;
-        linkDiv.innerHTML = `<a href='${change.webUrl}'>#${change.comment}</a>`;
+        linkDiv.innerHTML = `<a href='${change.webUrl}' title='${JSON.stringify(change.files)}'>#${change.comment}</a>`;
         userDiv.innerHTML = `${change.user.name} (${new Date(tcTimeToUnix(change.date)).toLocaleString()})`;
         changesDiv.appendChild(versionDiv);
         changesDiv.appendChild(linkDiv);
