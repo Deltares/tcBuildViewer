@@ -111,6 +111,7 @@ function add_builds_to_buildtype(buildType) {
 }
 
 async function get_build_details(buildId) {
+    console.log('get_build_details');
     let messagesRequest = fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
