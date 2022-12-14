@@ -111,8 +111,8 @@ function add_builds_to_buildtype(buildType) {
 }
 
 async function get_build_details(buildId) {
-    
-    let messagesRequest = fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+
+    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -121,7 +121,7 @@ async function get_build_details(buildId) {
 
     let messages = await messagesRequest.json().messages;
 
-    let changesRequest = fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId}&${change_fields})`, {
+    let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId}&${change_fields})`, {
         headers: {
             'Accept': 'application/json',
         },
