@@ -165,15 +165,15 @@ function renderBuild(build) {
 
 function renderBuildDetails(buildId,messages,changes) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
-    var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
-    buildSteps.innerHTML = "";
-    buildSteps.classList.remove('hidden');
+    var buildDetails = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
+    buildDetails.innerHTML = "";
+    buildDetails.classList.remove('hidden');
 
     // Build button-bar
     var buildButtonBar = document.createElement('div');
     buildButtonBar.classList.add('header');
     buildButtonBar.classList.add('buildButtonBar');
-    buildSteps.appendChild(buildButtonBar);
+    buildDetails.appendChild(buildButtonBar);
 
     // Show logs
     var buildChangesButton = document.createElement('button');
@@ -212,7 +212,17 @@ function renderBuildDetails(buildId,messages,changes) {
             messageP.classList.add('error');
         var messageText = JSON.stringify(message.text);
         messageP.innerText = messageText;
-        buildSteps.appendChild(messageP);
+        buildDetails.appendChild(messageP);
+
+    });
+
+    Object.entries(changes).forEach(([key, change]) => {
+
+        var messageP = document.createElement('p');
+        messageP.classList.add('change');
+        var messageText = tcTimeToUnix(change.date);
+        messageP.innerText = messageText;
+        buildDetails.appendChild(messageP);
 
     });
 
