@@ -182,12 +182,12 @@ function renderBuildDetails(buildId,messages) {
     var buildLink = document.createElement('button');
     buildLink.setAttribute('onclick',`window.open('${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId};','build_${buildId}','fullscreen=yes');`)
     buildLink.appendChild(document.createTextNode(`Open build in TeamCity`));
-    buildSteps.appendChild(buildLink);
+    buildButtonBar.appendChild(buildLink);
 
     var buildCloseButton = document.createElement('button');
     buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
     buildCloseButton.appendChild(document.createTextNode('Click here to close'));
-    buildSteps.appendChild(buildCloseButton);
+    buildButtonBar.appendChild(buildCloseButton);
 
     Object.entries(messages).forEach(([key, message]) => {
 
