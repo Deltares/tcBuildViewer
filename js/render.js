@@ -248,8 +248,8 @@ function renderBuildDetails(buildId,messages,changes) {
         userDiv.classList.add('build_user');
         //var filesDiv = document.createElement('div');
         versionDiv.innerHTML = `#${change.version}`;
-        var fileList = change.files.file.entries.map(file => file.relative-file);
-        console.log(change.files.file);
+        var fileList = change.files.file.map(file => file.relative-file);
+        console.log(change.files.file.map(file => file.relative-file));
         linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}'>#${change.comment}</a>`;
         userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:'🤖'}</span>`;
         timeDiv.innerHTML = `<span class='build_time smaller'>${new Date(tcTimeToUnix(change.date)).toLocaleString()}</span>`;
