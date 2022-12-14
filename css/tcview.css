@@ -373,6 +373,7 @@ a:hover > div.linkIcon {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 1em;
+    margin: 1em 0px;
 }
 
 /* Build steps on expansion of build type. */
@@ -380,8 +381,9 @@ a:hover > div.linkIcon {
     display: flex;
     flex-direction: column;
     background: white;
+    border-radius: 10px;
     margin: 1em;
-    padding: 1em;
+    padding: 0em 1em 1em 1em;
     grid-column: 1 / -1;
     min-width: 0;
     min-height: 0;
