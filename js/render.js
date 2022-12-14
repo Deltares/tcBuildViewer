@@ -177,7 +177,11 @@ function renderBuildDetails(buildId,messages,changes) {
 
     // Show logs
     var buildChangesButton = document.createElement('button');
-    buildChangesButton.setAttribute('onclick',`this.parentElement.getElementsByClassName('active')[0].classList.remove('active'); this.classList.add('active')`)
+    buildChangesButton.setAttribute('onclick',
+        `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
+        this.classList.add('active');
+        this.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
+        this.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden');`)
     buildChangesButton.classList.add('toggle');
     buildChangesButton.classList.add('active');
     buildChangesButton.appendChild(document.createTextNode('Logs'));
@@ -202,6 +206,17 @@ function renderBuildDetails(buildId,messages,changes) {
     buildCloseButton.appendChild(document.createTextNode('Close'));
     buildButtonBar.appendChild(buildCloseButton);
 
+    // Messages DIV
+    var messagesDiv = document.createElement('div');
+    messagesDiv.classList.add('messages');
+    buildDetails.appendChild(messagesDiv);
+
+    // Changes DIV
+    var changesDiv = document.createElement('div');
+    changesDiv.classList.add('changes');
+    changesDiv.classList.add('hidden');
+    buildDetails.appendChild(changesDiv);  
+
     Object.entries(messages).forEach(([key, message]) => {
 
         var messageP = document.createElement('p');
@@ -212,7 +227,7 @@ function renderBuildDetails(buildId,messages,changes) {
             messageP.classList.add('error');
         var messageText = JSON.stringify(message.text);
         messageP.innerText = messageText;
-        buildDetails.appendChild(messageP);
+        messagesDiv.appendChild(messageP);
 
     });
 
@@ -226,7 +241,7 @@ function renderBuildDetails(buildId,messages,changes) {
             change.username + '<br />' +
             '<a href="'+change.webUrl+'">'+change.comment+'<br />'+change.webUrl+'</a><br />';
         messageP.innerHTML = messageText;
-        buildDetails.appendChild(messageP);
+        changesDiv.appendChild(messageP);
 
     });
 
