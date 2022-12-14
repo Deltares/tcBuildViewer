@@ -225,7 +225,7 @@ function renderBuildDetails(buildId,messages,changes) {
             change.version + '<br />' +
             change.username + '<br />' +
             '<a href="'+change.webUrl+'">'+change.webUrl+'</a><br />';
-        messageP.innerText = messageText;
+        messageP.innerHTML = messageText;
         buildDetails.appendChild(messageP);
 
     });
