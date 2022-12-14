@@ -248,7 +248,7 @@ function renderBuildDetails(buildId,messages,changes) {
         console.log(fileList);
         linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}'>#${change.comment}</a>`;
         userDiv.innerHTML = `<span class='build_user_name'>${change.user.name}</span>`;
-        userDiv.innerHTML = `<span class='build_time smaller'>(${new Date(tcTimeToUnix(change.date)).toLocaleString()})</span>`;
+        timeDiv.innerHTML = `<span class='build_time smaller'>(${new Date(tcTimeToUnix(change.date)).toLocaleString()})</span>`;
         changesDiv.appendChild(versionDiv);
         changesDiv.appendChild(linkDiv);
         changesDiv.appendChild(userDiv);
