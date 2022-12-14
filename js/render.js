@@ -182,8 +182,8 @@ function renderBuildDetails(buildId,messages,changes) {
     buildMessagesButton.setAttribute('onclick',
         `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
         this.classList.add('active');
-        this.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden');
-        this.parentElement.getElementsByClassName('changes')[0].classList.add('hidden');`);
+        this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden');
+        this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden');`);
     buildMessagesButton.appendChild(document.createTextNode('Logs'));
     buildButtonBar.appendChild(buildMessagesButton);
 
@@ -193,8 +193,8 @@ function renderBuildDetails(buildId,messages,changes) {
     buildChangesButton.setAttribute('onclick',
     `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
     this.classList.add('active');
-    this.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
-    this.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden');`);
+    this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
+    this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden');`);
     buildChangesButton.appendChild(document.createTextNode('Blame'));
     buildButtonBar.appendChild(buildChangesButton);
 
