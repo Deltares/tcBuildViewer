@@ -180,7 +180,7 @@ function renderBuildDetails(buildId,messages) {
 
     // Show logs
     var buildChangesButton = document.createElement('button');
-    buildChangesButton.setAttribute('onclick',``)
+    buildChangesButton.setAttribute('onclick',`this.parent.getElementsByClassName('active')[0].classList.remove('active'); this.classList.add('active')`)
     buildChangesButton.classList.add('toggle');
     buildChangesButton.classList.add('active');
     buildChangesButton.appendChild(document.createTextNode('Logs'));
@@ -189,7 +189,7 @@ function renderBuildDetails(buildId,messages) {
     // Show changes
     var buildChangesButton = document.createElement('button');
     buildChangesButton.classList.add('toggle')
-    buildChangesButton.setAttribute('onclick',`this.classList.add('active')`);
+    buildChangesButton.setAttribute('onclick',`this.parent.getElementsByClassName('active')[0].classList.remove('active'); this.classList.add('active')`);
     buildChangesButton.appendChild(document.createTextNode('Blame'));
     buildButtonBar.appendChild(buildChangesButton);
 
