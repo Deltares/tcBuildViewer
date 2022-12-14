@@ -176,21 +176,25 @@ function renderBuildDetails(buildId,messages,changes) {
     buildDetails.appendChild(buildButtonBar);
 
     // Show logs
-    var buildChangesButton = document.createElement('button');
-    buildChangesButton.setAttribute('onclick',
+    var buildMessagesButton = document.createElement('button');
+    buildMessagesButton.classList.add('toggle');
+    buildMessagesButton.classList.add('active');
+    buildMessagesButton.setAttribute('onclick',
         `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
         this.classList.add('active');
-        this.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
-        this.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden');`)
-    buildChangesButton.classList.add('toggle');
-    buildChangesButton.classList.add('active');
-    buildChangesButton.appendChild(document.createTextNode('Logs'));
-    buildButtonBar.appendChild(buildChangesButton);
+        this.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden');
+        this.parentElement.getElementsByClassName('changes')[0].classList.add('hidden');`);
+    buildMessagesButton.appendChild(document.createTextNode('Logs'));
+    buildButtonBar.appendChild(buildMessagesButton);
 
     // Show changes
     var buildChangesButton = document.createElement('button');
-    buildChangesButton.classList.add('toggle')
-    buildChangesButton.setAttribute('onclick',`this.parentElement.getElementsByClassName('active')[0].classList.remove('active'); this.classList.add('active')`);
+    buildChangesButton.classList.add('toggle');
+    buildChangesButton.setAttribute('onclick',
+    `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
+    this.classList.add('active');
+    this.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
+    this.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden');`);
     buildChangesButton.appendChild(document.createTextNode('Blame'));
     buildButtonBar.appendChild(buildChangesButton);
 
