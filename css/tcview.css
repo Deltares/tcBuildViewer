@@ -411,12 +411,12 @@ a:hover > div.linkIcon {
     cursor: pointer;
 }
 
-.buildSteps > p.error {
+.message.error {
     font-weight: bold;
     color: rgb(207, 69, 69);
 }
 
-.buildSteps > p.warning {
+.message.warning {
     font-weight: bold;
     color: goldenrod;
 }

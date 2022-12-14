@@ -17,7 +17,7 @@
 <body>
     <div id="legend">
         <div style="grid-column: span 2; font-weight: bold">Build result:</div>
-        <div style="color: green">⬤</div><div>successfull</div>
+        <div style="color: green">⬤</div><div>successful</div>
         <div style="color: red">⬤</div><div>failed</div>
         <div style="color: gold; -webkit-text-stroke: 2px red;">⬤</div><div>changed</div>
         <div style="color: gold; -webkit-text-stroke: 2px green;">⬤</div><div>recovered</div>
@@ -103,7 +103,7 @@
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
                 <button onclick="getFavoriteProjects().then((favorite_projects) => {edit_selection=favorite_projects;updateSelectionForm()});">TeamCity API</button>
-                <button style="opacity: 50%">File</button>
+                <button disabled>File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
                 <button onclick="setCookie('tcSelection',JSON.stringify(selection),365); alert('Selection saved to cookie!')">Cookie</button>
