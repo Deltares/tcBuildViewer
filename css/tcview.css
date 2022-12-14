@@ -374,7 +374,7 @@ a:hover > div.linkIcon {
 }
 
 /* Button to expand build list info. */
-.buildListButton {
+.buildButtonBar {
     display: inline-block;
     grid-column: 3;
 }
