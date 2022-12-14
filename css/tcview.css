@@ -371,7 +371,7 @@ a:hover > div.linkIcon {
 /* Button to expand build list info. */
 .buildButtonBar {
     display: grid;
-    grid-template-columns: repeat(1fr);
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 /* Build steps on expansion of build type. */
