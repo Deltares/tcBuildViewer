@@ -415,3 +415,8 @@ a:hover > div.linkIcon {
 .message:nth-child(odd), .change:nth-child(odd) {
     background: #eee;
 }
+
+.changes {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}

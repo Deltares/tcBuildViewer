@@ -237,15 +237,16 @@ function renderBuildDetails(buildId,messages,changes) {
 
     Object.entries(changes).forEach(([key, change]) => {
 
-        var messageP = document.createElement('p');
-        messageP.classList.add('change');
-        var messageText = new Date(
-            tcTimeToUnix(change.date)).toLocaleString() + '<br />#' +
-            change.version + '<br />' +
-            change.username + '<br />' +
-            '<a href="'+change.webUrl+'">'+change.comment+'<br />'+change.webUrl+'</a><br />';
-        messageP.innerHTML = messageText;
-        changesDiv.appendChild(messageP);
+        var versionDiv = document.createElement('div');
+        var linkDiv = document.createElement('div');
+        var userDiv = document.createElement('div');
+        //var filesDiv = document.createElement('div');
+        versionDiv.innerHTML = `#${change.version}`;
+        linkDiv.innerHTML = `<a href='${change.webUrl}'>#${change.comment}</a>`;
+        userDiv.innerHTML = `${change.user.name} (${new Date(tcTimeToUnix(change.date)).toLocaleString()})`;
+        changesDiv.appendChild(versionDiv);
+        changesDiv.appendChild(linkDiv);
+        changesDiv.appendChild(userDiv);
 
     });
 
