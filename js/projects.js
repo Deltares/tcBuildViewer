@@ -3,7 +3,7 @@ var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),bu
 var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
 var build_fields = 'fields=buildType(steps(step))';
 var message_fields = 'fields=messages';
-var change_fields = '';
+var change_fields = 'fields=change:(date,version,username,comment,webUrl,files)';
 
 // Keep track of pending downloads.
 var download_queue_length = 0;
