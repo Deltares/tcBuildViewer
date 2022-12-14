@@ -123,8 +123,6 @@ async function get_build_details(buildId) {
 
     var messages = messagesJSON.messages;
 
-    console.log(messages);
-
     let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -135,8 +133,6 @@ async function get_build_details(buildId) {
     let changesJSON = await changesRequest.json();
 
     var changes = changesJSON.change;
-
-    console.log(changes);
 
     renderBuildDetails(buildId, await messages, await changes);
 }

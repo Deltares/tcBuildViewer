@@ -220,7 +220,11 @@ function renderBuildDetails(buildId,messages,changes) {
 
         var messageP = document.createElement('p');
         messageP.classList.add('change');
-        var messageText = tcTimeToUnix(change.date);
+        var messageText = new Date(
+            tcTimeToUnix(change.date)).toLocaleString() + '<br />#' +
+            change.version + '<br />' +
+            change.username + '<br />' +
+            `<a href="${change.webUrl}">${change.webUrl}</a><br />`;
         messageP.innerText = messageText;
         buildDetails.appendChild(messageP);
 
