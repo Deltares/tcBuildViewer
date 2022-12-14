@@ -171,15 +171,23 @@ function renderBuildDetails(buildId,messages) {
     var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildSteps.innerHTML = "";
     buildSteps.classList.remove('hidden');
-    var buildHeader = document.createElement('div');
-    buildHeader.classList.add('header');
+
+    // Build button-bar
+    var buildButtonBar = document.createElement('div');
+    buildButtonBar.classList.add('header');
+    buildButtonBar.classList.add('button_bar');
+    buildSteps.appendChild(buildButtonBar);
+
+    // Build link in TeacCity
     var buildLink = document.createElement('button');
-    //buildLink.setAttribute('href',`${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId}`)
-    //buildLink.appendChild(document.createTextNode(`Build#: ${buildId}`));
-    buildLink.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
-    buildLink.appendChild(document.createTextNode('Click here to close'));
-    buildHeader.appendChild(buildLink);
+    buildLink.setAttribute('onclick',`window.open('${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId};','build_${buildId}','fullscreen=yes');`)
+    buildLink.appendChild(document.createTextNode(`Open build in TeamCity`));
     buildSteps.appendChild(buildLink);
+
+    var buildCloseButton = document.createElement('button');
+    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
+    buildCloseButton.appendChild(document.createTextNode('Click here to close'));
+    buildSteps.appendChild(buildCloseButton);
 
     Object.entries(messages).forEach(([key, message]) => {
 
