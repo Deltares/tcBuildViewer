@@ -109,18 +109,30 @@ function add_builds_to_buildtype(buildType) {
         .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
-function get_build_details(buildId) {
-    fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+async function get_build_details(buildId) {
+    let messagesRequest = fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
-    })
-        .then((result) => result.json())
-        .then((output) => {
-            renderBuildDetails(buildId,output.messages);
-        })
-        .catch(err => { console.log(err) });
+    });
+
+    let messages = await messagesRequest.json().messages;
+
+    let changesRequest = fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId}&${change_fields})`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    });
+
+    let changes = await changesRequest.json().changes;
+
+    renderBuildDetails(buildId,await messages,await changes);
+}
+
+function get_build_details(buildId) {
+
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.

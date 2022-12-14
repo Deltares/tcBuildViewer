@@ -165,8 +165,7 @@ function renderBuild(build) {
 
 }
 
-
-function renderBuildDetails(buildId,messages) {
+function renderBuildDetails(buildId,messages,changes) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildSteps.innerHTML = "";
