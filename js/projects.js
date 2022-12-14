@@ -109,7 +109,7 @@ function add_builds_to_buildtype(buildType) {
         .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
-function get_messages_for_build(buildId) {
+function get_build_details(buildId) {
     fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -118,7 +118,7 @@ function get_messages_for_build(buildId) {
     })
         .then((result) => result.json())
         .then((output) => {
-            renderMessages(buildId,output.messages);
+            renderBuildDetails(buildId,output.messages);
         })
         .catch(err => { console.log(err) });
 }

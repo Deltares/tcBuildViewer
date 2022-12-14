@@ -153,7 +153,7 @@ function renderBuild(build) {
     var buildLink = document.createElement("a");
     //buildLink.setAttribute('href', build.webUrl);
     
-    buildLink.setAttribute('onclick', `get_messages_for_build(${build.id})`);
+    buildLink.setAttribute('onclick', `get_build_details(${build.id})`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
@@ -166,7 +166,7 @@ function renderBuild(build) {
 }
 
 
-function renderMessages(buildId,messages) {
+function renderBuildDetails(buildId,messages) {
     var parentElementId = document.getElementById(buildId).parentElement.parentElement.id;
     var buildSteps = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0];
     buildSteps.innerHTML = "";
