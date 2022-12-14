@@ -178,17 +178,24 @@ function renderBuildDetails(buildId,messages) {
     buildButtonBar.classList.add('buildButtonBar');
     buildSteps.appendChild(buildButtonBar);
 
+    // Show logs
+    var buildChangesButton = document.createElement('button');
+    buildChangesButton.setAttribute('onclick',``)
+    buildChangesButton.classList.add('active')
+    buildChangesButton.appendChild(document.createTextNode('Logs'));
+    buildButtonBar.appendChild(buildChangesButton);
+
+    // Show changes
+    var buildChangesButton = document.createElement('button');
+    buildChangesButton.setAttribute('onclick',`this.classList.add('active')`);
+    buildChangesButton.appendChild(document.createTextNode('Blame'));
+    buildButtonBar.appendChild(buildChangesButton);
+
     // Open build in TeamCity
     var buildLink = document.createElement('button');
     buildLink.setAttribute('onclick',`window.open('${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId};','build_${buildId}','fullscreen=yes');`)
     buildLink.appendChild(document.createTextNode(`Open in TeamCity ⧉`));
     buildButtonBar.appendChild(buildLink);
-
-    // Show changes
-    var buildChangesButton = document.createElement('button');
-    buildChangesButton.setAttribute('onclick',``)
-    buildChangesButton.appendChild(document.createTextNode('Blame'));
-    buildButtonBar.appendChild(buildChangesButton);
 
     // Close build details
     var buildCloseButton = document.createElement('button');
