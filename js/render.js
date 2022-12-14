@@ -175,7 +175,7 @@ function renderBuildDetails(buildId,messages) {
     // Build button-bar
     var buildButtonBar = document.createElement('div');
     buildButtonBar.classList.add('header');
-    buildButtonBar.classList.add('button_bar');
+    buildButtonBar.classList.add('build_button_bar');
     buildSteps.appendChild(buildButtonBar);
 
     // Build link in TeacCity
