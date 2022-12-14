@@ -119,7 +119,7 @@ async function get_build_details(buildId) {
         credentials: 'include',
     });
 
-    var messages = await messagesRequest.json().messages;
+    var messages = await messagesRequest.json();
 
     console.log(messages);
 
@@ -130,7 +130,7 @@ async function get_build_details(buildId) {
         credentials: 'include',
     });
 
-    var changes = await changesRequest.json().changes;
+    var changes = await changesRequest.json();
 
     console.log(changes);
 
