@@ -224,7 +224,7 @@ function renderBuildDetails(buildId,messages,changes) {
             tcTimeToUnix(change.date)).toLocaleString() + '<br />#' +
             change.version + '<br />' +
             change.username + '<br />' +
-            '<a href="'+${change.webUrl}+'">'+${change.webUrl}+'</a><br />';
+            '<a href="'+change.webUrl+'">'+change.webUrl+'</a><br />';
         messageP.innerText = messageText;
         buildDetails.appendChild(messageP);
 
