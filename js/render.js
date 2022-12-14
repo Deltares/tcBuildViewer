@@ -178,15 +178,22 @@ function renderBuildDetails(buildId,messages) {
     buildButtonBar.classList.add('buildButtonBar');
     buildSteps.appendChild(buildButtonBar);
 
-    // Build link in TeacCity
+    // Open build in TeamCity
     var buildLink = document.createElement('button');
     buildLink.setAttribute('onclick',`window.open('${teamcity_base_url}/viewLog.html?buildId=${buildId}&buildTypeId=${parentElementId};','build_${buildId}','fullscreen=yes');`)
-    buildLink.appendChild(document.createTextNode(`Open build in TeamCity`));
+    buildLink.appendChild(document.createTextNode(`Open in TeamCity ⧉`));
     buildButtonBar.appendChild(buildLink);
 
+    // Show changes
+    var buildChangesButton = document.createElement('button');
+    buildChangesButton.setAttribute('onclick',``)
+    buildChangesButton.appendChild(document.createTextNode('Blame'));
+    buildButtonBar.appendChild(buildChangesButton);
+
+    // Close build details
     var buildCloseButton = document.createElement('button');
     buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden');`)
-    buildCloseButton.appendChild(document.createTextNode('Click here to close'));
+    buildCloseButton.appendChild(document.createTextNode('Close'));
     buildButtonBar.appendChild(buildCloseButton);
 
     Object.entries(messages).forEach(([key, message]) => {

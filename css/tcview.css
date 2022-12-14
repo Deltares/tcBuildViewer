@@ -372,6 +372,7 @@ a:hover > div.linkIcon {
 .buildButtonBar {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 1em;
 }
 
 /* Build steps on expansion of build type. */
