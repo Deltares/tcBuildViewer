@@ -439,9 +439,11 @@ a:hover > div.linkIcon {
 }
 
 .build_user_name {
+    text-align: center;
     font-weight: bolder;
 }
 
 .build_user_time {
     text-align: right;
+    white-space: nowrap;
 }
