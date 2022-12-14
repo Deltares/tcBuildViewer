@@ -418,5 +418,5 @@ a:hover > div.linkIcon {
 
 .changes {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: fit-content(25%) auto fit-content(25%);
 }
