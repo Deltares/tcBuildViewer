@@ -431,3 +431,16 @@ a:hover > div.linkIcon {
 .smaller {
     font-size: 0.8em;
 }
+
+.build_user {
+    display: grid;
+    grid-template-columns: fit-content(100%) auto;
+}
+
+.build_user_name {
+    font-weight: bolder;
+}
+
+.build_user_time {
+    text-align: right;
+}
