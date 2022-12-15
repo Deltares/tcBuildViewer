@@ -172,7 +172,7 @@
 
                     // Fetched projects will be immediately rendered.
                     selection.include_projects.forEach(projectId => {
-                        append_projects_recursively(projectId); // projects.js
+                        append_projects_recursively(projectId, null); // projects.js
                     });
                 });
 
