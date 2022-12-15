@@ -44,12 +44,16 @@ function renderProject(project) {
     projectDiv.classList.add(project.parentProjectId);
     projectDiv.setAttribute('title', `Project ID: ${project.id}`);
 
+    // Wrapper for project collapse button and title.
+    var projectWrapperDiv = document.createElement("div");
+    projectDiv.appendChild(projectWrapperDiv);
+
     // Collapse button.
     var collapseDiv = document.createElement("div");
     collapseDiv.classList.add('collapse_button');
     collapseDiv.setAttribute('title','collapse');
-    collapseDiv.setAttribute('onclick', `this.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`);
-    projectDiv.appendChild(collapseDiv);
+    collapseDiv.setAttribute('onclick', `this.parentElement.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`);
+    projectWrapperDiv.appendChild(collapseDiv);
 
     // Collapse button text.
     var collapseDivText = document.createTextNode('▼');
@@ -59,7 +63,7 @@ function renderProject(project) {
     var projectLink = document.createElement("a");
     projectLink.setAttribute('href', project.webUrl);
     projectLink.setAttribute('target', '_blank');
-    collapseDiv.after(projectLink);
+    projectWrapperDiv.appendChild(projectLink);
 
     // Text for TeamCity project link.
     var projectText = document.createTextNode(`${project.name}`);
