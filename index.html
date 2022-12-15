@@ -121,8 +121,7 @@
                         reader.readAsText(file,"UTF-8");
 
                         reader.onload = readerEvent => {
-                            console.log(readerEvent);
-                            edit_selection = JSON.stringify(reader.target.result, undefined, 2);
+                            edit_selection = JSON.stringify(readerEvent.target.result, undefined, 2);
                             updateSelectionForm();
                         }
                     }
