@@ -4,7 +4,7 @@ function checkFilterButtons(downloadQueueLength) {
         return;
     }
     else if (downloadQueueLength == 1) {
-        document.querySelectorAll('.filter_button').forEach(button => {button.disabled = true;});
+        document.querySelectorAll('.filter_button').forEach(button => {button.disabled = true; button.classList.remove('active')});
     }
     else {
         document.querySelectorAll('.filter_button').forEach(button => {button.disabled = false;});
