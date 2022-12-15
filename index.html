@@ -73,7 +73,7 @@
             with a higher urgency.
         </div>
 
-        <div id="info" class="hidden" style="">
+        <div id="info" class="hidden">
             <div class="header">Source code</div>
             <a target="_blank" href="https://github.com/Deltares/tcBuildViewer">https://github.com/Deltares/tcBuildViewer ⧉</a>
             <div class="header">Bugs or suggestions</div>
@@ -141,9 +141,9 @@
 
                 download_queue_length = 0;
 
-                getFavoriteProjects().then((repsonse_selection) => {
+                getFavoriteProjects().then((response_selection) => {
 
-                    api_selection = repsonse_selection;
+                    api_selection = response_selection;
 
                     if (edit_selection) {
                         selection = edit_selection;

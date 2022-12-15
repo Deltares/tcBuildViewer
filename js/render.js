@@ -33,6 +33,7 @@ function renderProject(project) {
     var projectDiv = document.createElement("div");
     var parentElement = document.getElementById(project.parentProjectId);
     if (parentElement) {
+        projectDiv.style.order = project.order;
         parentElement.appendChild(projectDiv);
     } else {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv);

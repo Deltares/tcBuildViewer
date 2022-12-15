@@ -40,8 +40,9 @@ async function append_projects_recursively(projectId) {
 
             // Check for builds to add to project
             if (output.buildTypes.buildType) {
-                Object.entries(output.buildTypes.buildType).forEach(([key, value]) => {
-                    add_builds_to_buildtype(output.buildTypes.buildType[key], value.id);
+                Object.entries(output.buildTypes.buildType).forEach(([key, buildType]) => {
+                    buildType.order = key;
+                    add_builds_to_buildtype(output.buildTypes.buildType[key], buildType.id);
                 });
             }
 
@@ -49,8 +50,9 @@ async function append_projects_recursively(projectId) {
 
             // Check for sub-projects to add
             if (output.projects.project) {
-                Object.entries(output.projects.project).forEach(([key, value]) => {
-                    append_projects_recursively(value.id);
+                Object.entries(output.projects.project).forEach(([key, project]) => {
+                    project.order = key;
+                    append_projects_recursively(project.id);
                 });
             }
         })
