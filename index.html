@@ -110,7 +110,25 @@
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
                 <button onclick="getFavoriteProjects().then((favorite_projects) => {edit_selection=favorite_projects;updateSelectionForm()});">TeamCity API</button>
-                <button disabled>File</button>
+                <button onclick='
+
+                    var selectionFile = document.createElement("input");
+                    selectionFile.type = "file";
+                    selectionFile.onchange = e => {
+                        var file = e.target.files[0];
+                        var reader = new FileReader();
+
+                        reader.readAsBinaryString(file);
+
+                        reader.onload = readerEvent => {
+                            edit_selection = JSON.parse(readerEvent.target.result);
+                            console.log(edit_selection);
+                            updateSelectionForm();
+                        }
+                    }    
+                    selectionFile.click();
+
+                '>File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
                 <button onclick="setCookie('tcSelection',JSON.stringify(selection),365); alert('Selection saved to cookie!')">Cookie</button>
