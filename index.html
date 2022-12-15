@@ -121,7 +121,7 @@
                         reader.readAsBinaryString(file);
 
                         reader.onload = readerEvent => {
-                            edit_selection = JSON.stringify(readerEvent.target.result, undefined, 2);
+                            edit_selection = JSON.stringify(JSON.parse(readerEvent.target.result), undefined, 2);
                             updateSelectionForm();
                         }
                     }
