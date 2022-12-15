@@ -33,6 +33,7 @@ function renderProject(project) {
     var projectDiv = document.createElement("div");
     var parentElement = document.getElementById(project.parentProjectId);
     if (parentElement) {
+        projectDiv.style.order = project.order;
         parentElement.appendChild(projectDiv);
     } else {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv);
@@ -44,12 +45,16 @@ function renderProject(project) {
     projectDiv.classList.add(project.parentProjectId);
     projectDiv.setAttribute('title', `Project ID: ${project.id}`);
 
+    // Wrapper for project collapse button and title.
+    var projectWrapperDiv = document.createElement("div");
+    projectDiv.appendChild(projectWrapperDiv);
+
     // Collapse button.
     var collapseDiv = document.createElement("div");
     collapseDiv.classList.add('collapse_button');
     collapseDiv.setAttribute('title','collapse');
-    collapseDiv.setAttribute('onclick', `this.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`);
-    projectDiv.appendChild(collapseDiv);
+    collapseDiv.setAttribute('onclick', `this.parentElement.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`);
+    projectWrapperDiv.appendChild(collapseDiv);
 
     // Collapse button text.
     var collapseDivText = document.createTextNode('▼');
@@ -57,9 +62,10 @@ function renderProject(project) {
 
     // Link to TeamCity project page.
     var projectLink = document.createElement("a");
+    projectLink.classList.add('project_title');
     projectLink.setAttribute('href', project.webUrl);
     projectLink.setAttribute('target', '_blank');
-    projectDiv.appendChild(projectLink);
+    projectWrapperDiv.appendChild(projectLink);
 
     // Text for TeamCity project link.
     var projectText = document.createTextNode(`${project.name}`);
@@ -84,6 +90,7 @@ function renderBuildType(buildType) {
     // Add buildType to project.
     var buildTypeDiv = document.createElement("div");
     var parentElement = document.getElementById(buildType.projectId);
+    buildTypeDiv.style.order = buildType.order;
     parentElement.appendChild(buildTypeDiv);
 
     // Create buildTextDiv.
