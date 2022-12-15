@@ -195,8 +195,9 @@ a:hover > div.linkIcon {
 }
 
 /* This link should blend in */
-#info a, #login a {
+#info a, #login a, #firefox a {
     color: white;
+    text-decoration: underline;
 }
 
 /* Buttons below the page header */
@@ -208,14 +209,15 @@ a:hover > div.linkIcon {
 }
 
 /* visible when the user is not logged into TeamCity */
-#login {
+#login, #firefox, #info {
     text-align: center;
     font-size: 150%;
     padding: 1em !important;
+    display: flex; flex-direction: column;
 }
 
 /* Hidden divisions */
-#login, #info, #selection {
+#firefox, #login, #info, #selection {
     font-size: 18px;
     margin: 10px;
     padding: 10px;
