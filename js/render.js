@@ -90,6 +90,7 @@ function renderBuildType(buildType) {
     // Add buildType to project.
     var buildTypeDiv = document.createElement("div");
     var parentElement = document.getElementById(buildType.projectId);
+    buildTypeDiv.style.order = buildType.order;
     parentElement.appendChild(buildTypeDiv);
 
     // Create buildTextDiv.
