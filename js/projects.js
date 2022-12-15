@@ -52,9 +52,9 @@ async function append_projects_recursively(projectId, order) {
             
             // Check for sub-projects to add
             if (project.projects.project) {
-                Object.entries(project.projects.project).forEach(([key, project], this) => {
+                Object.entries(project.projects.project).forEach(([key, project]) => {
                     append_projects_recursively(project.id, this.project.buildTypes.buildType.length+key);
-                });
+                },this);
             }
         })
         .catch(err => { console.log(err) })
