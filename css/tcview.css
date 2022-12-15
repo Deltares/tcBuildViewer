@@ -17,7 +17,7 @@
 }
 
 .collapsed > .project, .collapsed > .buildType {
-    display: none;
+    display: none !important;
 }
 
 .collapse_button {
@@ -245,8 +245,8 @@ a:hover > div.linkIcon {
 }
 
 /* Title/link of first level of projects. */
-#_projects > div.project_wrapper > div.project > a,
-#_projects > div.project_wrapper > div.project > div.collapse_button {
+#_projects > div.project_wrapper > div.project > div > a.project_title,
+#_projects > div.project_wrapper > div.project > div > div.collapse_button {
     font-size: 150%;
 }
 
@@ -257,12 +257,12 @@ a:hover > div.linkIcon {
 
 /* Hide projects without builds. */
 .project:not(:has(.build)) {
-    display:none;
+    display:none !important;
 }
 
 /* Hide projects with only hidden build types. */
 .project:not(:has(.buildType:not(.hidden,.hidden_statusChanged))) {
-    display:none;
+    display:none !important;
 }
 
 /* A 'build type' contains builds. */

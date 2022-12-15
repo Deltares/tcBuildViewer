@@ -15,7 +15,7 @@ var download_queue_length = 0;
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projectId) {
+async function append_projects_recursively(projectId, order) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
@@ -36,22 +36,26 @@ async function append_projects_recursively(projectId) {
                 return Promise.reject('User not logged in.');
             }
         })
-        .then((output) => {
+        .then((project) => {
+
+            project.order = order;
+
+            renderProject(project);
 
             // Check for builds to add to project
-            if (output.buildTypes.buildType) {
-                Object.entries(output.buildTypes.buildType).forEach(([key, value]) => {
-                    add_builds_to_buildtype(output.buildTypes.buildType[key], value.id);
+            if (project.buildTypes.buildType) {
+                Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
+                    buildType.order = key;
+                    add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id);
                 });
             }
-
-            renderProject(output);
-
+            
             // Check for sub-projects to add
-            if (output.projects.project) {
-                Object.entries(output.projects.project).forEach(([key, value]) => {
-                    append_projects_recursively(value.id);
-                });
+            if (project.projects.project) {
+                Object.entries(project.projects.project).forEach(([key, subproject]) => {
+                    console.log(this.project.buildTypes);
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key);
+                },this);
             }
         })
         .catch(err => { console.log(err) })

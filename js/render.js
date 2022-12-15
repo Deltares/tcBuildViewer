@@ -33,6 +33,7 @@ function renderProject(project) {
     var projectDiv = document.createElement("div");
     var parentElement = document.getElementById(project.parentProjectId);
     if (parentElement) {
+        projectDiv.style.order = project.order;
         parentElement.appendChild(projectDiv);
     } else {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv);
@@ -61,6 +62,7 @@ function renderProject(project) {
 
     // Link to TeamCity project page.
     var projectLink = document.createElement("a");
+    projectLink.classList.add('project_title');
     projectLink.setAttribute('href', project.webUrl);
     projectLink.setAttribute('target', '_blank');
     projectWrapperDiv.appendChild(projectLink);
@@ -88,6 +90,7 @@ function renderBuildType(buildType) {
     // Add buildType to project.
     var buildTypeDiv = document.createElement("div");
     var parentElement = document.getElementById(buildType.projectId);
+    buildTypeDiv.style.order = buildType.order;
     parentElement.appendChild(buildTypeDiv);
 
     // Create buildTextDiv.
