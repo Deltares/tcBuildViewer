@@ -245,7 +245,7 @@ a:hover > div.linkIcon {
 }
 
 /* Title/link of first level of projects. */
-#_projects > div.project_wrapper > div.project > div > a.projectTitle,
+#_projects > div.project_wrapper > div.project > div > a.project_title,
 #_projects > div.project_wrapper > div.project > div.collapse_button {
     font-size: 150%;
 }
