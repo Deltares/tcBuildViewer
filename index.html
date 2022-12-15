@@ -104,7 +104,7 @@
                     <textarea id="selection_textarea" class="code"></textarea>
                 </form>
             </div>
-            <button onclick="edit_selection = JSON.parse(document.getElementById('selection_textarea').value); fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
+            <button class="filter_button" onclick="edit_selection = JSON.parse(document.getElementById('selection_textarea').value); fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
             <div id="selection_code" class="code" style="grid-column: 3;"></div>
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
