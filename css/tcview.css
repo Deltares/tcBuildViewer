@@ -445,6 +445,7 @@ a:hover > div.linkIcon {
     padding: 0.5em;
     background: #eee;
     border-radius: 10px;
+    line-break: anywhere;
 }
 
 .smaller {
