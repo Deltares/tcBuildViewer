@@ -59,7 +59,7 @@ function renderProject(project) {
     var projectLink = document.createElement("a");
     projectLink.setAttribute('href', project.webUrl);
     projectLink.setAttribute('target', '_blank');
-    projectDiv.appendChild(projectLink);
+    collapseDiv.after(projectLink);
 
     // Text for TeamCity project link.
     var projectText = document.createTextNode(`${project.name}`);
