@@ -122,7 +122,7 @@
 
                         reader.onload = readerEvent => {
                             console.log(readerEvent);
-                            edit_selection = readerEvent.target.result;
+                            edit_selection = JSON.stringify(reader.target.result, undefined, 2);
                             updateSelectionForm();
                         }
                     }
