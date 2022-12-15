@@ -257,7 +257,7 @@ a:hover > div.linkIcon {
 
 /* Hide projects without builds. */
 .project:not(:has(.build)) {
-    display:none;
+    display:none !important;
 }
 
 /* Hide projects with only hidden build types. */
