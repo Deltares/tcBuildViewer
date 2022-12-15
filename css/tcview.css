@@ -232,6 +232,8 @@ a:hover > div.linkIcon {
     border-top: 2px dashed lightgray;
     padding: 4px;
     padding-right: 0px;
+    display: grid;
+    grid-template-columns: auto;
 }
 
 /* First level of projects. */
@@ -447,9 +449,6 @@ a:hover > div.linkIcon {
 
 .smaller {
     font-size: 0.8em;
-}
-
-.build_user {
 }
 
 .build_user_name {
