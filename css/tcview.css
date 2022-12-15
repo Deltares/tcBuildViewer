@@ -262,7 +262,7 @@ a:hover > div.linkIcon {
 
 /* Hide projects with only hidden build types. */
 .project:not(:has(.buildType:not(.hidden,.hidden_statusChanged))) {
-    display:none;
+    display:none !important;
 }
 
 /* A 'build type' contains builds. */
