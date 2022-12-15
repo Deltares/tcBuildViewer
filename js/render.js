@@ -62,6 +62,7 @@ function renderProject(project) {
 
     // Link to TeamCity project page.
     var projectLink = document.createElement("a");
+    projectLink.classList.add('project_title');
     projectLink.setAttribute('href', project.webUrl);
     projectLink.setAttribute('target', '_blank');
     projectWrapperDiv.appendChild(projectLink);
