@@ -163,8 +163,8 @@ function renderBuild(build) {
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`);
-        buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})');
-        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})');
+        buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})');
+        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})');
     }
     buildDiv.appendChild(buildLink);
 
