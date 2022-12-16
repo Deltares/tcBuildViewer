@@ -467,6 +467,19 @@ a:hover > div.linkIcon {
     white-space: nowrap;
 }
 
+@keyframes pulsate {
+    from {
+        transform: scale(1);
+    }
+  
+    to {
+        transform: scale(1.4);
+    }
+}
+
 .branch_selected {
-    transform: scale(1.4);
+    animation-duration: 0.5s;
+    animation-name: pulsate;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
