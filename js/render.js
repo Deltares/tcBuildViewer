@@ -158,7 +158,7 @@ function renderBuild(build) {
 
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
-    if(branchName) {console.log(branchName)};
+    if(build.branchName) {console.log(build.branchName)};
     buildLink.setAttribute('onclick', `get_build_details(${build.id});`);
     buildLink.setAttribute('target', '_blank');
     buildLink.setAttribute('title', `Branch: ${build.branchName}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
