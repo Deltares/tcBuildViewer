@@ -158,10 +158,14 @@ function renderBuild(build) {
 
     // Link to TeamCity build page.
     var buildLink = document.createElement("a");
-    
     buildLink.setAttribute('onclick', `get_build_details(${build.id});`);
     buildLink.setAttribute('target', '_blank');
-    buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
+    buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
+    if(build.branchName) {
+        buildLink.classList.add(`branch_${build.branchName}`);
+        buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})');
+        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})');
+    }
     buildDiv.appendChild(buildLink);
 
     // Text for TeamCity build link.

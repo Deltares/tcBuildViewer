@@ -331,6 +331,11 @@ a:hover > div.linkIcon {
     text-decoration: none;
 }
 
+.build > a {
+    display: inline-block;
+    margin: 3px 0px;
+}
+
 .build.FAILURE > a {
     color: #F0C0B3;
 }
@@ -460,4 +465,8 @@ a:hover > div.linkIcon {
 .build_user_time {
     text-align: right;
     white-space: nowrap;
+}
+
+.branch_selected {
+    transform: scale(1.4);
 }

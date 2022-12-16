@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
+var buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
 var build_fields = 'fields=buildType(steps(step))';
 var message_fields = 'fields=messages';
 var change_fields = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
@@ -53,7 +53,6 @@ async function append_projects_recursively(projectId, order) {
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    console.log(this.project.buildTypes);
                     append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key);
                 },this);
             }
