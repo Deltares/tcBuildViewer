@@ -463,5 +463,5 @@ a:hover > div.linkIcon {
 }
 
 .branch_selected {
-    text-shadow: 0px 4px 0px black;
+    text-shadow: 0px 4px 2px black;
 }
