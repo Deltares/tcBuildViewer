@@ -161,7 +161,7 @@ function renderBuild(build) {
     
     buildLink.setAttribute('onclick', `get_build_details(${build.id});`);
     buildLink.setAttribute('target', '_blank');
-    buildLink.setAttribute('title', `Status: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
+    buildLink.setAttribute('title', `Branch: ${build.branchName}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     buildDiv.appendChild(buildLink);
 
     // Text for TeamCity build link.
