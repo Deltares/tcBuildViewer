@@ -163,7 +163,8 @@ function renderBuild(build) {
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`);
     if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`);
-        buildLink.setAttribute('onmouseover','Array.from(this.parentElement.getElementsByClassName(this.className)).forEach(element => {element.style.fontSize = \'2em\'})');
+        buildLink.setAttribute('onmouseover','let class = this.className; Array.from(this.parentElement.parentElement.getElementsByClassName(class)).forEach(element => {element.style.fontSize = \'2em\'})');
+        buildLink.setAttribute('mouseout','let class = this.className; Array.from(this.parentElement.parentElement.getElementsByClassName(class)).forEach(element => {element.style.removeProperty(\'font-size\')})');
     }
     buildDiv.appendChild(buildLink);
 
