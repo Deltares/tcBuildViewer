@@ -331,7 +331,7 @@ a:hover > div.linkIcon {
     text-decoration: none;
 }
 
-.build > a{
+.build > a {
     display: inline-block;
     margin: 3px 0px;
 }
@@ -468,6 +468,5 @@ a:hover > div.linkIcon {
 }
 
 .branch_selected {
-    display: inline-block;
     transform: scale(1.4);
 }
