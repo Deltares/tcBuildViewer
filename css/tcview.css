@@ -331,6 +331,11 @@ a:hover > div.linkIcon {
     text-decoration: none;
 }
 
+.build > a{
+    display: inline-block;
+    margin: 3px 0px;
+}
+
 .build.FAILURE > a {
     color: #F0C0B3;
 }
