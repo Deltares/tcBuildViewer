@@ -164,7 +164,7 @@ function renderBuild(build) {
     if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`);
         buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.style.fontSize = \'2em\'})');
-        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.style.fontSize = \'\')})');
+        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.style.fontSize = \'\'})');
     }
     buildDiv.appendChild(buildLink);
 
