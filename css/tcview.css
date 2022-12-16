@@ -333,7 +333,7 @@ a:hover > div.linkIcon {
 
 .build > a {
     display: inline-block;
-    margin: 3px 0px;
+    margin: 0px 2px;
 }
 
 .build.FAILURE > a {
