@@ -114,6 +114,7 @@ function renderBuildType(buildType) {
     // Add buildType to project.
     let buildTypeDiv = document.createElement("div")
     let parentElement = document.getElementById(buildType.projectId).getElementsByClassName('projectBuildTypesDiv')[0]
+    parentElement.appendChild(buildTypeLink)
     buildTypeDiv.style.order = buildType.order
     //parentElement.appendChild(buildTypeDiv)
 
@@ -134,7 +135,6 @@ function renderBuildType(buildType) {
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.setAttribute('target', '_blank')
-    parentElement.appendChild(buildTypeLink)
 
     // Text for the buildType.
     let buildTypeText = document.createTextNode(buildType.name)
