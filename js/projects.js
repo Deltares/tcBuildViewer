@@ -1,5 +1,5 @@
 // API field selectors for optimization.
-const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations:(investigation(id,state,assignee,assignment)))'
 const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
@@ -111,7 +111,9 @@ function add_builds_to_buildtype(buildType) {
                 };
 
             }
-            get_investigations(buildType.id)
+
+            console.log(buildType.investigations?.investigation)
+            //get_investigations(buildType.id)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
