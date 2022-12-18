@@ -17,7 +17,7 @@
 // If your tcBuildViewer is hosted on the same domain as your TeamCity.
 const teamcity_base_url = ''
 // If you host your tcBuildViewer on a different domain:
-// const teamcity_base_url = 'https://<your-teamcity-domain>';
+// const teamcity_base_url = 'https://<your-teamcity-domain>'
 
 // Which projects to traverse and which to ignore.
 // This is used as a fallback when the user has
