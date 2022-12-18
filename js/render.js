@@ -158,7 +158,7 @@ function renderBuildType(buildType) {
         let testStatisticsDiv = document.createElement('div').classList.add('test_statistics_text')
         let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${muted?'('+muted+' muted) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
         testStatisticsDiv.appendChild(testStatisticsText)
-        parentElement.appendChild(testStatisticsText)
+        parentElement.appendChild(testStatisticsDiv)
     }
 
     // Investigations
