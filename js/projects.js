@@ -111,6 +111,8 @@ function add_builds_to_buildtype(buildType, project) {
                 project.testPassed    += build[0].testOccurrences?.passed?build[0].testOccurrences?.passed:0
                 project.testCount     += build[0].testOccurrences?.count?build[0].testOccurrences?.count:0
                 
+                console.log(project.testCount);
+
                 for (i=0; i<build.length; i++) {
 
                     if (build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
