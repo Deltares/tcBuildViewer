@@ -1,12 +1,12 @@
 // API field selectors for optimization.
-var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
-var build_fields = 'fields=buildType(steps(step))';
-var message_fields = 'fields=messages';
-var change_fields = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
+const project_fields   = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
+//const build_fields     = 'fields=buildType(steps(step))'
+const message_fields   = 'fields=messages'
+const change_fields    = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
 
 // Keep track of pending downloads.
-var download_queue_length = 0;
+let download_queue_length = 0
 
 /* Recursively add projects as JSON objects to array.
 /
@@ -19,9 +19,10 @@ async function append_projects_recursively(projectId, order) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
-        return;
+        return
     
-    checkFilterButtons(++download_queue_length);
+    // Will enable/disable buttons when there are downloads in progress.
+    checkFilterButtons(++download_queue_length)
 
     fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
         headers: {
@@ -31,39 +32,40 @@ async function append_projects_recursively(projectId, order) {
     })
         .then((result) => {
             if (result.status == 200) {
-                return result.json();
+                return result.json()
             } else {
-                return Promise.reject('User not logged in.');
+                return Promise.reject('User not logged in.')
             }
         })
         .then((project) => {
 
-            project.order = order;
+            project.order = order // Consistent ordering of projects.
 
-            renderProject(project);
+            renderProject(project)
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
-                    buildType.order = key;
-                    add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id);
-                });
+                    buildType.order = key // Consistent ordering of buildTypes.
+                    add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id)
+                })
             }
             
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key);
-                },this);
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key) // Make sure that projects are below the buildTypes.
+                })
             }
         })
         .catch(err => { console.log(err) })
-        .finally(() => {checkFilterButtons(--download_queue_length);});
+        .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
 function add_builds_to_buildtype(buildType) {
 
-    checkFilterButtons(++download_queue_length);
+    // Will enable/disable buttons when there are downloads in progress.
+    checkFilterButtons(++download_queue_length)
 
     fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
         headers: {
@@ -73,46 +75,47 @@ function add_builds_to_buildtype(buildType) {
     })
         .then((result) => result.json())
         .then((output) => {
-            buildType.builds = output;
-            // Check if the build result is changed with the last build.
-            
-            if (buildType.builds.build && buildType.builds.build.length > 0 && buildType.builds.build[0].problemOccurrences && buildType.builds.build[0].problemOccurrences.newFailed && buildType.builds.build[0].problemOccurrences.newFailed > 0) {
-                buildType.statusChanged = true;
-                
-            } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
-                buildType.statusChanged = true;
-            } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].testOccurrences && buildType.builds.build[0].testOccurrences.passed != buildType.builds.build[1].testOccurrences.passed) {
-                buildType.statusChanged = true;
+
+            buildType.builds = output
+
+            // Check if the latest build result has changed.
+            if (buildType.builds.build?.[0]?.problemOccurrences?.newFailed > 0) {
+                buildType.statusChanged = true
+            } else if (buildType.builds.build?.[0]?.status != buildType.builds.build[1]?.status) {
+                buildType.statusChanged = true
+            } else if (buildType.builds.build?.[0]?.testOccurrences?.passed != buildType.builds.build[1]?.testOccurrences?.passed) {
+                buildType.statusChanged = true
             } else {
-                buildType.statusChanged = false;
+                buildType.statusChanged = false
             }
-            renderBuildType(buildType);
+
+            renderBuildType(buildType)
+
+            // Check for every build if the result has changed since the previous build.
             if (buildType.builds.build) {
                 
                 for (i=0; i<buildType.builds.build.length; i++) {
 
-                    if (buildType.builds.build[i+1]) {
-                        
-                        if (buildType.builds.build[i].testOccurrences && buildType.builds.build[i+1].testOccurrences &&
-                            buildType.builds.build[i].testOccurrences.passed != buildType.builds.build[i+1].testOccurrences.passed) {
-                            buildType.builds.build[i].statusChanged = true;
-                        }
+                    if (buildType.builds.build[i].testOccurrences?.passed != buildType.builds.build[i+1]?.testOccurrences?.passed) {
+                        buildType.builds.build[i].statusChanged = true
                     }
 
+                    // Add Unix timestamp for future functions.
                     if (buildType.builds.build[i].finishOnAgentDate) {
-                        buildType.builds.build[i].unixTime = tcTimeToUnix(buildType.builds.build[i].finishOnAgentDate);
+                        buildType.builds.build[i].unixTime = tcTimeToUnix(buildType.builds.build[i].finishOnAgentDate)
                     }
 
-                    renderBuild(buildType.builds.build[i]);
+                    renderBuild(buildType.builds.build[i])
 
                 };
 
             }
         })
         .catch(err => { console.log(err) })
-        .finally(() => {checkFilterButtons(--download_queue_length);});
+        .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
+// On-demand information when a build is clicked.
 async function get_build_details(buildId) {
 
     let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
@@ -120,64 +123,64 @@ async function get_build_details(buildId) {
             'Accept': 'application/json',
         },
         credentials: 'include',
-    });
+    })
 
-    let messagesJSON = await messagesRequest.json();
+    let messagesJSON = await messagesRequest.json()
 
-    var messages = messagesJSON.messages;
+    let messages = messagesJSON.messages
 
     let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
-    });
+    })
 
-    let changesJSON = await changesRequest.json();
+    let changesJSON = await changesRequest.json()
 
-    var changes = changesJSON.change;
+    let changes = changesJSON.change
 
-    renderBuildDetails(buildId, await messages, await changes);
+    renderBuildDetails(buildId, await messages, await changes)
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.
 function tcTimeToUnix(tcTime) {
-    split    = tcTime.split('');
-    year     = split.slice(0, 4).join('');
-    month    = split.slice(4, 6).join('');
-    day      = split.slice(6, 8).join('');
-    t        = split.slice(8, 9).join('');
-    hour     = split.slice(9, 11).join('');
-    minute   = split.slice(11, 13).join('');
-    second   = split.slice(13, 15).join('');
-    timezone = split.slice(15, 23).join('');
-    var date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}.000${timezone}`);
-    return date.getTime(); // Unix timestamp from Date object.
+    split    = tcTime.split('')
+    year     = split.slice(0, 4).join('')
+    month    = split.slice(4, 6).join('')
+    day      = split.slice(6, 8).join('')
+    t        = split.slice(8, 9).join('')
+    hour     = split.slice(9, 11).join('')
+    minute   = split.slice(11, 13).join('')
+    second   = split.slice(13, 15).join('')
+    timezone = split.slice(15, 23).join('')
+    let date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}.000${timezone}`)
+    return date.getTime() // Unix timestamp from Date object.
 }
 
 // Convert Date to TeamCity's weird time notation.
 function DateToTcTime(date) {
-    year     = date.toISOString().substr(0, 4);
-    month    = date.toISOString().substr(5, 2);
-    day      = date.toISOString().substr(8, 2);
-    hour     = '00'; // Well... let's not get nitty gritty here.
-    minute   = '00';
-    second   = '00';
-    timezone = '%2B0000'; // +0000
-    var tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}`; // TeamCity time format: 20221206T080035+0100
-    return tcTime;
+    year     = date.toISOString().substr(0, 4)
+    month    = date.toISOString().substr(5, 2)
+    day      = date.toISOString().substr(8, 2)
+    hour     = '00' // Well... let's not get nitty gritty here.
+    minute   = '00'
+    second   = '00'
+    timezone = '%2B0000' // +0000
+    let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}` // TeamCity time format: 20221206T080035+0100
+    return tcTime
 }
 
-// Cut-off date in TeamCity's weird time notation.
-var cutoffTcString = function () {
-    var d = new Date();
-    d.setDate(d.getDate()-build_cutoff_days);
+// Cut-off date in TeamCity's weird time notation, used for API calls.
+const cutoffTcString = function () {
+    let d = new Date()
+    d.setDate(d.getDate()-build_cutoff_days)
     return DateToTcTime(d)
 }
 
 // Ol' reliable Unix-time.
-var cutoffUnixTime = function () {
-    var d = new Date();
-    d.setDate(d.getDate()-build_cutoff_days);
+const cutoffUnixTime = function () {
+    let d = new Date()
+    d.setDate(d.getDate()-build_cutoff_days)
     return d.getTime()
 };

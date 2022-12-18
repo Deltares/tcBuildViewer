@@ -7,13 +7,13 @@
     display: none !important;
 }
 
-/* Class to hide unchanged build types */
+/* Class to hide unchanged build types when toggled */
 .hidden_statusChanged {
     display: none !important;
 }
 
 .collapsed {
-    background: #eee;
+    background: #eee; /* A bit less white. */
 }
 
 .collapsed > .project, .collapsed > .buildType {
