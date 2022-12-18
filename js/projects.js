@@ -101,7 +101,7 @@ function add_builds_to_buildtype(buildType, project) {
             renderBuildType(buildType)
 
             // Check for every build if the result has changed since the previous build.
-            if (buildType.builds.build) {
+            if (buildType.builds.build?.[0]) {
 
                 let build = buildType.builds.build
 
