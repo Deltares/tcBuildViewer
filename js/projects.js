@@ -106,10 +106,10 @@ function add_builds_to_buildtype(buildType, project) {
                 let build = buildType.builds.build
 
                 // Add cumulative test statistics to project.
-                project.testNewFailed += build[0].testOccurrences?.newFailed?testOccurrences.newFailed:0
-                project.testMuted     += build[0].testOccurrences?.muted?testOccurrences.muted:0
-                project.testPassed    += build[0].testOccurrences?.passed?testOccurrences.passed:0
-                project.testCount     += build[0].testOccurrences?.count?testOccurrences.count:0
+                project.testNewFailed += build[0].testOccurrences?.newFailed?build[0].testOccurrences?.newFailed:0
+                project.testMuted     += build[0].testOccurrences?.muted?build[0].testOccurrences?.muted:0
+                project.testPassed    += build[0].testOccurrences?.passed?build[0].testOccurrences?.passed:0
+                project.testCount     += build[0].testOccurrences?.count?build[0].testOccurrences?.count:0
                 
                 for (i=0; i<build.length; i++) {
 
