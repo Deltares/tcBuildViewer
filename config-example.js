@@ -22,7 +22,7 @@ const teamcity_base_url = '';
 // Which projects to traverse and which to ignore.
 // This is used as a fallback when the user has
 // no favorite ("starred") projects in TeamCity.
-var default_selection = {
+const default_selection = {
 
     include_projects: [
         "MyProject1",
@@ -36,7 +36,7 @@ var default_selection = {
 }
 
 // Retrieve last X builds of every build type:
-var build_count = 14;
+let build_count = 14;
 
 // Don't retrieve builds that are older than X days:
-var build_cutoff_days = 14;
+let build_cutoff_days = 14;
