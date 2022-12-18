@@ -92,6 +92,7 @@ function renderProjectTestStatistics(project) {
         let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
         let testStatisticsSumDiv = document.createElement('div')
         testStatisticsSumDiv.style.textAlign = 'right'
+        testStatisticsSumDiv.style.display = 'inline-block'
         testStatisticsSumDiv.appendChild(testStatisticsSumText)
         project.div.getElementsByClassName('project_title')[0].after(testStatisticsSumDiv)
     }
