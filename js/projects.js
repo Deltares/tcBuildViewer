@@ -144,7 +144,6 @@ async function add_builds_to_buildtype(buildType, project) {
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
 
-    console.log(promise)
     console.log(await promise)
 }
 
