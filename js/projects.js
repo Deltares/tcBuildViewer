@@ -42,13 +42,18 @@ async function append_projects_recursively(projectId, order) {
 
             project.order = order // Consistent ordering of projects.
 
+            project.testNewFailed = 0
+            project.testMuted     = 0
+            project.testPassed    = 0
+            project.testCount     = 0
+
             renderProject(project)
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
-                    add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id)
+                    add_builds_to_buildtype(project.buildTypes.buildType[key], project)
                 })
             }
             
@@ -59,12 +64,14 @@ async function append_projects_recursively(projectId, order) {
                 })
             }
 
+            console.log(project.testCount)
+
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
-function add_builds_to_buildtype(buildType) {
+function add_builds_to_buildtype(buildType, project) {
 
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
@@ -95,19 +102,27 @@ function add_builds_to_buildtype(buildType) {
 
             // Check for every build if the result has changed since the previous build.
             if (buildType.builds.build) {
-                
-                for (i=0; i<buildType.builds.build.length; i++) {
 
-                    if (buildType.builds.build[i].testOccurrences?.passed != buildType.builds.build[i+1]?.testOccurrences?.passed) {
-                        buildType.builds.build[i].statusChanged = true
+                let build = buildType.builds.build
+
+                // Add cumulative test statistics to project.
+                project.testNewFailed += build[0].testOccurrences?.newFailed?testOccurrences.newFailed:0
+                project.testMuted     += build[0].testOccurrences?.muted?testOccurrences.muted:0
+                project.testPassed    += build[0].testOccurrences?.passed?testOccurrences.passed:0
+                project.testCount     += build[0].testOccurrences?.count?testOccurrences.count:0
+                
+                for (i=0; i<build.length; i++) {
+
+                    if (build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
+                        build[i].statusChanged = true
                     }
 
                     // Add Unix timestamp for future functions.
-                    if (buildType.builds.build[i].finishOnAgentDate) {
-                        buildType.builds.build[i].unixTime = tcTimeToUnix(buildType.builds.build[i].finishOnAgentDate)
+                    if (build[i].finishOnAgentDate) {
+                        build[i].unixTime = tcTimeToUnix(build[i].finishOnAgentDate)
                     }
 
-                    renderBuild(buildType.builds.build[i])
+                    renderBuild(build[i])
 
                 };
 
