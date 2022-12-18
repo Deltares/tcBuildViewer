@@ -129,7 +129,7 @@ function renderBuildType(buildType) {
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
     if (buildType.investigations?.investigation?.[0])
-        buildTypeDiv.appendChild(`(${buildType.investigations?.investigation?.[0].assignee.name})`)
+        buildTypeDiv.append(`(${buildType.investigations?.investigation?.[0].assignee.name})`)
 
     // Element to hold the list of builds.
     let buildListDiv = document.createElement("div")
