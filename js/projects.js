@@ -49,6 +49,7 @@ async function append_projects_recursively(projectId, order) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
                     add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id)
+                    console.log(buildType[0].investigations)
                 })
             }
             
@@ -59,7 +60,6 @@ async function append_projects_recursively(projectId, order) {
                 })
             }
 
-            console.log(project.buildTypes?.buildType?.[0]?.investigations)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
