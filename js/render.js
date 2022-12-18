@@ -114,27 +114,27 @@ function renderBuildType(buildType) {
     let buildTypeDiv = document.createElement("div")
     let parentElement = document.getElementById(buildType.projectId).getElementsByClassName('projectBuildTypesDiv')[0]
     buildTypeDiv.style.order = buildType.order
-    parentElement.appendChild(buildTypeDiv)
+    //parentElement.appendChild(buildTypeDiv)
 
     // Create buildTextDiv.
-    buildTypeDiv.setAttribute('id', buildType.id)
-    buildTypeDiv.setAttribute('title',`BuildType ID: ${buildType.id}`)
-    buildTypeDiv.classList.add('buildType')
-    buildTypeDiv.classList.add(buildType.projectId)
+    parentElement.setAttribute('id', buildType.id)
+    parentElement.setAttribute('title',`BuildType ID: ${buildType.id}`)
+    parentElement.classList.add('buildType')
+    parentElement.classList.add(buildType.projectId)
 
     // Add status of last build as class.
-    buildTypeDiv.classList.add(buildType.builds.build[0].status)
+    parentElement.classList.add(buildType.builds.build[0].status)
 
     // Add statusChanged when the last build status is different.
     if (buildType.statusChanged) {
-        buildTypeDiv.classList.add('statusChanged')
+        parentElement.classList.add('statusChanged')
     }
 
     // Link to TeamCity build type page.
     let buildTypeLink = document.createElement("a")
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.setAttribute('target', '_blank')
-    buildTypeDiv.appendChild(buildTypeLink)
+    parentElement.appendChild(buildTypeLink)
 
     // Text for the buildType.
     let buildTypeText = document.createTextNode(buildType.name)
@@ -156,7 +156,7 @@ function renderBuildType(buildType) {
         let count = testOccurrences.count
         let percentage = Number((passed/count)*100).toFixed(2)
         let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${muted?'('+muted+' muted) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
-        buildTypeDiv.appendChild(testStatisticsText)
+        parentElement.appendChild(testStatisticsText)
     }
 
     // Investigations
@@ -171,14 +171,14 @@ function renderBuildType(buildType) {
     let buildListDiv = document.createElement("div")
     buildListDiv.setAttribute('id', buildType.id + '_buildList')
     buildListDiv.classList.add('buildList')
-    buildTypeDiv.appendChild(buildListDiv)
+    parentElement.appendChild(buildListDiv)
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
     let buildSteps = document.createElement("div")
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
-    buildTypeDiv.appendChild(buildSteps)
+    parentElement.appendChild(buildSteps)
 
 }
 
