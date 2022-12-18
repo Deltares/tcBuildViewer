@@ -318,7 +318,7 @@ a:hover > div.linkIcon {
 /* List of builds for the build type. */
 .buildList {
     display: block;
-    grid-column: 2;
+    grid-column: 3;
     text-align: right;
     white-space: nowrap;
     letter-spacing: 0.0625em;
