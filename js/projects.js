@@ -1,6 +1,6 @@
 // API field selectors for optimization.
-const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations:(investigation:(id,state,assignee,assignment,scope,target))))'
-const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
+const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences),buildType(investigations(investigation(id,state,assignee,assignment,scope,target)))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
 const change_fields        = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
@@ -49,8 +49,6 @@ async function append_projects_recursively(projectId, order) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
                     add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id)
-                    if (buildType.investigations?.investigation?.[0])
-                        console.log(buildType.investigations?.investigation)
                 })
             }
             
@@ -92,6 +90,9 @@ function add_builds_to_buildtype(buildType) {
             } else {
                 buildType.statusChanged = false
             }
+
+            if (buildType.investigations?.investigation?.[0])
+                console.log(buildType.investigations?.investigation)
 
             renderBuildType(buildType)
 
