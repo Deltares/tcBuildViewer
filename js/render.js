@@ -128,13 +128,15 @@ function renderBuildType(buildType) {
     buildTypeLinkIcon.classList.add('linkIcon')
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
+    // Test statistics
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
-        let testStatisticsText = document.createTextNode(`${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new)':''} [${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}]`)
+        let testStatisticsText = document.createTextNode(`${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new) ':''}${testOccurrences.ignoredTestCount?'('+testOccurrences.ignoredTestCount+' ignored) ':''}[${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}]`)
         buildTypeDiv.appendChild(testStatisticsText)
         //console.log(buildType.builds.build[0].testOccurrences);
     }
 
+    // Investigations
     if (buildType.investigations?.investigation?.length > 0) {
         //console.log(buildType.investigations.investigation)
         for (investigation in buildType.investigations.investigation) {
