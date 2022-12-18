@@ -1,8 +1,10 @@
 // Will enable/disable buttons when there are downloads in progress.
 function checkFilterButtons(downloadQueueLength) {
+
     document.getElementById('queue_number').innerHTML = downloadQueueLength;
+
     if (downloadQueueLength > 1) {
-        return;
+        return; // Action is only necessary when the queue is 0 or 1.
     }
     else if (downloadQueueLength == 1) {
         document.querySelectorAll('.filter_button').forEach(button => {button.disabled = true; button.classList.remove('active')});
@@ -10,6 +12,7 @@ function checkFilterButtons(downloadQueueLength) {
     else {
         document.querySelectorAll('.filter_button').forEach(button => {button.disabled = false;});
     }
+    
 }
 
 /*  Input: array of project IDs to render. */
