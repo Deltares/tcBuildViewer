@@ -130,7 +130,7 @@ function renderBuildType(buildType) {
 
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
-        let testStatisticsText = document.createTextNode(`[${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}] ${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new)':''}`)
+        let testStatisticsText = document.createTextNode(`${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new)':''} [${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}]`)
         buildTypeDiv.appendChild(testStatisticsText)
         //console.log(buildType.builds.build[0].testOccurrences);
     }
