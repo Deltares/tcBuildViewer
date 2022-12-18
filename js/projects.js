@@ -64,6 +64,7 @@ async function append_projects_recursively(projectId, order) {
 
 function add_builds_to_buildtype(buildType) {
 
+    // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length);
 
     fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
