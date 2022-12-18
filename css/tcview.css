@@ -276,7 +276,6 @@ a:hover > div.linkIcon {
     display: grid;
     grid-template-columns: auto fit-content(100%) fit-content(100%);
     column-gap: 5px;
-    grid-template-rows: minmax(1em,);
 }
 
 /* Build types where the last build failed. */
@@ -486,4 +485,10 @@ a:hover > div.linkIcon {
 
 .project_header_wrapper {
     margin-right: 0.4em;
+}
+
+.projectBuildTypesDiv {
+    display: grid;
+    grid-template-columns: auto fit-content(100%) fit-content(100%);
+    column-gap: 5px;
 }
