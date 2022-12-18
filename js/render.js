@@ -43,6 +43,10 @@ function renderProject(project) {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv)
     }
 
+    let projectBuildTypesDiv = document.createElement("div")
+    projectBuildTypesDiv.classList.add('projectBuildTypesDiv')
+    projectDiv.appendChild(projectBuildTypesDiv)
+
     // Create projectDiv.
     projectDiv.setAttribute('id', project.id)
     projectDiv.classList.add('project')
@@ -108,7 +112,7 @@ function renderBuildType(buildType) {
 
     // Add buildType to project.
     let buildTypeDiv = document.createElement("div")
-    let parentElement = document.getElementById(buildType.projectId)
+    let parentElement = document.getElementById(buildType.projectId).getElementsByClassName('projectBuildTypesDiv')[0]
     buildTypeDiv.style.order = buildType.order
     parentElement.appendChild(buildTypeDiv)
 
