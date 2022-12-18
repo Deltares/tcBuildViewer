@@ -64,7 +64,9 @@ async function append_projects_recursively(projectId, order) {
                 })
             }
 
-            project.testPercentage = Number(project.testCount/project.testPassed*100).toFixed(2)
+            
+            project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
+            console.log(project.testPercentage);
             renderProjectTestStatistics(project, projectDiv)
 
         })
@@ -113,8 +115,6 @@ function add_builds_to_buildtype(buildType, project) {
                     project.testPassed    += build[0].testOccurrences.passed?build[0].testOccurrences.passed:0
                     project.testCount     += build[0].testOccurrences.count?build[0].testOccurrences.count:0
                 }
-                
-                console.log(project.testCount);
 
                 for (i=0; i<build.length; i++) {
 
