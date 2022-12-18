@@ -483,3 +483,8 @@ a:hover > div.linkIcon {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
+
+.project_header_wrapper {
+    display: grid;
+    grid-template-columns: fit-content(100%) fit-content(100%) fit-content(100%)
+}

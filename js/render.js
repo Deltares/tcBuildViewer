@@ -50,7 +50,8 @@ function renderProject(project) {
     projectDiv.setAttribute('title', `Project ID: ${project.id}`)
 
     // Wrapper for project collapse button and title.
-    let projectWrapperDiv = document.createElement("div")
+    let projectHeaderWrapperDiv = document.createElement("div")
+    projectHeaderWrapperDiv.classList.add('project_header_wrapper')
     projectDiv.appendChild(projectWrapperDiv)
 
     // Collapse button.
@@ -58,7 +59,7 @@ function renderProject(project) {
     collapseDiv.classList.add('collapse_button')
     collapseDiv.setAttribute('title','collapse')
     collapseDiv.setAttribute('onclick', `this.parentElement.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼'`)
-    projectWrapperDiv.appendChild(collapseDiv)
+    projectHeaderWrapperDiv.appendChild(collapseDiv)
 
     // Collapse button text.
     let collapseDivText = document.createTextNode('▼')
@@ -69,7 +70,7 @@ function renderProject(project) {
     projectLink.classList.add('project_title')
     projectLink.setAttribute('href', project.webUrl)
     projectLink.setAttribute('target', '_blank')
-    projectWrapperDiv.appendChild(projectLink)
+    projectHeaderWrapperDiv.appendChild(projectLink)
 
     // Text for TeamCity project link.
     let projectText = document.createTextNode(`${project.name}`)
