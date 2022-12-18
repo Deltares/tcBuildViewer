@@ -1,9 +1,9 @@
 // API field selectors for optimization.
-const project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
+const project_fields   = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
 const buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
-const build_fields = 'fields=buildType(steps(step))';
-const message_fields = 'fields=messages';
-const change_fields = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
+//const build_fields     = 'fields=buildType(steps(step))';
+const message_fields   = 'fields=messages';
+const change_fields    = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
 
 // Keep track of pending downloads.
 let download_queue_length = 0;
@@ -21,6 +21,7 @@ async function append_projects_recursively(projectId, order) {
     if (selection.exclude_projects.includes(projectId))
         return;
     
+    // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length);
 
     fetch(`${teamcity_base_url}/app/rest/projects/id:${projectId}?${project_fields}`, {
@@ -38,14 +39,14 @@ async function append_projects_recursively(projectId, order) {
         })
         .then((project) => {
 
-            project.order = order;
+            project.order = order; // Consistent ordering of projects.
 
             renderProject(project);
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
-                    buildType.order = key;
+                    buildType.order = key; // Consistent ordering of buildTypes.
                     add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id);
                 });
             }
@@ -53,8 +54,8 @@ async function append_projects_recursively(projectId, order) {
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key);
-                },this);
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key); // Make sure that projects are below the buildTypes.
+                });
             }
         })
         .catch(err => { console.log(err) })
