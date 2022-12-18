@@ -176,6 +176,9 @@ function renderBuild(build) {
     let buildText = document.createTextNode('⬤')
     buildLink.appendChild(buildText)
 
+    if (build.buildType.investigations?.investigation?.[0])
+        console.log(build.buildType.investigations?.investigation?.[0].assignee.name)
+
 }
 
 function renderBuildDetails(buildId,messages,changes) {

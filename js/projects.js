@@ -109,9 +109,6 @@ function add_builds_to_buildtype(buildType) {
 
                     renderBuild(buildType.builds.build[i])
 
-                    if (buildType.builds.build[i].buildType.investigations?.investigation?.[0])
-                        console.log(buildType.builds.build[i].buildType.investigations?.investigation?.[0])
-
                 };
 
             }
