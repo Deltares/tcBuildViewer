@@ -58,6 +58,7 @@ async function userLoggedIn() {
 
 }
 
+// Get favorite projects from TeamCity API.
 async function getFavoriteProjects() {
 
     let response = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
@@ -69,23 +70,24 @@ async function getFavoriteProjects() {
 
     let projects = await response.json();
 
-    let all_project_ids = projects.project.map(x => x.id);
+    let all_project_ids = projects.project.map(x => x.id); // Only need IDs to (array-)filter on.
 
+    // Only projects whose parent projects are not in the list, to avoid redundancy.
     let favoriteProjectObjects = projects.project.filter( project => {
         return !all_project_ids.includes(project.parentProjectId);
     })
 
-    let favorite_projects = favoriteProjectObjects.map(x => x.id);
+    let favorite_projects = favoriteProjectObjects.map(x => x.id); // Only need IDs for selection.
 
-    let api_selection = {
+    // Selection JSON structure.
+    return api_selection = {
         include_projects: favorite_projects,
         exclude_projects: [],
     }
 
-    return api_selection;
-
 }
 
+// The part where the user can edit the selection JSON.
 function updateSelectionForm() {
     let selectionDiv = document.getElementById('selection_code');
     selection_textarea.value = JSON.stringify(edit_selection, undefined, 2);
@@ -97,19 +99,19 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
+}
   
-  function getCookie(cname) {
-    let name = cname + "=";
+function getCookie(cname) {
+    let name = cname + '=';
     let ca = document.cookie.split(';');
     for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
-    return "";
-  }
+    return '';
+}
