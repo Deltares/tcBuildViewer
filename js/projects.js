@@ -1,12 +1,12 @@
 // API field selectors for optimization.
-var project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
-var buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
-var build_fields = 'fields=buildType(steps(step))';
-var message_fields = 'fields=messages';
-var change_fields = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
+const project_fields = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))';
+const buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)';
+const build_fields = 'fields=buildType(steps(step))';
+const message_fields = 'fields=messages';
+const change_fields = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))';
 
 // Keep track of pending downloads.
-var download_queue_length = 0;
+let download_queue_length = 0;
 
 /* Recursively add projects as JSON objects to array.
 /
@@ -86,7 +86,7 @@ function add_builds_to_buildtype(buildType) {
             } else {
                 buildType.statusChanged = false;
             }
-            
+
             renderBuildType(buildType);
 
             // Check for every build if the result has changed since the previous build.
@@ -113,6 +113,7 @@ function add_builds_to_buildtype(buildType) {
         .finally(() => {checkFilterButtons(--download_queue_length);});
 }
 
+// On-demand information when a build is clicked.
 async function get_build_details(buildId) {
 
     let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
@@ -124,7 +125,7 @@ async function get_build_details(buildId) {
 
     let messagesJSON = await messagesRequest.json();
 
-    var messages = messagesJSON.messages;
+    let messages = messagesJSON.messages;
 
     let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
         headers: {
@@ -135,7 +136,7 @@ async function get_build_details(buildId) {
 
     let changesJSON = await changesRequest.json();
 
-    var changes = changesJSON.change;
+    let changes = changesJSON.change;
 
     renderBuildDetails(buildId, await messages, await changes);
 }
@@ -151,7 +152,7 @@ function tcTimeToUnix(tcTime) {
     minute   = split.slice(11, 13).join('');
     second   = split.slice(13, 15).join('');
     timezone = split.slice(15, 23).join('');
-    var date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}.000${timezone}`);
+    let date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}.000${timezone}`);
     return date.getTime(); // Unix timestamp from Date object.
 }
 
@@ -164,20 +165,20 @@ function DateToTcTime(date) {
     minute   = '00';
     second   = '00';
     timezone = '%2B0000'; // +0000
-    var tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}`; // TeamCity time format: 20221206T080035+0100
+    let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}`; // TeamCity time format: 20221206T080035+0100
     return tcTime;
 }
 
-// Cut-off date in TeamCity's weird time notation.
-var cutoffTcString = function () {
-    var d = new Date();
+// Cut-off date in TeamCity's weird time notation, used for API calls.
+const cutoffTcString = function () {
+    let d = new Date();
     d.setDate(d.getDate()-build_cutoff_days);
     return DateToTcTime(d)
 }
 
 // Ol' reliable Unix-time.
-var cutoffUnixTime = function () {
-    var d = new Date();
+const cutoffUnixTime = function () {
+    let d = new Date();
     d.setDate(d.getDate()-build_cutoff_days);
     return d.getTime()
 };
