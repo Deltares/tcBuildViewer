@@ -1,5 +1,5 @@
 // API field selectors for optimization.
-const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations:(investigation(id,state,assignee,assignment))))'
+const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations:(investigation:(id))))'
 const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
@@ -49,7 +49,7 @@ async function append_projects_recursively(projectId, order) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
                     add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id)
-                    console.log(buildType.investigations)
+                    console.log(buildType.investigations?.investigation)
                 })
             }
             
