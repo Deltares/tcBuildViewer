@@ -128,6 +128,9 @@ function renderBuildType(buildType) {
     buildTypeLinkIcon.classList.add('linkIcon')
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
+    if (buildType.investigations?.investigation?.[0])
+        buildTypeDiv.appendChild(`(${buildType.investigations?.investigation?.[0].assignee.name})`)
+
     // Element to hold the list of builds.
     let buildListDiv = document.createElement("div")
     buildListDiv.setAttribute('id', buildType.id + '_buildList')
@@ -140,9 +143,6 @@ function renderBuildType(buildType) {
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
     buildTypeDiv.appendChild(buildSteps)
-
-    if (buildType.investigations?.investigation?.[0])
-        buildListDiv.prepend(`(${buildType.investigations?.investigation?.[0].assignee.name})`)
 
 }
 
