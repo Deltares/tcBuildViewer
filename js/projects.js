@@ -56,6 +56,7 @@ async function append_projects_recursively(projectId, order) {
                     buildType.order = key // Consistent ordering of buildTypes.
                     promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
                 })
+                Promise.all(promiseList).then(renderProjectTestStatistics(project, projectDiv))
             }
             
             // Check for sub-projects to add
@@ -71,12 +72,12 @@ async function append_projects_recursively(projectId, order) {
             //console.log(project.testCount)
             //project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
             //console.log(project.testPercentage);
-            //renderProjectTestStatistics(project, projectDiv)
+            
 
-            return project
+            
 
         })
-        .then(project => {renderProjectTestStatistics(project)})
+        .then(project => {})
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
 }
