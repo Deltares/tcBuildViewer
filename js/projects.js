@@ -47,7 +47,7 @@ async function append_projects_recursively(projectId, order) {
             project.testPassed    = 0
             project.testCount     = 0
 
-            renderProject(project)
+            let projectElement = renderProject(project)
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
@@ -64,7 +64,8 @@ async function append_projects_recursively(projectId, order) {
                 })
             }
 
-            console.log(project.testCount)
+            project.percentage = Number(project.testCount/project.testPassed*100).toFixed(2)
+            renderProjectTestStatistics(project, projectElement)
 
         })
         .catch(err => { console.log(err) })

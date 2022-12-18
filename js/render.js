@@ -82,6 +82,13 @@ function renderProject(project) {
     projectLinkIcon.classList.add('linkIcon')
     projectLink.appendChild(projectLinkIcon)
 
+    return projectDiv
+
+}
+
+function renderProjectTestStatistics(project, projectElement) {
+    let testStatisticsSumText = document.createTextNode(`${project.newFailed?'('+project.newFailed+' new) ':''}${project.muted?'('+projectmuted+' muted) ':''}[${project.passed?project.passed:0}/${project.count}] = ${project.percentage}%`)
+    projectElement.getElementsByClassName('project_title').append(testStatisticsSumText)
 }
 
 // Add buildType to project.
