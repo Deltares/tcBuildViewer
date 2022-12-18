@@ -86,9 +86,9 @@ function renderProject(project) {
 
 }
 
-function renderProjectTestStatistics(project, projectDiv) {
+function renderProjectTestStatistics(project) {
     let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
-    projectDiv.getElementsByClassName('project_title')[0].append(testStatisticsSumText)
+    project.div.getElementsByClassName('project_title')[0].append(testStatisticsSumText)
 }
 
 // Add buildType to project.

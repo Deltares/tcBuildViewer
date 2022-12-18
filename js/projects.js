@@ -47,7 +47,7 @@ async function append_projects_recursively(projectId, order) {
             project.testPassed    = 0
             project.testCount     = 0
 
-            let projectDiv = renderProject(project)
+            project.div = renderProject(project)
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
@@ -66,11 +66,11 @@ async function append_projects_recursively(projectId, order) {
 
             
             //project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
-            console.log(project.testPassed)
-            console.log(project.testCount)
-            project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
-            console.log(project.testPercentage);
-            renderProjectTestStatistics(project, projectDiv)
+            //console.log(project.testPassed)
+            //console.log(project.testCount)
+            //project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
+            //console.log(project.testPercentage);
+            //renderProjectTestStatistics(project, projectDiv)
 
         })
         .catch(err => { console.log(err) })
@@ -135,7 +135,7 @@ function add_builds_to_buildtype(buildType, project) {
                 };
 
             }
-            //get_investigations(buildType.id)
+            renderProjectTestStatistics(project)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
