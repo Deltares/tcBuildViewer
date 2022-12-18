@@ -91,9 +91,6 @@ function add_builds_to_buildtype(buildType) {
                 buildType.statusChanged = false
             }
 
-            if (buildType.investigations?.investigation?.[0])
-                console.log(buildType.investigations?.investigation)
-
             renderBuildType(buildType)
 
             // Check for every build if the result has changed since the previous build.
@@ -111,6 +108,9 @@ function add_builds_to_buildtype(buildType) {
                     }
 
                     renderBuild(buildType.builds.build[i])
+
+                    if (buildType.builds.build[i].buildType.investigations?.investigation?.[0])
+                        console.log(buildType.builds.build[i].buildType.investigations?.investigation?.[0])
 
                 };
 
