@@ -131,6 +131,7 @@ function renderBuildType(buildType) {
     // Test statistics
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
+        console.log(testOccurrences);
         let testStatisticsText = document.createTextNode(`${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new) ':''}${testOccurrences.ignoredTestCount?'('+testOccurrences.ignoredTestCount+' ignored) ':''}[${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}]`)
         buildTypeDiv.appendChild(testStatisticsText)
         //console.log(buildType.builds.build[0].testOccurrences);
