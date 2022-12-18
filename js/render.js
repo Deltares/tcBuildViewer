@@ -142,7 +142,7 @@ function renderBuildType(buildType) {
     buildTypeDiv.appendChild(buildSteps)
 
     if (buildType.investigations?.investigation?.[0])
-        console.log(buildType.investigations?.investigation?.[0].assignee.name)
+        buildListDiv.prepend(`(${buildType.investigations?.investigation?.[0].assignee.name})`)
 
 }
 
