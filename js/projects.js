@@ -1,5 +1,5 @@
 // API field selectors for optimization.
-const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations:(investigation(id,state,assignee,assignment)))'
+const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations:(investigation(id,state,assignee,assignment))))'
 const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
