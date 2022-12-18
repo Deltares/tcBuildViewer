@@ -131,7 +131,7 @@ function renderBuildType(buildType) {
     // Test statistics
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
-        console.log(testOccurrences)
+        //console.log(testOccurrences)
         let newFailed = testOccurrences.newFailed?testOccurrences.newFailed:0
         let muted = testOccurrences.muted?testOccurrences.muted:0
         let passed = testOccurrences.passed?testOccurrences.passed:0
