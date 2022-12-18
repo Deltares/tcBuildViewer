@@ -58,6 +58,8 @@ async function append_projects_recursively(projectId, order) {
                     append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key) // Make sure that projects are below the buildTypes.
                 })
             }
+
+            console.log(project.buildType?.[0]?.investigations?.investigation)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
@@ -111,8 +113,6 @@ function add_builds_to_buildtype(buildType) {
                 };
 
             }
-
-            console.log(buildType.investigations?.investigation)
             //get_investigations(buildType.id)
         })
         .catch(err => { console.log(err) })
