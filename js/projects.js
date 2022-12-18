@@ -59,7 +59,7 @@ async function append_projects_recursively(projectId, order) {
                 })
             }
 
-            console.log(project.buildTypes?.buildType?.[0]?.investigations?.investigation)
+            console.log(project.buildTypes?.buildType?.[0]?.investigations)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
