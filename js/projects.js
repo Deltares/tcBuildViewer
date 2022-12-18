@@ -49,7 +49,7 @@ async function append_projects_recursively(projectId, order) {
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
                     add_builds_to_buildtype(project.buildTypes.buildType[key], buildType.id)
-                    if (buildType.investigations?.investigation)
+                    if (buildType.investigations?.investigation?.[0])
                         console.log(buildType.investigations?.investigation)
                 })
             }
