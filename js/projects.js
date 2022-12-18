@@ -56,6 +56,7 @@ async function append_projects_recursively(projectId, order) {
                     buildType.order = key // Consistent ordering of buildTypes.
                     promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
                 })
+                console.log(promiseList)
                 Promise.all(promiseList).then(renderProjectTestStatistics(project))
             }
             
@@ -144,7 +145,7 @@ async function add_builds_to_buildtype(buildType, project) {
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
 
-    console.log(await promise)
+    return promise
 }
 
 // On-demand information when a build is clicked.
