@@ -492,3 +492,7 @@ a:hover > div.linkIcon {
     grid-template-columns: auto fit-content(100%) fit-content(100%);
     column-gap: 5px;
 }
+
+.test_statistics_text {
+    text-align: right;
+}
