@@ -87,8 +87,11 @@ function renderProject(project) {
 }
 
 function renderProjectTestStatistics(project) {
-    let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
-    project.div.getElementsByClassName('project_title')[0].append(testStatisticsSumText)
+    if(project.testCount) {
+        project.testPercentage = Sumber((project.testPassed/project.testCount)*100).toFixed(2)
+        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
+        project.div.getElementsByClassName('project_title')[0].append(testStatisticsSumText)
+    }
 }
 
 // Add buildType to project.
