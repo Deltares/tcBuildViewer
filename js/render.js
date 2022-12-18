@@ -4,7 +4,7 @@ function checkFilterButtons(downloadQueueLength) {
     document.getElementById('queue_number').innerHTML = downloadQueueLength
 
     if (downloadQueueLength > 1) {
-        return; // Action is only necessary when the queue is 0 or 1.
+        return // Action is only necessary when the queue is 0 or 1.
     }
     else if (downloadQueueLength == 1) {
         document.querySelectorAll('.filter_button').forEach(button => {button.disabled = true; button.classList.remove('active')})
@@ -57,7 +57,7 @@ function renderProject(project) {
     let collapseDiv = document.createElement("div")
     collapseDiv.classList.add('collapse_button')
     collapseDiv.setAttribute('title','collapse')
-    collapseDiv.setAttribute('onclick', `this.parentElement.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼';`)
+    collapseDiv.setAttribute('onclick', `this.parentElement.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼'`)
     projectWrapperDiv.appendChild(collapseDiv)
 
     // Collapse button text.
@@ -162,7 +162,7 @@ function renderBuild(build) {
 
     // Link to TeamCity build page.
     let buildLink = document.createElement("a")
-    buildLink.setAttribute('onclick', `get_build_details(${build.id});`)
+    buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
     buildLink.setAttribute('target', '_blank')
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`)
     if(build.branchName) {
@@ -195,9 +195,9 @@ function renderBuildDetails(buildId,messages,changes) {
     buildMessagesButton.classList.add('toggle')
     buildMessagesButton.classList.add('active')
     buildMessagesButton.setAttribute('onclick',
-        `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
-        this.classList.add('active');
-        this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden');
+        `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
+        this.classList.add('active')
+        this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden')
         this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden')`)
     buildMessagesButton.appendChild(document.createTextNode('Logs'))
     buildButtonBar.appendChild(buildMessagesButton)
@@ -206,9 +206,9 @@ function renderBuildDetails(buildId,messages,changes) {
     let buildChangesButton = document.createElement('button')
     buildChangesButton.classList.add('toggle')
     buildChangesButton.setAttribute('onclick',
-    `this.parentElement.getElementsByClassName('active')[0].classList.remove('active');
-    this.classList.add('active');
-    this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden');
+    `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
+    this.classList.add('active')
+    this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden')
     this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden')`)
     buildChangesButton.appendChild(document.createTextNode('Blame'))
     buildButtonBar.appendChild(buildChangesButton)
@@ -248,7 +248,7 @@ function renderBuildDetails(buildId,messages,changes) {
         messageP.innerText = messageText
         messagesDiv.appendChild(messageP)
 
-    });
+    })
 
     if (changes.length == 0) {
         changesDiv.innerHTML = 'Nobody to blame... 😭'
@@ -261,7 +261,7 @@ function renderBuildDetails(buildId,messages,changes) {
         let userDiv = document.createElement('div')
         let timeDiv = document.createElement('div')
         userDiv.classList.add('build_user')
-        //let filesDiv = document.createElement('div');
+        //let filesDiv = document.createElement('div')
         versionDiv.innerHTML = `#${change.version}`
         let fileList = change.files.file.map(file => file['relative-file']).join('\n')
         linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}'>#${change.comment}</a>`
@@ -272,7 +272,7 @@ function renderBuildDetails(buildId,messages,changes) {
         changesDiv.appendChild(userDiv)
         changesDiv.appendChild(timeDiv)
 
-    });
+    })
 
 }
 
@@ -283,9 +283,9 @@ function toggleGreen() {
 
     for (item of greenBuildTypes) {
         item.classList.toggle('hidden')
-    };
+    }
 
-};
+}
 
 // Show or hide all build types of which the last build was successful.
 function toggleUnchangedBuildTypes() {
@@ -294,6 +294,6 @@ function toggleUnchangedBuildTypes() {
 
     for (item of unchangedBuildTypes) {
         item.classList.toggle('hidden_statusChanged')
-    };
+    }
 
-};
+}
