@@ -128,9 +128,9 @@ function renderBuildType(buildType) {
     buildTypeLinkIcon.classList.add('linkIcon')
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
-    if (buildType.investigations?.investigation) {
+    if (buildType.investigations?.investigation?.length > 0) {
         for (investigation in buildType.investigations.investigation) {
-            buildTypeDiv.appendChild(document.createTextNode(investigation.assignee.name))
+            buildTypeDiv.appendChild(document.createTextNode(investigation))
         }
     }
 
