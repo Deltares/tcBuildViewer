@@ -56,7 +56,7 @@ async function append_projects_recursively(projectId, order) {
                     buildType.order = key // Consistent ordering of buildTypes.
                     promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
                 })
-                Promise.all(promiseList).then(renderProjectTestStatistics(project, projectDiv))
+                Promise.all(promiseList).then(renderProjectTestStatistics(project))
             }
             
             // Check for sub-projects to add
