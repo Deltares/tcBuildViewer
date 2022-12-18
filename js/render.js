@@ -141,6 +141,9 @@ function renderBuildType(buildType) {
     buildSteps.classList.add('hidden')
     buildTypeDiv.appendChild(buildSteps)
 
+    if (buildType.investigations?.investigation?.[0])
+        console.log(buildType.investigations?.investigation?.[0].assignee.name)
+
 }
 
 // Add build to buildList.
@@ -175,9 +178,6 @@ function renderBuild(build) {
     // Text for TeamCity build link.
     let buildText = document.createTextNode('⬤')
     buildLink.appendChild(buildText)
-
-    if (build.buildType.investigations?.investigation?.[0])
-        console.log(build.buildType.investigations?.investigation?.[0].assignee.name)
 
 }
 
