@@ -90,7 +90,7 @@ function renderProject(project) {
 function renderProjectTestStatistics(project) {
     if(project.testCount) {
         project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
-        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
+        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
         let testStatisticsSumDiv = document.createElement('div')
         testStatisticsSumDiv.style.textAlign = 'right'
         testStatisticsSumDiv.style.display = 'inline-block'
@@ -152,7 +152,7 @@ function renderBuildType(buildType) {
         let passed = testOccurrences.passed?testOccurrences.passed:0
         let count = testOccurrences.count
         let percentage = Number((passed/count)*100).toFixed(2)
-        let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new) ':''}${muted?'('+muted+' muted) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
+        let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${muted?'('+muted+' muted) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
         buildTypeDiv.appendChild(testStatisticsText)
     }
 
