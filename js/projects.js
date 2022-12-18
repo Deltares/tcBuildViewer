@@ -55,6 +55,7 @@ async function append_projects_recursively(projectId, order) {
                     buildType.order = key // Consistent ordering of buildTypes.
                     add_builds_to_buildtype(project.buildTypes.buildType[key], project)
                 })
+                renderProjectTestStatistics(project)
             }
             
             // Check for sub-projects to add
@@ -135,7 +136,6 @@ function add_builds_to_buildtype(buildType, project) {
                 };
 
             }
-            renderProjectTestStatistics(project)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
