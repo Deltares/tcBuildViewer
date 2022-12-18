@@ -52,7 +52,11 @@
                 onclick="document.getElementById('selection').classList.toggle('hidden');this.classList.toggle('active')">Project Selection</button>
 
             <button id="toggle_info" class="toggle"
-                onclick="document.getElementById('info').classList.toggle('hidden');this.classList.toggle('active')"><span class="bigger">ⓘ</span></button>
+                onclick="
+                document.getElementById('info').classList.toggle('hidden');
+                this.classList.toggle('active')">
+                <span class="bigger">ⓘ</span>
+            </button>
 
         </div>
 
@@ -107,8 +111,8 @@
                 </form>
             </div>
 
-            <button class="filter_button" onclick="
-                edit_selection = JSON.parse(document.getElementById('selection_textarea').value);
+            <button class="filter_button"
+                onclick="edit_selection = JSON.parse(document.getElementById('selection_textarea').value);
                 fetchProjects();" style="grid-column: 2;">
                 Apply<br /><span style="font-size: 3em;">⇒</span>
             </button>
@@ -117,19 +121,19 @@
 
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
-            
+
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
 
-                <button onclick="
-                    getFavoriteProjects()
+                <button
+                    onclick="getFavoriteProjects()
                     .then((favorite_projects) => {
                         edit_selection=favorite_projects;updateSelectionForm()
                     });">
                     TeamCity API
                 </button>
 
-                <button onclick='
-                    const selectionFile = document.createElement("input");
+                <button
+                    onclick='const selectionFile = document.createElement("input");
                     selectionFile.type = "file";
                     selectionFile.onchange = e => {
                         const file = e.target.files[0];
@@ -150,15 +154,15 @@
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
 
-                <button onclick="
-                    setCookie('tcSelection',JSON.stringify(selection),365);
+                <button
+                    onclick="setCookie('tcSelection',JSON.stringify(selection),365);
                     alert('Selection saved to cookie!')">
                     Cookie
                 </button>
 
                 <!-- Create virtual anchor to attach file and let JavaScript click it. -->
-                <button onclick='
-                    const link = document.createElement("a");
+                <button
+                    onclick='const link = document.createElement("a");
                     link.download = "tcBuildViewer_selection.json";
                     const blob = new Blob([JSON.stringify(selection, undefined, 2)], { type: "text/plain" });
                     link.href=window.URL.createObjectURL(blob);
