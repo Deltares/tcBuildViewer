@@ -52,7 +52,7 @@ function renderProject(project) {
     // Wrapper for project collapse button and title.
     let projectHeaderWrapperDiv = document.createElement("div")
     projectHeaderWrapperDiv.classList.add('project_header_wrapper')
-    projectDiv.appendChild(projectWrapperDiv)
+    projectDiv.appendChild(projectHeaderWrapperDiv)
 
     // Collapse button.
     let collapseDiv = document.createElement("div")
