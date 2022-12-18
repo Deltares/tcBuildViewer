@@ -129,6 +129,7 @@ function renderBuildType(buildType) {
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
     if (buildType.investigations?.investigation?.length > 0) {
+        console.log(buildType.investigations.investigation)
         for (investigation in buildType.investigations.investigation) {
             buildTypeDiv.appendChild(document.createTextNode(investigation))
         }
