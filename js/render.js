@@ -132,7 +132,7 @@ function renderBuildType(buildType) {
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
         console.log(testOccurrences);
-        let testStatisticsText = document.createTextNode(`${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new) ':''}${testOccurrences.ignoredTestCount?'('+testOccurrences.ignoredTestCount+' ignored) ':''}[${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}]`)
+        let testStatisticsText = document.createTextNode(`${testOccurrences.newFailed?'('+testOccurrences.newFailed+' new) ':''}${testOccurrences.muted?'('+testOccurrences.muted+' muted) ':''}[${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}]`)
         buildTypeDiv.appendChild(testStatisticsText)
         //console.log(buildType.builds.build[0].testOccurrences);
     }
