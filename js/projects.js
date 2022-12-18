@@ -64,7 +64,7 @@ async function append_projects_recursively(projectId, order) {
                 })
             }
 
-            project.percentage = Number(project.testCount/project.testPassed*100).toFixed(2)
+            project.testPercentage = Number(project.testCount/project.testPassed*100).toFixed(2)
             renderProjectTestStatistics(project, projectDiv)
 
         })

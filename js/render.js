@@ -87,7 +87,7 @@ function renderProject(project) {
 }
 
 function renderProjectTestStatistics(project, projectDiv) {
-    let testStatisticsSumText = document.createTextNode(`${project.newFailed?'('+project.newFailed+' new) ':''}${project.muted?'('+projectmuted+' muted) ':''}[${project.passed?project.passed:0}/${project.count}] = ${project.percentage}%`)
+    let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
     projectDiv.getElementsByClassName('project_title')[0].append(testStatisticsSumText)
 }
 
