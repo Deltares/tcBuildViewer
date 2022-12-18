@@ -73,32 +73,32 @@ function add_builds_to_buildtype(buildType) {
     })
         .then((result) => result.json())
         .then((output) => {
+
             buildType.builds = output;
-            // Check if the build result is changed with the last build.
-            
+
+            // Check if the latest build result has changed.
             if (buildType.builds.build?.[0]?.problemOccurrences?.newFailed > 0) {
+                buildType.statusChanged = true;    
+            } else if (buildType.builds.build?.[0]?.status != buildType.builds.build[1]?.status) {
                 buildType.statusChanged = true;
-                
-            } else if (buildType.builds.build?.length > 1 && buildType.builds.build[0].status != buildType.builds.build[1].status) {
-                buildType.statusChanged = true;
-            } else if (buildType.builds.build && buildType.builds.build.length > 1 && buildType.builds.build[0].testOccurrences && buildType.builds.build[0].testOccurrences.passed != buildType.builds.build[1].testOccurrences.passed) {
+            } else if (buildType.builds.build?.[0]?.testOccurrences?.passed != buildType.builds.build[1]?.testOccurrences?.passed) {
                 buildType.statusChanged = true;
             } else {
                 buildType.statusChanged = false;
             }
+            
             renderBuildType(buildType);
+
+            // Check for every build if the result has changed since the previous build.
             if (buildType.builds.build) {
                 
                 for (i=0; i<buildType.builds.build.length; i++) {
 
-                    if (buildType.builds.build[i+1]) {
-                        
-                        if (buildType.builds.build[i].testOccurrences && buildType.builds.build[i+1].testOccurrences &&
-                            buildType.builds.build[i].testOccurrences.passed != buildType.builds.build[i+1].testOccurrences.passed) {
-                            buildType.builds.build[i].statusChanged = true;
-                        }
+                    if (buildType.builds.build[i].testOccurrences?.passed != buildType.builds.build[i+1]?.testOccurrences?.passed) {
+                        buildType.builds.build[i].statusChanged = true;
                     }
 
+                    // Add Unix timestamp for future functions.
                     if (buildType.builds.build[i].finishOnAgentDate) {
                         buildType.builds.build[i].unixTime = tcTimeToUnix(buildType.builds.build[i].finishOnAgentDate);
                     }
