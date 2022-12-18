@@ -137,7 +137,7 @@ function renderBuildType(buildType) {
         let passed = testOccurrences.passed?testOccurrences.passed:0
         let count = testOccurrences.count
         let percentage = Number((passed/count)*100).toFixed(2)
-        let testStatisticsText = document.createTextNode(`${newFailed?'('+newFailed+' new) ':''}${muted?'('+muted+' muted) ':''}[${testOccurrences.passed?testOccurrences.passed:0}/${testOccurrences.count}] = ${percentage}%`)
+        let testStatisticsText = document.createTextNode(`${newFailed?'('+newFailed+' new) ':''}${muted?'('+muted+' muted) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
         buildTypeDiv.appendChild(testStatisticsText)
         //console.log(buildType.builds.build[0].testOccurrences);
     }
