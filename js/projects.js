@@ -51,9 +51,10 @@ async function append_projects_recursively(projectId, order) {
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
+                let promiseList = []
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
-                    add_builds_to_buildtype(project.buildTypes.buildType[key], project)
+                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
                 })
             }
             
@@ -85,7 +86,7 @@ function add_builds_to_buildtype(buildType, project) {
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
 
-    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
+    return fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
