@@ -111,7 +111,7 @@ function add_builds_to_buildtype(buildType) {
                 };
 
             }
-            get_investigations(buildTypeId)
+            get_investigations(buildType.id)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
