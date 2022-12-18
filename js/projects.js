@@ -107,6 +107,8 @@ function add_builds_to_buildtype(buildType) {
                         buildType.builds.build[i].unixTime = tcTimeToUnix(buildType.builds.build[i].finishOnAgentDate)
                     }
 
+                    console.log(buildType.builds.build[i]);
+
                     renderBuild(buildType.builds.build[i])
 
                 };
