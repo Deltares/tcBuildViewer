@@ -90,7 +90,10 @@ function renderProjectTestStatistics(project) {
     if(project.testCount) {
         project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
         let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
-        project.div.getElementsByClassName('project_title')[0].after(testStatisticsSumText)
+        let testStatisticsSumDiv = document.createElement('div')
+        testStatisticsSumDiv.style.textAlign = 'right'
+        testStatisticsSumDiv.appendChild(testStatisticsSumText)
+        project.div.getElementsByClassName('project_title')[0].after(testStatisticsSumDiv)
     }
 }
 
