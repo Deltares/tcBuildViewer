@@ -1,9 +1,10 @@
 // API field selectors for optimization.
-const project_fields   = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
-//const build_fields     = 'fields=buildType(steps(step))'
-const message_fields   = 'fields=messages'
-const change_fields    = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
+const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
+//const build_fields         = 'fields=buildType(steps(step))'
+const message_fields       = 'fields=messages'
+const change_fields        = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
+const investigation_fields = ''
 
 // Keep track of pending downloads.
 let download_queue_length = 0
@@ -110,6 +111,7 @@ function add_builds_to_buildtype(buildType) {
                 };
 
             }
+            get_investigations(buildTypeId)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
@@ -142,6 +144,26 @@ async function get_build_details(buildId) {
 
     renderBuildDetails(buildId, await messages, await changes)
 }
+
+// See if a buildType has an investigation.
+async function get_investigations(buildTypeId) {
+
+    let investigationsRequest = await fetch(`${teamcity_base_url}/app/rest/investigations/buildType:(id:${buildTypeId})&${investigation_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let investigationsJSON = await investigationsRequest.json()
+
+    let investigations = messagesJSON.messages
+
+    console.log(investigations)
+}
+
+
+https://dpcbuild.deltares.nl/app/rest/investigations/buildType:(id:DHydro_Testbenches_Daily_DFlowFm_Lnx64_QuickTests)
 
 // Convert TeamCity's weird time notation to Unix timestamp.
 function tcTimeToUnix(tcTime) {
