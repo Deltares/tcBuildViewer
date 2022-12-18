@@ -15,7 +15,7 @@
 //
 
 // If your tcBuildViewer is hosted on the same domain as your TeamCity.
-const teamcity_base_url = '';
+const teamcity_base_url = ''
 // If you host your tcBuildViewer on a different domain:
 // const teamcity_base_url = 'https://<your-teamcity-domain>';
 
@@ -36,7 +36,7 @@ const default_selection = {
 }
 
 // Retrieve last X builds of every build type:
-let build_count = 14;
+let build_count = 14
 
 // Don't retrieve builds that are older than X days:
-let build_cutoff_days = 14;
+let build_cutoff_days = 14

@@ -7,28 +7,28 @@ async function getCurrentUser() {
     if (!await userLoggedIn()) {
 
         // Show login button if the user is not logged in.
-        document.getElementById('login').classList.toggle('hidden');
-        document.getElementById('user_name').innerHTML = 'waiting for login.';
+        document.getElementById('login').classList.toggle('hidden')
+        document.getElementById('user_name').innerHTML = 'waiting for login.'
 
         do {
-            console.log("waiting for TeamCity login ...");
-            await new Promise(resolve => setTimeout(resolve, 1000));
-        } while (! await userLoggedIn());
+            console.log("waiting for TeamCity login ...")
+            await new Promise(resolve => setTimeout(resolve, 1000))
+        } while (! await userLoggedIn())
 
         // Remove login button if the user is logged in.
-        document.getElementById('login').classList.toggle('hidden');
+        document.getElementById('login').classList.toggle('hidden')
 
     }
 
-    document.getElementById('user_name').innerHTML = user.username;
-    return user;
+    document.getElementById('user_name').innerHTML = user.username
+    return user
 
 }
 
 // Basically just show a login button.
 function showLoginButton() {
 
-    document.getElementById('login').classList.toggle('hidden');
+    document.getElementById('login').classList.toggle('hidden')
 
 }
 
@@ -42,18 +42,18 @@ async function userLoggedIn() {
                 'Accept': 'application/json',
             },
             credentials: 'include',
-        });
+        })
 
         if (response && response.ok) {
-            user = await response.json();
-            return true;
+            user = await response.json()
+            return true
         } else {
-            return false;
+            return false
         }
         
     } catch (err) {
-        console.log(err);
-        return false;
+        console.log(err)
+        return false
     }
 
 }
@@ -66,18 +66,18 @@ async function getFavoriteProjects() {
             'Accept': 'application/json',
         },
         credentials: 'include',
-    });
+    })
 
-    let projects = await response.json();
+    let projects = await response.json()
 
-    let all_project_ids = projects.project.map(x => x.id); // Only need IDs to (array-)filter on.
+    let all_project_ids = projects.project.map(x => x.id) // Only need IDs to (array-)filter on.
 
     // Only projects whose parent projects are not in the list, to avoid redundancy.
     let favoriteProjectObjects = projects.project.filter( project => {
-        return !all_project_ids.includes(project.parentProjectId);
+        return !all_project_ids.includes(project.parentProjectId)
     })
 
-    let favorite_projects = favoriteProjectObjects.map(x => x.id); // Only need IDs for selection.
+    let favorite_projects = favoriteProjectObjects.map(x => x.id) // Only need IDs for selection.
 
     // Selection JSON structure.
     return api_selection = {
@@ -89,29 +89,29 @@ async function getFavoriteProjects() {
 
 // The part where the user can edit the selection JSON.
 function updateSelectionForm() {
-    let selectionDiv = document.getElementById('selection_code');
-    selection_textarea.value = JSON.stringify(edit_selection, undefined, 2);
-    selectionDiv.innerText = JSON.stringify(selection, undefined, 2);
+    let selectionDiv = document.getElementById('selection_code')
+    selection_textarea.value = JSON.stringify(edit_selection, undefined, 2)
+    selectionDiv.innerText = JSON.stringify(selection, undefined, 2)
 }
 
 function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    const d = new Date()
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+    let expires = "expires="+d.toUTCString()
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
 }
   
 function getCookie(cname) {
-    let name = cname + '=';
-    let ca = document.cookie.split(';');
+    let name = cname + '='
+    let ca = document.cookie.split(';')
     for(let i = 0; i < ca.length; i++) {
-        let c = ca[i];
+        let c = ca[i]
         while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+            c = c.substring(1)
         }
         if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+            return c.substring(name.length, c.length)
         }
     }
-    return '';
+    return ''
 }
