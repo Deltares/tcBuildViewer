@@ -97,26 +97,43 @@
                     </ol>
                 </div>
             </div>
+
             <div class="header" style="grid-column: 1;">Edit selection:</div>
             <div class="header" style="grid-column: 3;">Active selection:</div>
+
             <div style="grid-column: 1;">
                 <form spellcheck="false">
                     <textarea id="selection_textarea" class="code"></textarea>
                 </form>
             </div>
-            <button class="filter_button" onclick="edit_selection = JSON.parse(document.getElementById('selection_textarea').value); fetchProjects();" style="grid-column: 2;">Apply<br /><span style="font-size: 3em;">⇒</span></button>
+
+            <button class="filter_button" onclick="
+                edit_selection = JSON.parse(document.getElementById('selection_textarea').value);
+                fetchProjects();" style="grid-column: 2;">
+                Apply<br /><span style="font-size: 3em;">⇒</span>
+            </button>
+
             <div id="selection_code" class="code" style="grid-column: 3;"></div>
+
             <div class="header" style="grid-column: 1;">Load selection from ...</div>
             <div class="header" style="grid-column: 3;">Save selection to ...</div>
+            
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
-                <button onclick="getFavoriteProjects().then((favorite_projects) => {edit_selection=favorite_projects;updateSelectionForm()});">TeamCity API</button>
-                <button onclick='
 
-                    var selectionFile = document.createElement("input");
+                <button onclick="
+                    getFavoriteProjects()
+                    .then((favorite_projects) => {
+                        edit_selection=favorite_projects;updateSelectionForm()
+                    });">
+                    TeamCity API
+                </button>
+
+                <button onclick='
+                    const selectionFile = document.createElement("input");
                     selectionFile.type = "file";
                     selectionFile.onchange = e => {
-                        var file = e.target.files[0];
-                        var reader = new FileReader();
+                        const file = e.target.files[0];
+                        const reader = new FileReader();
 
                         reader.readAsBinaryString(file);
 
@@ -126,14 +143,29 @@
                             updateSelectionForm();
                         }
                     }    
-                    selectionFile.click();
+                    selectionFile.click();'>
+                    File
+                </button>
 
-                '>File</button>
             </div>
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
-                <button onclick="setCookie('tcSelection',JSON.stringify(selection),365); alert('Selection saved to cookie!')">Cookie</button>
+
+                <button onclick="
+                    setCookie('tcSelection',JSON.stringify(selection),365);
+                    alert('Selection saved to cookie!')">
+                    Cookie
+                </button>
+
                 <!-- Create virtual anchor to attach file and let JavaScript click it. -->
-                <button onclick='const link = document.createElement("a"); link.download = "tcBuildViewer_selection.json"; var blob = new Blob([JSON.stringify(selection, undefined, 2)], { type: "text/plain" }); link.href=window.URL.createObjectURL(blob); link.click();'>File</button>
+                <button onclick='
+                    const link = document.createElement("a");
+                    link.download = "tcBuildViewer_selection.json";
+                    const blob = new Blob([JSON.stringify(selection, undefined, 2)], { type: "text/plain" });
+                    link.href=window.URL.createObjectURL(blob);
+                    link.click();'>
+                    File
+                </button>
+
             </div>
         </div>
 
@@ -146,12 +178,12 @@
                 document.getElementById('firefox').classList.toggle('hidden');
 
             // TeamCity user data.
-            var user;
+            let user;
 
             // Included and excluded projects.
-            var selection;
-            var edit_selection;
-            var api_selection;
+            let selection;
+            let edit_selection;
+            let api_selection;
 
             // Traverse the projects in $include_projects (see config.js)
             // and append the data to $my_projects[]
@@ -170,7 +202,7 @@
                         edit_selection = selection = JSON.parse(getCookie('tcSelection'));
                         console.log(`Project selection loaded from cookie:\n\n${JSON.stringify(selection, undefined, 2)}`);
 
-                    } else if (api_selection.include_projects && api_selection.include_projects.length == 0) {
+                    } else if (api_selection.include_projects?.length == 0) {
 
                         edit_selection = selection = default_selection;
                         console.log(`Project selection loaded from config.js:\n\n${JSON.stringify(selection, undefined, 2)}`);

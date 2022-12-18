@@ -25,7 +25,7 @@ async function getCurrentUser() {
 
 }
 
-// Basically just showing a login button.
+// Basically just show a login button.
 function showLoginButton() {
 
     document.getElementById('login').classList.toggle('hidden');
@@ -37,7 +37,7 @@ async function userLoggedIn() {
 
     try {
 
-        var response = await fetch(`${teamcity_base_url}/app/rest/users/current`, {
+        let response = await fetch(`${teamcity_base_url}/app/rest/users/current`, {
             headers: {
                 'Accept': 'application/json',
             },
@@ -60,24 +60,24 @@ async function userLoggedIn() {
 
 async function getFavoriteProjects() {
 
-    var response = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
+    let response = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
     });
 
-    var projects = await response.json();
+    let projects = await response.json();
 
-    var all_project_ids = projects.project.map(x => x.id);
+    let all_project_ids = projects.project.map(x => x.id);
 
-    var favoriteProjectObjects = projects.project.filter( project => {
+    let favoriteProjectObjects = projects.project.filter( project => {
         return !all_project_ids.includes(project.parentProjectId);
     })
 
-    var favorite_projects = favoriteProjectObjects.map(x => x.id);
+    let favorite_projects = favoriteProjectObjects.map(x => x.id);
 
-    var api_selection = {
+    let api_selection = {
         include_projects: favorite_projects,
         exclude_projects: [],
     }
@@ -87,7 +87,7 @@ async function getFavoriteProjects() {
 }
 
 function updateSelectionForm() {
-    var selectionDiv = document.getElementById('selection_code');
+    let selectionDiv = document.getElementById('selection_code');
     selection_textarea.value = JSON.stringify(edit_selection, undefined, 2);
     selectionDiv.innerText = JSON.stringify(selection, undefined, 2);
 }
