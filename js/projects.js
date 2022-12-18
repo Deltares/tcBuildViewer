@@ -81,7 +81,7 @@ function add_builds_to_buildtype(buildType, project) {
             'Accept': 'application/json',
         },
         credentials: 'include',
-    })
+    },this)
         .then((result) => result.json())
         .then((output) => {
 
