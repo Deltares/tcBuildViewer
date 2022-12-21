@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
-const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences)'
+const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences,investigations(investigation(id,state,assignee,assignment,scope,target)))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
 const change_fields        = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
@@ -182,9 +182,9 @@ async function get_investigations(buildTypeId) {
 
     let investigationsJSON = await investigationsRequest.json()
 
-    let investigations = investigationsJSON.messages
-
     console.log(investigationsJSON)
+
+    return investigationsJSON
 }
 
 
