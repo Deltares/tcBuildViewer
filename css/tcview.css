@@ -307,6 +307,12 @@ a:hover > div.linkIcon {
 
 .BuildTypeLink {
     color: black;
+    background-color: #eee;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: initial;
+    padding: 0.2em;
+    margin: 0.2em;
+    margin-left: 20px;
 }
 
 /* When the last build has a different status than the second-last. */
