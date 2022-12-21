@@ -2,7 +2,7 @@
 //const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
 const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed))'
-const buildType_tests_fields = 'fields=testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(currentlyInvestigated))'
+const buildType_tests_fields = 'fields=testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(status,currentlyInvestigated))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields         = 'fields=messages'
 const tests_fields           = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
@@ -63,7 +63,7 @@ async function append_projects_recursively(projectId, order) {
                     promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
                 })
                 let start = new Date()
-                Promise.all(promiseList).then(() => {renderProjectTestStatistics(project)})
+                Promise.all(promiseList).then(() => {/*renderProjectTestStatistics(project)*/})
             }
             
             // Check for sub-projects to add

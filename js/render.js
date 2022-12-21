@@ -92,7 +92,7 @@ function renderProject(project) {
     return projectDiv
 
 }
-
+/*
 function renderProjectTestStatistics(project) {
     if(project.testCount) {
         project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
@@ -104,7 +104,7 @@ function renderProjectTestStatistics(project) {
         project.div.getElementsByClassName('project_title')[0].after(testStatisticsSumDiv)
     }
 }
-
+*/
 // Add buildType to project.
 function renderBuildType(buildType) {
 
