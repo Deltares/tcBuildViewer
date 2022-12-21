@@ -1,5 +1,5 @@
 // Will enable/disable buttons when there are downloads in progress.
-function checkFilterButtons(downloadQueueLength) {
+async function checkFilterButtons(downloadQueueLength) {
 
     document.getElementById('queue_number').innerHTML = downloadQueueLength
 
@@ -31,7 +31,7 @@ function initiateProjectElements(include_projects) {
 
 }
 
-function renderProject(project) {
+async function renderProject(project) {
 
     // Add project to parent project.
     let projectDiv = document.createElement("div")
@@ -106,7 +106,7 @@ function renderProjectTestStatistics(project) {
 }
 */
 // Add buildType to project.
-function renderBuildType(buildType) {
+async function renderBuildType(buildType) {
 
     // Skip build types with no builds.
     if (!buildType.builds.build[0])
@@ -208,7 +208,7 @@ function renderBuildType(buildType) {
 }
 
 // Add build to buildList.
-function renderBuild(build) {
+async function renderBuild(build) {
 
     // Add build to buildList.
     let buildDiv = document.createElement("div")
@@ -257,7 +257,7 @@ async function renderBuildTypeStats(buildStats) {
     element.appendChild(testStatisticsText)
 }
 
-function renderBuildDetails(buildId,messages,tests,changes) {
+async function renderBuildDetails(buildId,messages,tests,changes) {
     let parentElementId = document.getElementById(buildId).parentElement.id
     let buildDetails = document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
