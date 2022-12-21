@@ -168,8 +168,8 @@ function renderBuildType(buildType) {
 
     // Investigations
     if (buildType.investigations?.investigation?.length > 0) {
-        console.log(buildType.investigations.investigation)
         for (investigation in buildType.investigations.investigation) {
+            console.log(investigation)
             testStatisticsDiv.appendChild(document.createTextNode(investigation.assignee.name))
         }
     }
