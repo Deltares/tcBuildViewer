@@ -16,7 +16,7 @@
     background: #eee; /* A bit less white. */
 }
 
-.collapsed > .project, .collapsed > .buildType {
+.collapsed > .project, .collapsed > .projectBuildTypesDiv {
     display: none !important;
 }
 
