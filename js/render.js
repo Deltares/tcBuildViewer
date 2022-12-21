@@ -170,7 +170,7 @@ function renderBuildType(buildType) {
     if (buildType.investigations?.investigation?.length > 0) {
         console.log(buildType.investigations.investigation)
         for (investigation in buildType.investigations.investigation) {
-            testStatisticsDiv.appendChild(document.createTextNode(investigation))
+            testStatisticsDiv.appendChild(document.createTextNode(investigation.assignee.name))
         }
     }
 
