@@ -181,7 +181,7 @@ async function add_tests_to_build(buildId) {
 
             let buildStats = Object();
             buildStats.buildId = buildId
-            buildStats.testOccurrences = output.testOccurrences?output.testOccurrences:[]
+            buildStats.testOccurrences = output.testOccurrences
 
             renderBuildTypeStats(buildStats)
         })

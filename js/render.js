@@ -243,7 +243,19 @@ function renderBuild(build) {
 }
 
 function renderBuildTypeStats(buildStats) {
+    let newFailed = buildStats.testOccurrences.newFailed
+    let failedNotInvestigated = buildStats.testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated})
+    let ignored = buildStats.testOccurrences.ignored
+    let muted = buildStats.testOccurrences.muted
+    let passed = buildStats.testOccurrences.passed
+    let count = buildStats.testOccurrences.count
+    let percentage = Number((passed/count)*100).toFixed(2)
+
     console.log(buildStats)
+    let element = document.getElementById(buildStats.buildId).parentElement.parentElement.getElementsByClassName('test_statistics_text')[0]
+
+    let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
+    testStatisticsDiv.appendChild(testStatisticsText)
 }
 
 function renderBuildDetails(buildId,messages,tests,changes) {
