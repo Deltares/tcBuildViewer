@@ -320,11 +320,16 @@ a:hover > div.linkIcon {
 
 /* When the last build has a different status than the second-last. */
 .buildTypePart.statusChanged {
-    border: 3px solid gold;
+    border-top: 3px solid gold;
+    border-bottom: 3px solid gold;
 }
 
-.buildTypePart:not(.statusChanged) {
-    border: 3px solid white;
+.buildTypePart.buildTypeLink {
+    border-left: 3px solid gold;
+}
+
+.buildTypePart.buildList {
+    border-right: 3px solid gold;
 }
 
 /* List of builds for the build type. */
