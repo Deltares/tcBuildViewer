@@ -184,7 +184,7 @@ async function get_investigations(buildTypeId) {
 
     let investigations = investigationsJSON.messages
 
-    console.log(investigations)
+    console.log(investigationsJSON)
 }
 
 
