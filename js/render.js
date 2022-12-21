@@ -242,7 +242,7 @@ function renderBuild(build) {
 
 }
 
-function renderBuildDetails(buildId,messages,changes) {
+function renderBuildDetails(buildId,messages,tests,changes) {
     let parentElementId = document.getElementById(buildId).parentElement.id
     let buildDetails = document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
@@ -262,9 +262,22 @@ function renderBuildDetails(buildId,messages,changes) {
         `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
         this.classList.add('active')
         this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden')
+        this.parentElement.parentElement.getElementsByClassName('steps')[0].classList.remove('steps')
         this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden')`)
     buildMessagesButton.appendChild(document.createTextNode('Logs'))
     buildButtonBar.appendChild(buildMessagesButton)
+
+    // Show changes
+    let buildStepsButton = document.createElement('button')
+    buildStepsButton.classList.add('toggle')
+    buildStepsButton.setAttribute('onclick',
+    `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
+    this.classList.add('active')
+    this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden')
+    this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden')
+    this.parentElement.parentElement.getElementsByClassName('steps')[0].classList.remove('hidden')`)
+    buildStepsButton.appendChild(document.createTextNode('Steps'))
+    buildButtonBar.appendChild(buildStepsButton)
 
     // Show changes
     let buildChangesButton = document.createElement('button')
@@ -273,6 +286,7 @@ function renderBuildDetails(buildId,messages,changes) {
     `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
     this.classList.add('active')
     this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden')
+    this.parentElement.parentElement.getElementsByClassName('steps')[0].classList.remove('steps')
     this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden')`)
     buildChangesButton.appendChild(document.createTextNode('Blame'))
     buildButtonBar.appendChild(buildChangesButton)
@@ -293,6 +307,11 @@ function renderBuildDetails(buildId,messages,changes) {
     let messagesDiv = document.createElement('div')
     messagesDiv.classList.add('messages')
     buildDetails.appendChild(messagesDiv)
+
+    // Steps DIV
+    let stepsDiv = document.createElement('div')
+    messagesDiv.classList.add('steps')
+    buildDetails.appendChild(stepsDiv)
 
     // Changes DIV
     let changesDiv = document.createElement('div')
@@ -316,6 +335,24 @@ function renderBuildDetails(buildId,messages,changes) {
 
     if (changes.length == 0) {
         changesDiv.innerHTML = 'Nobody to blame... 😭'
+    }
+
+    Object.entries(tests).forEach(([key, test]) => {
+
+        let testP = document.createElement('p')
+        testP.classList.add('message')
+        if (test.status == 'WARNING')
+            testP.classList.add('warning')
+        if (test.status == 'ERROR')
+            testP.classList.add('error')
+        let testText = JSON.stringify(test.text)
+        testP.innerText = testText
+        testDiv.appendChild(testP)
+
+    })
+
+    if (tests.length == 0) {
+        testsDiv.innerHTML = 'Nobody to blame... 😭'
     }
 
     Object.entries(changes).forEach(([key, change]) => {

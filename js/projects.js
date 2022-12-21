@@ -3,6 +3,7 @@ const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(pro
 const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(id,name,status,newFailure,muted,test(investigations(investigation(assignee))))))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
+const tests_fields         = 'fields=count,muted,ignored,passed,newFailed,testOccurrence(id,name,status,details,newFailure,muted,test(id,name,parsedTestName,href,investigations(investigation(assignee))))'
 const change_fields        = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
 const investigation_fields = ''
 
@@ -170,6 +171,17 @@ async function get_build_details(buildId) {
 
     let messages = messagesJSON.messages
 
+    let testsRequest = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId})&${tests_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let testsJSON = await testsRequest.json()
+
+    let tests = testsJSON.testOccurrence
+
     let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -181,7 +193,7 @@ async function get_build_details(buildId) {
 
     let changes = changesJSON.change
 
-    renderBuildDetails(buildId, await messages, await changes)
+    renderBuildDetails(buildId, await messages, await tests, await changes)
 }
 
 // See if a buildType has an investigation.
