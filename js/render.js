@@ -343,7 +343,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         let testP = document.createElement('p')
         testP.classList.add('message')
         let testA = document.createElement('a')
-        testA.setAttribute('href',`${teamcity_base_url}/buildConfiguration/${test.test.build.builtTypeId}/${test.test.build.id}?logAnchor=2493`)
+        testA.setAttribute('href',`${teamcity_base_url}/buildConfiguration/${test.build.builtTypeId}/${test.build.id}?logAnchor=2493`)
 
         if (test.status == 'WARNING')
             testP.classList.add('warning')
