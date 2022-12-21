@@ -2,7 +2,7 @@
 //const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
 const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed))'
-//const buildType_tests_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(currentlyInvestigated)))'
+const buildType_tests_fields = 'fields=testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(currentlyInvestigated))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields         = 'fields=messages'
 const tests_fields           = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
@@ -123,6 +123,9 @@ async function add_builds_to_buildtype(buildType, project) {
             }
             renderBuildType(buildType)
 
+            if (buildType.builds.build?.[0]?)
+                add_tests_to_build(buildType.builds.build?.[0]?.id)
+
             // Check for every build if the result has changed since the previous build.
             if (buildType.builds.build?.[0]) {
 
@@ -154,6 +157,33 @@ async function add_builds_to_buildtype(buildType, project) {
                 };
 
             }
+        })
+        .catch(err => { console.log(err) })
+        .finally(() => {checkFilterButtons(--download_queue_length)})
+
+    return promise
+}
+
+async function add_tests_to_build(buildId) {
+
+    // Will enable/disable buttons when there are downloads in progress.
+    checkFilterButtons(++download_queue_length)
+
+    let promise = fetch(`${teamcity_base_url}/app/rest/builds/id:${build.id})?${buildType_tests_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+        priority: 'low',
+    },this)
+        .then((result) => result.json())
+        .then((output) => {
+
+            let buildStats
+            buildStats.buildId = buildId
+            buildStats.testOccurrences = output.testOccurrences
+
+            renderBuildTypeStats(buildStats)
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})

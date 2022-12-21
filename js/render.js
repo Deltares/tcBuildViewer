@@ -96,7 +96,7 @@ function renderProject(project) {
 function renderProjectTestStatistics(project) {
     if(project.testCount) {
         project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
-        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.failedNotInvestigated?'('+project.failedNotInvestigated+'×🙈) ':''}${project.testIgnored?'('+project.testIgnored+'×🙉) ':''}${project.testMuted?'('+project.testMuted+'×🙊) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
+        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.failedNotInvestigated?'['+project.failedNotInvestigated+'×🙈] ':''}${project.testIgnored?'['+project.testIgnored+'×🙉] ':''}${project.testMuted?'['+project.testMuted+'×🙊] ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
         let testStatisticsSumDiv = document.createElement('div')
         testStatisticsSumDiv.style.textAlign = 'right'
         testStatisticsSumDiv.style.display = 'inline-block'
@@ -240,6 +240,10 @@ function renderBuild(build) {
     let buildText = document.createTextNode('⬤')
     buildLink.appendChild(buildText)
 
+}
+
+function renderBuildTypeStats(buildStats) {
+    console.log(buildStats)
 }
 
 function renderBuildDetails(buildId,messages,tests,changes) {
