@@ -243,12 +243,12 @@ function renderBuild(build) {
 }
 
 function renderBuildTypeStats(buildStats) {
-    let newFailed = buildStats.testOccurrences.newFailed?buildStats.testOccurrences.newFailed:0
-    let failedNotInvestigated = buildStats.testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated})
-    let ignored = buildStats.testOccurrences.ignored?buildStats.testOccurrences.ignored:0
-    let muted = buildStats.testOccurrences.muted?buildStats.testOccurrences.muted:0
-    let passed = buildStats.testOccurrences.passed?buildStats.testOccurrences.passed:0
-    let count = buildStats.testOccurrences.count?buildStats.testOccurrences.count:0
+    let newFailed = buildStats.testOccurrences?.newFailed?buildStats.testOccurrences.newFailed:0
+    let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated})
+    let ignored = buildStats.testOccurrences?.ignored?buildStats.testOccurrences.ignored:0
+    let muted = buildStats.testOccurrences?.muted?buildStats.testOccurrences.muted:0
+    let passed = buildStats.testOccurrences?.passed?buildStats.testOccurrences.passed:0
+    let count = buildStats.testOccurrences?.count?buildStats.testOccurrences.count:0
     let percentage = Number((passed/count)*100).toFixed(2)
 
     console.log(buildStats)
