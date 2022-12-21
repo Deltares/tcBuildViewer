@@ -342,13 +342,25 @@ function renderBuildDetails(buildId,messages,tests,changes) {
 
         let testP = document.createElement('p')
         testP.classList.add('message')
+
         if (test.status == 'WARNING')
             testP.classList.add('warning')
         if (test.status == 'FAILURE')
             testP.classList.add('error')
-        if (test.status == 'UNKNOWN')
+        if (test.status == 'UNKNOWN') {
             testP.classList.add('unknown')
-        let testText = JSON.stringify(test.test.parsedTestName.testShortName)
+        }
+
+        let tags = ''
+
+        if (test.investigations.investigation?.length = 0)
+            tags += '🙈';
+        if (test.ignored)
+            tags += '🙉';
+        if (test.muted)
+            tags += '🙊';
+
+        let testText = `${tags} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
         testP.innerText = testText
         testsDiv.appendChild(testP)
 
