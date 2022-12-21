@@ -129,7 +129,7 @@ async function add_builds_to_buildtype(buildType, project) {
                 let build = buildType.builds.build
 
                 build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id)
-
+/*
                 // Add cumulative test statistics to project.
                 if (build[0].testOccurrences) {
                     project.testNewFailed += build[0].testOccurrences.newFailed?build[0].testOccurrences.newFailed:0
@@ -139,7 +139,7 @@ async function add_builds_to_buildtype(buildType, project) {
                     project.testCount     += build[0].testOccurrences.count?build[0].testOccurrences.count:0
                     project.failedNotInvestigated += buildType.failedNotInvestigated
                 }
-
+*/
                 for (i=0; i<build.length; i++) {
 
                     if (build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
