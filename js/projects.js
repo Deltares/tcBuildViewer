@@ -33,6 +33,7 @@ async function append_projects_recursively(projectId, order) {
             'Accept': 'application/json',
         },
         credentials: 'include',
+        priority: 'high',
     })
         .then((result) => {
             if (result.status == 200) {
@@ -88,6 +89,7 @@ async function add_builds_to_buildtype(buildType, project) {
             'Accept': 'application/json',
         },
         credentials: 'include',
+        priority: 'low',
     },this)
         .then((result) => result.json())
         .then((output) => {
