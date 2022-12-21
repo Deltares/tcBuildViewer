@@ -210,7 +210,7 @@ async function get_build_details(buildId) {
     let testsUnknownJSON = await testsRequestUnknown.json()
 
     let tests = []
-    tests = tests.concat(testsFailedJSON.testOccurrence, testsErrorJSON.testOccurrence, testsWarningJSON, testsUnknownJSON.testOccurrence)
+    tests = tests.concat(testsFailedJSON.testOccurrence, testsErrorJSON.testOccurrence, testsWarningJSON.testOccurrence, testsUnknownJSON.testOccurrence)
 
     console.log(tests)
 
