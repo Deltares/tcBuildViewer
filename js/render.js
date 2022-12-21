@@ -342,16 +342,16 @@ function renderBuildDetails(buildId,messages,tests,changes) {
 
         let testP = document.createElement('p')
         let testA = document.createElement('a')
-        testP.classList.add('message')
+        testA.classList.add('message')
         testA.setAttribute('target','_blank')
         testA.setAttribute('href',`${teamcity_base_url}/buildConfiguration/${test.build.buildTypeId}/${test.build.id}?showLog=${test.build.id}_${test.logAnchor}`)
 
         if (test.status == 'WARNING')
-            testP.classList.add('warning')
+            testA.classList.add('warning')
         if (test.status == 'FAILURE')
-            testP.classList.add('error')
+            testA.classList.add('error')
         if (test.status == 'UNKNOWN') {
-            testP.classList.add('unknown')
+            testA.classList.add('unknown')
         }
 
         let tags = ''
