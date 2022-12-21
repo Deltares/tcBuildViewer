@@ -305,6 +305,10 @@ a:hover > div.linkIcon {
     word-break: break-all;
 }
 
+.BuildTypeLink {
+    color: black;
+}
+
 /* When the last build has a different status than the second-last. */
 .buildTypeLink.statusChanged {
     border: 3px solid gold;
