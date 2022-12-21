@@ -115,7 +115,6 @@ function renderBuildType(buildType) {
     // Add buildType to project.
     let buildTypeDiv = document.createElement("div")
     let parentElement = document.getElementById(buildType.projectId).getElementsByClassName('projectBuildTypesDiv')[0]
-    parentElement.appendChild(buildTypeLink)
     buildTypeDiv.style.order = buildType.order
     //parentElement.appendChild(buildTypeDiv)
 
@@ -126,6 +125,7 @@ function renderBuildType(buildType) {
     parentElement.classList.add(buildType.projectId)
 
     let buildTypeLink = document.createElement("a")
+    parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
     buildTypeLink.classList.add(buildType.builds.build[0].status)
 
