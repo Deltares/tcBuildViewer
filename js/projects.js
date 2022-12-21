@@ -121,15 +121,15 @@ async function add_builds_to_buildtype(buildType, project) {
                     //console.log(failedNotInvestigated)
                 }
             }
-            renderBuildType(buildType)
 
-            if (buildType.builds.build?.[0])
-                add_tests_to_build(buildType.builds.build?.[0]?.id)
+            renderBuildType(buildType)
 
             // Check for every build if the result has changed since the previous build.
             if (buildType.builds.build?.[0]) {
 
                 let build = buildType.builds.build
+
+                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id)
 
                 // Add cumulative test statistics to project.
                 if (build[0].testOccurrences) {
@@ -185,6 +185,7 @@ async function add_tests_to_build(buildId) {
                 buildStats.testOccurrences = output.testOccurrences
                 renderBuildTypeStats(buildStats)
             }
+
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
