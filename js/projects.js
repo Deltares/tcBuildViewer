@@ -189,7 +189,7 @@ async function get_build_details(buildId) {
         credentials: 'include',
     })
 
-    let testsErrorJSON = await testsRequestWarning.json()
+    let testsErrorJSON = await testsRequestError.json()
 
     let testsRequestWarning = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=count:-1,build:(id:${buildId}),status:(warning)&${tests_fields}`, {
         headers: {
