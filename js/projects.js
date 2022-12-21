@@ -173,7 +173,7 @@ async function get_build_details(buildId) {
 
     let messages = messagesJSON.messages
 
-    let testsRequestFailed = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(failure)&${tests_fields}`, {
+    let testsRequestFailed = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=count:-1,build:(id:${buildId}),status:(failure)&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -182,7 +182,7 @@ async function get_build_details(buildId) {
 
     let testsFailedJSON = await testsRequestFailed.json()
 
-    let testsRequestWarning = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(warning)&${tests_fields}`, {
+    let testsRequestWarning = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=count:-1,build:(id:${buildId}),status:(warning)&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -191,7 +191,7 @@ async function get_build_details(buildId) {
 
     let testsWarningJSON = await testsRequestWarning.json()
 
-    let testsRequestUnknown = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(unknown)&${tests_fields}`, {
+    let testsRequestUnknown = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=count:-1,build:(id:${buildId}),status:(unknown)&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
