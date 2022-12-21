@@ -267,7 +267,7 @@ a:hover > div.linkIcon {
 
 /* A 'build type' contains builds. */
 .buildType {
-    background-color: #eee;
+    /*background-color: #eee;
     font-family: 'Courier New', Courier, monospace;
     font-weight: initial;
     padding: 0.2em;
@@ -275,7 +275,7 @@ a:hover > div.linkIcon {
     margin-left: 20px;
     display: grid;
     grid-template-columns: auto fit-content(100%) fit-content(100%);
-    column-gap: 5px;
+    column-gap: 5px;*/
 }
 
 /* Build types where the last build failed. */
