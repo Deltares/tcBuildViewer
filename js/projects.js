@@ -103,8 +103,8 @@ async function add_builds_to_buildtype(buildType, project) {
             if (buildType.builds.build?.[0]?.status) {
                 buildType.status = buildType.builds.build?.[0]?.status
             }
-            if (buildType.builds.build?.[0]?.testOccurrences?.testOccurrence?.[0]?.test?.investigation?.assignee) {
-                console.log(buildType.builds.build?.[0]?.testOccurrences?.testOccurrence?.[0]?.test?.investigation?.assignee);
+            if (buildType.builds.build?.[0]?.testOccurrences) {
+                console.log(buildType.builds.build?.[0]?.testOccurrences);
             }
             renderBuildType(buildType)
 
