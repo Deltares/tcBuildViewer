@@ -96,7 +96,7 @@ function renderProject(project) {
 function renderProjectTestStatistics(project) {
     if(project.testCount) {
         project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
-        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.testMuted?'('+project.testMuted+' 🙊) ':''}${project.ignored?'('+project.ignored+' 🙉) ':''}${project.failedNotInvestigated?'('+project.failedNotInvestigated+' 🙈) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
+        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.testMuted?'('+project.testMuted+' 🙊) ':''}${project.testIgnored?'('+project.testIgnored+' 🙉) ':''}${project.failedNotInvestigated?'('+project.failedNotInvestigated+' 🙈) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
         let testStatisticsSumDiv = document.createElement('div')
         testStatisticsSumDiv.style.textAlign = 'right'
         testStatisticsSumDiv.style.display = 'inline-block'
