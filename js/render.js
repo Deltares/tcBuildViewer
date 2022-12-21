@@ -96,7 +96,7 @@ function renderProject(project) {
 function renderProjectTestStatistics(project) {
     if(project.testCount) {
         project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
-        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.testMuted?'('+project.testMuted+' muted) ':''}${project.ignored?'('+project.ignored+' ignored) ':''}${project.failedNotInvestigated?'('+project.failedNotInvestigated+' not investigated) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
+        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.testMuted?'('+project.testMuted+' 🙊) ':''}${project.ignored?'('+project.ignored+' 🙉) ':''}${project.failedNotInvestigated?'('+project.failedNotInvestigated+' 🙈) ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
         let testStatisticsSumDiv = document.createElement('div')
         testStatisticsSumDiv.style.textAlign = 'right'
         testStatisticsSumDiv.style.display = 'inline-block'
@@ -164,7 +164,7 @@ function renderBuildType(buildType) {
         let percentage = Number((passed/count)*100).toFixed(2)
         let failedNotInvestigated = buildType.failedNotInvestigated
 
-        let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${muted?'('+muted+' muted) ':''}${ignored?'('+ignored+' ignored) ':''}${failedNotInvestigated?'('+failedNotInvestigated+' not investigated) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
+        let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${muted?'('+muted+' 🙊) ':''}${ignored?'('+ignored+' 🙉) ':''}${failedNotInvestigated?'('+failedNotInvestigated+' 🙈) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
         testStatisticsDiv.appendChild(testStatisticsText)
     }
 
