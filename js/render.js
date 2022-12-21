@@ -362,7 +362,6 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         else {
             investigation_names = test.test.investigations.investigation.map((investigation) => {return investigation.assignee.name})
             tags += '🕵'
-            testA.style.order = 0
             testP.style.color = 'var(--deltares-blue)'
         }
         if (test.ignored)
