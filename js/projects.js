@@ -123,7 +123,7 @@ async function add_builds_to_buildtype(buildType, project) {
             }
             renderBuildType(buildType)
 
-            if (buildType.builds.build?.[0]?)
+            if (buildType.builds.build?.[0])
                 add_tests_to_build(buildType.builds.build?.[0]?.id)
 
             // Check for every build if the result has changed since the previous build.
