@@ -182,6 +182,15 @@ async function get_build_details(buildId) {
 
     let testsFailedJSON = await testsRequestFailed.json()
 
+    let testsRequestWarning = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(warning)&${tests_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let testsWarningJSON = await testsRequestWarning.json()
+
     let testsRequestUnknown = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(unknown)&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -191,17 +200,8 @@ async function get_build_details(buildId) {
 
     let testsUnknownJSON = await testsRequestUnknown.json()
 
-    let testsRequestError = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(error)&${tests_fields}`, {
-        headers: {
-            'Accept': 'application/json',
-        },
-        credentials: 'include',
-    })
-
-    let testsErrorJSON = await testsRequestError.json()
-
     let tests = []
-    tests = tests.concat(testsFailedJSON.testOccurrence, testsErrorJSON.testOccurrence, testsUnknownJSON.testOccurrence)
+    tests = tests.concat(testsFailedJSON.testOccurrence, testsErrorJSON.testOccurrence, testsWarningJSON, testsUnknownJSON.testOccurrence)
 
     console.log(tests)
 
