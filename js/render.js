@@ -185,13 +185,13 @@ async function renderBuildType(buildType) {
     buildListDiv.classList.add('buildTypePart')
     parentElement.appendChild(buildListDiv)
 
-    let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
+/*    let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
     let buildSteps = document.createElement("div")
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
     parentElement.appendChild(buildSteps)
-
+*/
     // Add statusChanged when the last build status is different.
     if (buildType.statusChanged) {
         buildTypeLink.classList.add('statusChanged')
