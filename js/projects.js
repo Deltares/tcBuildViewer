@@ -191,7 +191,16 @@ async function get_build_details(buildId) {
 
     let testsUnknownJSON = await testsRequestUnknown.json()
 
-    let tests = testsFailedJSON.testOccurrence.concat(testsUnknownJSON.testOccurrence)
+    let testsRequestError = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(error)&${tests_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let testsErrorJSON = await testsRequestError.json()
+
+    let tests = concat(testsFailedJSON.testOccurrence, testsErrorJSON.testOccurrence, testsUnknownJSON.testOccurrence)
 
     console.log(tests)
 
