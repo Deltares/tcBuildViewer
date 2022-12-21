@@ -152,7 +152,7 @@ function renderBuildType(buildType) {
     testStatisticsDiv.classList.add('test_statistics_text')
     testStatisticsDiv.classList.add('buildTypePart')
     parentElement.appendChild(testStatisticsDiv)
-
+/*
     // Test statistics
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
@@ -167,7 +167,7 @@ function renderBuildType(buildType) {
         let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
         testStatisticsDiv.appendChild(testStatisticsText)
     }
-
+*/
     // Investigations
     /*
     if (buildType.investigations?.investigation?.length > 0) {
