@@ -461,6 +461,10 @@ a:hover > div.linkIcon {
     background: #eee;
 }
 
+.message > p {
+    display: inline;
+}
+
 .changes {
     display: grid;
     grid-template-columns: fit-content(25%) auto fit-content(50%) fit-content(50%);
