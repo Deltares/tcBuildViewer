@@ -341,8 +341,9 @@ function renderBuildDetails(buildId,messages,tests,changes) {
     Object.entries(tests).forEach(([key, test]) => {
 
         let testP = document.createElement('p')
-        testP.classList.add('message')
         let testA = document.createElement('a')
+        testA.classList.add('message')
+        testA.style.display = 'block'
         testA.setAttribute('target','_blank')
         testA.setAttribute('href',`${teamcity_base_url}/buildConfiguration/${test.build.buildTypeId}/${test.build.id}?showLog=${test.build.id}_${test.logAnchor}`)
 
@@ -370,8 +371,8 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         if (test.muted)
             tags += '🙊'
 
-        testA.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
-        testP.appendChild(testA)
+        testP.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
+        testA.appendChild(testP)
         testsDiv.appendChild(testA)
 
     })
