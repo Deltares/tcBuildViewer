@@ -526,3 +526,7 @@ a:hover > div.linkIcon {
 .test_statistics_text {
     text-align: right;
 }
+
+.tests, .messages, .changes {
+    background-color: white;
+}
