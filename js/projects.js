@@ -74,7 +74,6 @@ async function append_projects_recursively(projectId, order) {
             }
 
         })
-        .then(project => {})
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
 }
@@ -166,9 +165,6 @@ async function add_builds_to_buildtype(buildType, project) {
 
 async function add_tests_to_build(buildId) {
 
-    // Will enable/disable buttons when there are downloads in progress.
-    checkFilterButtons(++download_queue_length)
-
     let promise = fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}?${buildType_tests_fields}`, {
         headers: {
             'Accept': 'application/json',
@@ -188,7 +184,6 @@ async function add_tests_to_build(buildId) {
 
         })
         .catch(err => { console.log(err) })
-        .finally(() => {checkFilterButtons(--download_queue_length)})
 
     return promise
 }
