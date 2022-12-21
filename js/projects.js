@@ -255,26 +255,6 @@ async function get_build_details(buildId) {
     renderBuildDetails(buildId, await messages, await tests, await changes)
 }
 
-// See if a buildType has an investigation.
-async function get_investigations(buildTypeId) {
-
-    let investigationsRequest = await fetch(`${teamcity_base_url}/app/rest/investigations/buildType:(id:${buildTypeId})&${investigation_fields}`, {
-        headers: {
-            'Accept': 'application/json',
-        },
-        credentials: 'include',
-    })
-
-    let investigationsJSON = await investigationsRequest.json()
-
-    console.log(investigationsJSON)
-
-    return investigationsJSON
-}
-
-
-https://dpcbuild.deltares.nl/app/rest/investigations/buildType:(id:DHydro_Testbenches_Daily_DFlowFm_Lnx64_QuickTests)
-
 // Convert TeamCity's weird time notation to Unix timestamp.
 function tcTimeToUnix(tcTime) {
     split    = tcTime.split('')
