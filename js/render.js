@@ -369,7 +369,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         if (test.muted)
             tags += '🙊'
 
-        testP.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
+        testP.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)} ⇾ ${JSON.stringify(test.details)}`
         testA.appendChild(testP)
 
         if (investigation_names)
