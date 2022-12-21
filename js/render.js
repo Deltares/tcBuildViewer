@@ -119,10 +119,10 @@ function renderBuildType(buildType) {
     //parentElement.appendChild(buildTypeDiv)
 
     // Create buildTextDiv.
-    parentElement.setAttribute('id', buildType.id)
-    parentElement.setAttribute('title',`BuildType ID: ${buildType.id}`)
-    parentElement.classList.add('buildType')
-    parentElement.classList.add(buildType.projectId)
+    //parentElement.setAttribute('id', buildType.id)
+    //parentElement.setAttribute('title',`BuildType ID: ${buildType.id}`)
+    //parentElement.classList.add('buildType')
+    //parentElement.classList.add(buildType.projectId)
 
     let buildTypeLink = document.createElement("a")
     parentElement.appendChild(buildTypeLink)
@@ -137,7 +137,7 @@ function renderBuildType(buildType) {
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.classList.add('buildTypeLink');
-    parentElement.setAttribute('id', `buildTypeLink_${buildType.id}`)
+    buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}`)
     buildTypeLink.setAttribute('target', '_blank')
 
     // Text for the buildType.
