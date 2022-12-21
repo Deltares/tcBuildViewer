@@ -172,7 +172,7 @@ async function get_build_details(buildId) {
 
     let messages = messagesJSON.messages
 
-    let testsRequest = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId})&${tests_fields}`, {
+    let testsRequest = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),currentlyFailing:true&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
         },

@@ -343,8 +343,10 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         testP.classList.add('message')
         if (test.status == 'WARNING')
             testP.classList.add('warning')
-        if (test.status == 'ERROR')
+        if (test.status == 'FAILURE')
             testP.classList.add('error')
+        if (test.status == 'UNKNOWN')
+            testP.classList.add('unknown')
         let testText = JSON.stringify(test.name)
         testP.innerText = testText
         testsDiv.appendChild(testP)

@@ -445,6 +445,12 @@ a:hover > div.linkIcon {
     color: goldenrod;
 }
 
+.message.unknown {
+    font-weight: bold;
+    color: white;
+    background: black;
+}
+
 .message, .change {
     grid-column: 1;
     margin: 0px;
