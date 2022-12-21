@@ -295,7 +295,7 @@ a:hover > div.linkIcon {
 
 /* Hide build types without builds. */
 .buildType:not(:has(.build)) {
-    display:none;
+    /*display:none;*/
 }
 
 /* Name of the build type. */
