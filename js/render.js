@@ -244,6 +244,7 @@ function renderBuild(build) {
 
 function renderBuildTypeStats(buildStats) {
     let newFailed = buildStats.testOccurrences?.newFailed?buildStats.testOccurrences.newFailed:0
+    let failedInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && testOccurrence.currentlyInvestigated}).length
     let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated}).length
     let ignored = buildStats.testOccurrences?.ignored?buildStats.testOccurrences.ignored:0
     let muted = buildStats.testOccurrences?.muted?buildStats.testOccurrences.muted:0
@@ -254,7 +255,7 @@ function renderBuildTypeStats(buildStats) {
     console.log(buildStats)
     let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
 
-    let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
+    let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
 }
 
