@@ -448,7 +448,7 @@ a:hover > div.linkIcon {
 .message.unknown {
     font-weight: bold;
     color: white;
-    background: black;
+    background: gray !important;
 }
 
 .message, .change {
