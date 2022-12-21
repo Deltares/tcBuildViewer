@@ -500,6 +500,7 @@ a:hover > div.linkIcon {
     margin-right: 0.4em;
     display: grid;
     grid-template-columns: fit-content(100%) fit-content(100%) auto;
+    margin-bottom: 5px;
 }
 
 .projectBuildTypesDiv {
@@ -510,6 +511,7 @@ a:hover > div.linkIcon {
 
 .projectBuildTypesDiv > * {
     padding: 5px;
+    background-color: #eee;
 }
 
 .test_statistics_text {
