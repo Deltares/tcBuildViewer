@@ -239,8 +239,8 @@ function renderBuild(build) {
 }
 
 function renderBuildDetails(buildId,messages,changes) {
-    let parentElementId = document.getElementById(buildId).parentElement.parentElement.id
-    let buildDetails = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0]
+    let parentElementId = document.getElementById(buildId).parentElement.id
+    let buildDetails = document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
 
