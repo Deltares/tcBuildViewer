@@ -348,7 +348,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
             testP.classList.add('error')
         if (test.status == 'UNKNOWN')
             testP.classList.add('unknown')
-        let testText = JSON.stringify(test.parsedTestName.testShortName)
+        let testText = JSON.stringify(test.test.parsedTestName.testShortName)
         testP.innerText = testText
         testsDiv.appendChild(testP)
 
