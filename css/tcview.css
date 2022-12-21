@@ -305,14 +305,17 @@ a:hover > div.linkIcon {
     word-break: break-all;
 }
 
-.BuildTypeLink {
-    color: black;
+.projectBuildTypesDiv {
     background-color: #eee;
     font-family: 'Courier New', Courier, monospace;
     font-weight: initial;
     padding: 0.2em;
     margin: 0.2em;
     margin-left: 20px;
+}
+
+.BuildTypeLink {
+    color: black;
 }
 
 /* When the last build has a different status than the second-last. */
