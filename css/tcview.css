@@ -263,19 +263,6 @@ a:hover > div.linkIcon {
     display:none !important;
 }
 
-/* A 'build type' contains builds. */
-.buildType {
-    /*background-color: #eee;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: initial;
-    padding: 0.2em;
-    margin: 0.2em;
-    margin-left: 20px;
-    display: grid;
-    grid-template-columns: auto fit-content(100%) fit-content(100%);
-    column-gap: 5px;*/
-}
-
 /* Build types where the last build failed. */
 .buildTypePart.FAILURE {
     background-color: #fee !important;
@@ -289,11 +276,6 @@ a:hover > div.linkIcon {
 /* Build types where the last build succeeded. */
 .buildTypePart.UNKNOWN {
     background-color: #fee !important;
-}
-
-/* Hide build types without builds. */
-.buildType:not(:has(.build)) {
-    /*display:none;*/
 }
 
 /* Name of the build type. */
@@ -469,7 +451,6 @@ a:hover > div.linkIcon {
     display: grid;
     grid-template-columns: fit-content(25%) auto fit-content(50%) fit-content(50%);
     gap: 0.5em;
-    padding: 0.5em;
 }
 
 .changes > * {
@@ -534,4 +515,5 @@ a:hover > div.linkIcon {
 
 .tests, .messages, .changes {
     background-color: white;
+    padding: 0.5em;
 }
