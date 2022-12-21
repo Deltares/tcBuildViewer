@@ -311,7 +311,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
     // Steps DIV
     let testsDiv = document.createElement('div')
     testsDiv.classList.add('tests')
-    changesDiv.classList.add('hidden')
+    testsDiv.classList.add('hidden')
     buildDetails.appendChild(testsDiv)
 
     // Changes DIV
