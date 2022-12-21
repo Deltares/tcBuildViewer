@@ -313,17 +313,17 @@ a:hover > div.linkIcon {
     margin-left: 20px;
 }
 
-.BuildTypeLink {
+/*.BuildTypeLink {
     color: black;
     background-color: #eee;
-}
+}*/
 
 /* When the last build has a different status than the second-last. */
-.buildTypeLink.statusChanged {
+.buildTypePart.statusChanged {
     border: 3px solid gold;
 }
 
-.buildTypeLink:not(.statusChanged) {
+.buildTypePart:not(.statusChanged) {
     border: 3px solid white;
 }
 
