@@ -135,6 +135,10 @@ function renderBuildType(buildType) {
         buildTypeLink.classList.add('statusChanged')
     }
 
+    if (buildType.status) {
+        buildTypeLink.classList.add(buildType.status)
+    }
+
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.classList.add('buildTypeLink');
