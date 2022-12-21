@@ -485,6 +485,7 @@ a:hover > div.linkIcon {
 
 .project_header_wrapper {
     margin-right: 0.4em;
+    display: grid;
     grid-template-columns: fit-content(100%) fit-content(100%) auto;
 }
 
