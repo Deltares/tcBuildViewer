@@ -281,7 +281,7 @@ function renderBuildDetails(buildId,messages,changes) {
 
     // Close build details
     let buildCloseButton = document.createElement('button')
-    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId})[0].nextSibling.classList.add('hidden')`)
+    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId}')[0].nextSibling.classList.add('hidden')`)
     buildCloseButton.appendChild(document.createTextNode('Close'))
     buildButtonBar.appendChild(buildCloseButton)
 
