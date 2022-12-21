@@ -112,7 +112,6 @@ function renderBuildType(buildType) {
     if (!buildType.builds.build[0])
         return
 
-    let buildTypeLink = document.createElement("a")
     // Add buildType to project.
     let buildTypeDiv = document.createElement("div")
     let parentElement = document.getElementById(buildType.projectId).getElementsByClassName('projectBuildTypesDiv')[0]
@@ -126,8 +125,9 @@ function renderBuildType(buildType) {
     parentElement.classList.add('buildType')
     parentElement.classList.add(buildType.projectId)
 
+    let buildTypeLink = document.createElement("a")
     // Add status of last build as class.
-    parentElement.classList.add(buildType.builds.build[0].status)
+    buildTypeLink.classList.add(buildType.builds.build[0].status)
 
     // Add statusChanged when the last build status is different.
     if (buildType.statusChanged) {
@@ -137,6 +137,7 @@ function renderBuildType(buildType) {
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.classList.add('buildTypeLink');
+    parentElement.setAttribute('id', `buildTypeLink_${buildType.id}`)
     buildTypeLink.setAttribute('target', '_blank')
 
     // Text for the buildType.
