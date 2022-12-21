@@ -279,17 +279,17 @@ a:hover > div.linkIcon {
 }
 
 /* Build types where the last build failed. */
-.buildTypeLink.FAILURE {
+.buildTypePart.FAILURE {
     background-color: #fee !important;
 }
 
 /* Build types where the last build succeeded. */
-.buildTypeLink.SUCCESS {
+.buildTypePart.SUCCESS {
     background-color: #efe !important;
 }
 
 /* Build types where the last build succeeded. */
-.buildTypeLink.UNKNOWN {
+.buildTypePart.UNKNOWN {
     background-color: #fee !important;
 }
 
