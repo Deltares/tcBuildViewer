@@ -179,7 +179,7 @@ async function add_tests_to_build(buildId) {
         .then((result) => result.json())
         .then((output) => {
 
-            let buildStats
+            let buildStats = Object();
             buildStats.buildId = buildId
             buildStats.testOccurrences = output.testOccurrences
 
