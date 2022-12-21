@@ -173,16 +173,25 @@ async function get_build_details(buildId) {
 
     let messages = messagesJSON.messages
 
-    let testsRequest = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(failure)&${tests_fields}`, {
+    let testsRequestFailed = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(failure)&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
     })
 
-    let testsJSON = await testsRequest.json()
+    let testsFailedJSON = await testsRequestFailed.json()
 
-    let tests = testsJSON.testOccurrence
+    let testsRequestUnknown = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:(unknown)&${tests_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let testsUnknownJSON = await testsRequestUnknown.json()
+
+    let tests = testsFailedJSON.testOccurrence + testsUnknownJSON.testOccurrence
 
     let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
         headers: {
