@@ -343,7 +343,6 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         let testP = document.createElement('p')
         let testA = document.createElement('a')
         testA.classList.add('message')
-        testA.style.display = 'block'
         testA.setAttribute('target','_blank')
         testA.setAttribute('href',`${teamcity_base_url}/buildConfiguration/${test.build.buildTypeId}/${test.build.id}?showLog=${test.build.id}_${test.logAnchor}`)
 
@@ -373,7 +372,11 @@ function renderBuildDetails(buildId,messages,tests,changes) {
 
         testP.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
         testA.appendChild(testP)
-        testsDiv.appendChild(testA)
+
+        if (investigation_names)
+            testsDiv.insertBefore(testA, testsDiv.firstChild)
+        else
+            testsDiv.appendChild(testA)
 
     })
 
