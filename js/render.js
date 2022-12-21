@@ -352,7 +352,6 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         }
 
         let tags = ''
-        let testText = ''
 
         if (test.test?.investigations?.investigation?.length == 0)
             tags += '🙈'
@@ -361,13 +360,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         if (test.muted)
             tags += '🙊'
 
-        if (test.test)
-            testText += JSON.stringify(test.test.parsedTestName.testShortName)
-        else
-            console.log(test)
-
-        testText = `${tags} ${testText}`
-        testP.innerText = testText
+        testP.innerText = `${tags} JSON.stringify(test.test.parsedTestName.testShortName)`
         testsDiv.appendChild(testP)
 
     })

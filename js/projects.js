@@ -212,8 +212,6 @@ async function get_build_details(buildId) {
     let tests = []
     tests = tests.concat(testsFailedJSON.testOccurrence, testsErrorJSON.testOccurrence, testsWarningJSON.testOccurrence, testsUnknownJSON.testOccurrence)
 
-    console.log(tests)
-
     let changesRequest = await fetch(`${teamcity_base_url}/app/rest/changes?locator=build:(id:${buildId})&${change_fields}`, {
         headers: {
             'Accept': 'application/json',
