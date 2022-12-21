@@ -1,7 +1,7 @@
 // API field selectors for optimization.
 //const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
 const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(test(investigations(investigation(assignee))))))'
+const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(currentlyInvestigated)))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
 const tests_fields         = 'fields=count,muted,ignored,passed,newFailed,testOccurrence(id,name,status,details,newFailure,muted,test(id,name,parsedTestName,href,investigations(investigation(assignee))))'
@@ -111,8 +111,8 @@ async function add_builds_to_buildtype(buildType, project) {
             }
             if (buildType.builds.build?.[0]?.testOccurrences?.testOccurrence) {
                 let failed = buildType.builds.build[0].testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS'})
-                let failedInvestigated = failed.filter((testOccurrence) => {return testOccurrence.test.investigations.investigation.length > 0})
-                let failedNotInvestigated = failed.filter((testOccurrence) => {return testOccurrence.test.investigations.investigation.length == 0})
+                //let failedInvestigated = failed.filter((testOccurrence) => {return testOccurrence.test.investigations.investigation.length > 0})
+                let failedNotInvestigated = failed.filter((testOccurrence) => {return !testOccurrence.currentlyInvestigated})
                 buildType.failedNotInvestigated = failedNotInvestigated.length
                 if (failedNotInvestigated.length > 0) {
                     //console.log(failedNotInvestigated)
