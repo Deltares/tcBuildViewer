@@ -454,6 +454,7 @@ a:hover > div.linkIcon {
     grid-column: 1;
     margin: 0px;
     padding: 0.5em;
+    display: block;
 }
 
 .message:nth-child(odd), .change:nth-child(odd) {
