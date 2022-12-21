@@ -255,7 +255,7 @@ function renderBuildTypeStats(buildStats) {
     let element = document.getElementById(buildStats.buildId).parentElement.parentElement.getElementsByClassName('test_statistics_text')[0]
 
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
-    testStatisticsDiv.appendChild(testStatisticsText)
+    element.appendChild(testStatisticsText)
 }
 
 function renderBuildDetails(buildId,messages,tests,changes) {
