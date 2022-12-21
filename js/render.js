@@ -136,6 +136,7 @@ function renderBuildType(buildType) {
 
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
+    buildTypeLink.classList.add('buildTypeLink');
     buildTypeLink.setAttribute('target', '_blank')
 
     // Text for the buildType.
