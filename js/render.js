@@ -130,15 +130,6 @@ function renderBuildType(buildType) {
     // Add status of last build as class.
     buildTypeLink.classList.add(buildType.builds.build[0].status)
 
-    // Add statusChanged when the last build status is different.
-    if (buildType.statusChanged) {
-        buildTypeLink.classList.add('statusChanged')
-    }
-
-    if (buildType.status) {
-        buildTypeLink.classList.add(buildType.status)
-    }
-
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.classList.add('buildTypeLink');
@@ -156,6 +147,10 @@ function renderBuildType(buildType) {
     buildTypeLinkIcon.classList.add('linkIcon')
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
+    let testStatisticsDiv = document.createElement('div')
+    testStatisticsDiv.classList.add('test_statistics_text')
+    parentElement.appendChild(testStatisticsDiv)
+
     // Test statistics
     if (buildType.builds.build[0].testOccurrences) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
@@ -164,11 +159,9 @@ function renderBuildType(buildType) {
         let passed = testOccurrences.passed?testOccurrences.passed:0
         let count = testOccurrences.count
         let percentage = Number((passed/count)*100).toFixed(2)
-        let testStatisticsDiv = document.createElement('div')
-        testStatisticsDiv.classList.add('test_statistics_text')
+
         let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${muted?'('+muted+' muted) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
         testStatisticsDiv.appendChild(testStatisticsText)
-        parentElement.appendChild(testStatisticsDiv)
     }
 
     // Investigations
@@ -191,6 +184,19 @@ function renderBuildType(buildType) {
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
     parentElement.appendChild(buildSteps)
+
+    // Add statusChanged when the last build status is different.
+    if (buildType.statusChanged) {
+        buildTypeLink.classList.add('statusChanged')
+        testStatisticsDiv.classList.add('statusChanged')
+        buildListDiv.classList.add('statusChanged')
+    }
+
+    if (buildType.status) {
+        buildTypeLink.classList.add(buildType.status)
+        testStatisticsDiv.classList.add(buildType.status)
+        buildListDiv.classList.add(buildType.status)
+    }
 
 }
 
