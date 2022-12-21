@@ -355,7 +355,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
     })
 
     if (tests.length == 0) {
-        testsDiv.innerHTML = 'No tests... 😭'
+        testsDiv.innerHTML = 'No failed tests!'
     }
 
     Object.entries(changes).forEach(([key, change]) => {
