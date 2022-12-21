@@ -121,10 +121,10 @@ function renderBuildType(buildType) {
     let buildTypeLink = document.createElement("a")
 
     // Create buildTextDiv.
-    parentElementLink.setAttribute('id', buildType.id)
-    parentElementLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
-    parentElementLink.classList.add('buildType')
-    parentElementLink.classList.add(buildType.projectId)
+    buildTypeLink.setAttribute('id', buildType.id)
+    buildTypeLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
+    buildTypeLink.classList.add('buildType')
+    buildTypeLink.classList.add(buildType.projectId)
 
     parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
