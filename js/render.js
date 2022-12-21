@@ -353,7 +353,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
 
         let tags = ''
 
-        if (test.test.investigations.investigation.length == 0)
+        if (test.test?.investigations?.investigation?.length == 0)
             tags += '🙈';
         if (test.ignored)
             tags += '🙉';
