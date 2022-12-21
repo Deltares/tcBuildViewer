@@ -45,6 +45,7 @@ function renderProject(project) {
 
     let projectBuildTypesDiv = document.createElement("div")
     projectBuildTypesDiv.classList.add('projectBuildTypesDiv')
+    projectBuildTypesDiv.style.order = '1';
     projectDiv.appendChild(projectBuildTypesDiv)
 
     // Create projectDiv.
@@ -56,6 +57,7 @@ function renderProject(project) {
     // Wrapper for project collapse button and title.
     let projectHeaderWrapperDiv = document.createElement("div")
     projectHeaderWrapperDiv.classList.add('project_header_wrapper')
+    projectHeaderWrapperDiv.style.order = '0';
     projectDiv.appendChild(projectHeaderWrapperDiv)
 
     // Collapse button.
