@@ -158,7 +158,7 @@ function renderBuildType(buildType) {
         let testOccurrences = buildType.builds.build[0].testOccurrences
         let newFailed = testOccurrences.newFailed?testOccurrences.newFailed:0
         let muted = testOccurrences.muted?testOccurrences.muted:0
-        let ignored = testOccurrences.muted?testOccurrences.ignored:0
+        let ignored = testOccurrences.ignored?testOccurrences.ignored:0
         let passed = testOccurrences.passed?testOccurrences.passed:0
         let count = testOccurrences.count
         let percentage = Number((passed/count)*100).toFixed(2)
