@@ -139,7 +139,6 @@ function renderBuildType(buildType) {
 
     // Text for the buildType.
     let buildTypeText = document.createTextNode(buildType.name)
-    buildTypeText.classList.add('buildTypePart')
     buildTypeLink.appendChild(buildTypeText)
 
     // Icon ⧉ for the TeamCity build type link.
@@ -151,6 +150,7 @@ function renderBuildType(buildType) {
 
     let testStatisticsDiv = document.createElement('div')
     testStatisticsDiv.classList.add('test_statistics_text')
+    testStatisticsDiv.classList.add('buildTypePart')
     parentElement.appendChild(testStatisticsDiv)
 
     // Test statistics
