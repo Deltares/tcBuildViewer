@@ -308,8 +308,8 @@ a:hover > div.linkIcon {
 .projectBuildTypesDiv {
     font-family: 'Courier New', Courier, monospace;
     font-weight: initial;
-    padding: 0.2em;
-    margin: 0.2em;
+    /*padding: 0.2em;
+    margin: 0.2em;*/
     margin-left: 20px;
 }
 
