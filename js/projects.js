@@ -46,6 +46,7 @@ async function append_projects_recursively(projectId, order) {
             project.testMuted     = 0
             project.testPassed    = 0
             project.testCount     = 0
+            project.failedNotInvestigated = 0
 
             project.div = renderProject(project)
 
@@ -89,6 +90,8 @@ async function add_builds_to_buildtype(buildType, project) {
 
             buildType.builds = output
 
+            buildType.failedNotInvestigated = 0
+
             // Check if the latest build result has changed.
             if (buildType.builds.build?.[0]?.problemOccurrences?.newFailed > 0) {
                 buildType.statusChanged = true
@@ -107,8 +110,9 @@ async function add_builds_to_buildtype(buildType, project) {
                 let failed = buildType.builds.build[0].testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS'})
                 let failedInvestigated = failed.filter((testOccurrence) => {return testOccurrence.test.investigations.investigation.length > 0})
                 let failedNotInvestigated = failed.filter((testOccurrence) => {return testOccurrence.test.investigations.investigation.length == 0})
+                buildType.failedNotInvestigated = failedNotInvestigated.length
                 if (failedNotInvestigated.length > 0) {
-                    console.log(failedNotInvestigated)
+                    //console.log(failedNotInvestigated)
                 }
             }
             renderBuildType(buildType)
@@ -124,6 +128,7 @@ async function add_builds_to_buildtype(buildType, project) {
                     project.testMuted     += build[0].testOccurrences.muted?build[0].testOccurrences.muted:0
                     project.testPassed    += build[0].testOccurrences.passed?build[0].testOccurrences.passed:0
                     project.testCount     += build[0].testOccurrences.count?build[0].testOccurrences.count:0
+                    project.failedNotInvestigated += buildType.failedNotInvestigated
                 }
 
                 for (i=0; i<build.length; i++) {
