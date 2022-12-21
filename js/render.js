@@ -339,7 +339,7 @@ function renderBuildDetails(buildId,messages,changes) {
 // Show or hide all build types of which the last build was successful.
 function toggleGreen() {
 
-    let greenBuildTypes = document.querySelectorAll('#_projects buildTypePart.SUCCESS')
+    let greenBuildTypes = document.querySelectorAll('#_projects .buildTypePart.SUCCESS')
 
     for (item of greenBuildTypes) {
         item.classList.toggle('hidden')
@@ -350,7 +350,7 @@ function toggleGreen() {
 // Show or hide all build types of which the last build was successful.
 function toggleUnchangedBuildTypes() {
 
-    let unchangedBuildTypes = document.querySelectorAll('#_projects buildTypePart:not(.statusChanged)')
+    let unchangedBuildTypes = document.querySelectorAll('#_projects .buildTypePart:not(.statusChanged)')
 
     for (item of unchangedBuildTypes) {
         item.classList.toggle('hidden_statusChanged')
