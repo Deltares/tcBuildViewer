@@ -1,12 +1,13 @@
 // API field selectors for optimization.
 //const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
-const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(currentlyInvestigated)))'
+const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed))'
+//const buildType_tests_fields = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(currentlyInvestigated)))'
 //const build_fields         = 'fields=buildType(steps(step))'
-const message_fields       = 'fields=messages'
-const tests_fields         = 'fields=count,passed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,test(id,name,parsedTestName,href,investigations(investigation(assignee))))'
-const change_fields        = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
-const investigation_fields = ''
+const message_fields         = 'fields=messages'
+const tests_fields           = 'fields=count,passed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,test(id,name,parsedTestName,href,investigations(investigation(assignee))))'
+const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
+const investigation_fields   = ''
 
 // Keep track of pending downloads.
 let download_queue_length = 0
