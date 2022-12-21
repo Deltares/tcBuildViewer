@@ -182,6 +182,15 @@ async function get_build_details(buildId) {
 
     let testsFailedJSON = await testsRequestFailed.json()
 
+    let testsRequestError = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=count:-1,build:(id:${buildId}),status:(error)&${tests_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let testsErrorJSON = await testsRequestWarning.json()
+
     let testsRequestWarning = await fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=count:-1,build:(id:${buildId}),status:(warning)&${tests_fields}`, {
         headers: {
             'Accept': 'application/json',
