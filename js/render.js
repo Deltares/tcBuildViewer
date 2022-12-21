@@ -118,13 +118,14 @@ function renderBuildType(buildType) {
     buildTypeDiv.style.order = buildType.order
     //parentElement.appendChild(buildTypeDiv)
 
-    // Create buildTextDiv.
-    //parentElement.setAttribute('id', buildType.id)
-    //parentElement.setAttribute('title',`BuildType ID: ${buildType.id}`)
-    //parentElement.classList.add('buildType')
-    //parentElement.classList.add(buildType.projectId)
-
     let buildTypeLink = document.createElement("a")
+
+    // Create buildTextDiv.
+    parentElementLink.setAttribute('id', buildType.id)
+    parentElementLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
+    parentElementLink.classList.add('buildType')
+    parentElementLink.classList.add(buildType.projectId)
+
     parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
     buildTypeLink.classList.add(buildType.builds.build[0].status)
