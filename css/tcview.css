@@ -496,7 +496,11 @@ a:hover > div.linkIcon {
 .projectBuildTypesDiv {
     display: grid;
     grid-template-columns: auto fit-content(100%) fit-content(100%);
-    column-gap: 5px;
+    row-gap: 5px;
+}
+
+.projectBuildTypesDiv > * {
+    padding: 5px;
 }
 
 .test_statistics_text {
