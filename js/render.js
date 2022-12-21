@@ -244,7 +244,7 @@ function renderBuild(build) {
 
 function renderBuildTypeStats(buildStats) {
     let newFailed = buildStats.testOccurrences?.newFailed?buildStats.testOccurrences.newFailed:0
-    let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated})
+    let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated}).length
     let ignored = buildStats.testOccurrences?.ignored?buildStats.testOccurrences.ignored:0
     let muted = buildStats.testOccurrences?.muted?buildStats.testOccurrences.muted:0
     let passed = buildStats.testOccurrences?.passed?buildStats.testOccurrences.passed:0
