@@ -306,7 +306,6 @@ a:hover > div.linkIcon {
 }
 
 .projectBuildTypesDiv {
-    background-color: #eee;
     font-family: 'Courier New', Courier, monospace;
     font-weight: initial;
     padding: 0.2em;
@@ -316,6 +315,7 @@ a:hover > div.linkIcon {
 
 .BuildTypeLink {
     color: black;
+    background-color: #eee;
 }
 
 /* When the last build has a different status than the second-last. */
