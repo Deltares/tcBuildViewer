@@ -362,7 +362,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         else {
             investigation_names = test.test.investigations.investigation.map((investigation) => {return investigation.assignee.name})
             tags += '🕵'
-            testP.style.order = 0
+            testA.style.order = 0
             testP.style.color = 'var(--deltares-blue)'
         }
         if (test.ignored)
@@ -370,8 +370,8 @@ function renderBuildDetails(buildId,messages,tests,changes) {
         if (test.muted)
             tags += '🙊'
 
-        testP.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
-        testA.appendChild(testP)
+        testA.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
+        testP.appendChild(testA)
         testsDiv.appendChild(testA)
 
     })
