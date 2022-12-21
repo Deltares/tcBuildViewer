@@ -40,10 +40,8 @@
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 0.5em;
-    font-size: 0.8em;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
-    line-height: 1.1em;
 }
 
 /* From Deltares.nl */
