@@ -103,7 +103,9 @@ async function add_builds_to_buildtype(buildType, project) {
             if (buildType.builds.build?.[0]?.status) {
                 buildType.status = buildType.builds.build?.[0]?.status
             }
-
+            if (buildType.investigations) {
+                console.log(buildType.investigations);
+            }
             renderBuildType(buildType)
 
             // Check for every build if the result has changed since the previous build.
