@@ -124,6 +124,7 @@ function renderBuildType(buildType) {
     buildTypeLink.setAttribute('id', buildType.id)
     buildTypeLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
     buildTypeLink.classList.add('buildType')
+    buildTypeLink.classList.add('buildTypePart')
     buildTypeLink.classList.add(buildType.projectId)
 
     parentElement.appendChild(buildTypeLink)
@@ -138,6 +139,7 @@ function renderBuildType(buildType) {
 
     // Text for the buildType.
     let buildTypeText = document.createTextNode(buildType.name)
+    buildTypeText.classList.add('buildTypePart')
     buildTypeLink.appendChild(buildTypeText)
 
     // Icon ⧉ for the TeamCity build type link.
@@ -176,6 +178,7 @@ function renderBuildType(buildType) {
     let buildListDiv = document.createElement("div")
     buildListDiv.setAttribute('id', buildType.id + '_buildList')
     buildListDiv.classList.add('buildList')
+    buildListDiv.classList.add('buildTypePart')
     parentElement.appendChild(buildListDiv)
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
@@ -336,7 +339,7 @@ function renderBuildDetails(buildId,messages,changes) {
 // Show or hide all build types of which the last build was successful.
 function toggleGreen() {
 
-    let greenBuildTypes = document.querySelectorAll('#_projects a.buildTypeLink.SUCCESS')
+    let greenBuildTypes = document.querySelectorAll('#_projects buildTypePart.SUCCESS')
 
     for (item of greenBuildTypes) {
         item.classList.toggle('hidden')
@@ -347,7 +350,7 @@ function toggleGreen() {
 // Show or hide all build types of which the last build was successful.
 function toggleUnchangedBuildTypes() {
 
-    let unchangedBuildTypes = document.querySelectorAll('#_projects a.buildTypeLink:not(.statusChanged)')
+    let unchangedBuildTypes = document.querySelectorAll('#_projects buildTypePart:not(.statusChanged)')
 
     for (item of unchangedBuildTypes) {
         item.classList.toggle('hidden_statusChanged')
