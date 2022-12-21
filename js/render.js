@@ -309,9 +309,9 @@ function renderBuildDetails(buildId,messages,tests,changes) {
     buildDetails.appendChild(messagesDiv)
 
     // Steps DIV
-    let stepsDiv = document.createElement('div')
-    messagesDiv.classList.add('steps')
-    buildDetails.appendChild(stepsDiv)
+    let testsDiv = document.createElement('div')
+    testsDiv.classList.add('tests')
+    buildDetails.appendChild(testsDiv)
 
     // Changes DIV
     let changesDiv = document.createElement('div')
@@ -347,7 +347,7 @@ function renderBuildDetails(buildId,messages,tests,changes) {
             testP.classList.add('error')
         let testText = JSON.stringify(test.text)
         testP.innerText = testText
-        testDiv.appendChild(testP)
+        testsDiv.appendChild(testP)
 
     })
 
