@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
-const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,passed,newFailed,testOccurrence(id,name,status,newFailure,muted,test(investigations(investigation(assignee))))))'
+const buildType_fields     = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(id,name,status,newFailure,muted,test(investigations(investigation(assignee))))))'
 //const build_fields         = 'fields=buildType(steps(step))'
 const message_fields       = 'fields=messages'
 const change_fields        = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
@@ -44,6 +44,7 @@ async function append_projects_recursively(projectId, order) {
 
             project.testNewFailed = 0
             project.testMuted     = 0
+            project.testIgnored   = 0
             project.testPassed    = 0
             project.testCount     = 0
             project.failedNotInvestigated = 0
@@ -126,6 +127,7 @@ async function add_builds_to_buildtype(buildType, project) {
                 if (build[0].testOccurrences) {
                     project.testNewFailed += build[0].testOccurrences.newFailed?build[0].testOccurrences.newFailed:0
                     project.testMuted     += build[0].testOccurrences.muted?build[0].testOccurrences.muted:0
+                    project.testIgnored   += build[0].testOccurrences.ignored?build[0].testOccurrences.ignored:0
                     project.testPassed    += build[0].testOccurrences.passed?build[0].testOccurrences.passed:0
                     project.testCount     += build[0].testOccurrences.count?build[0].testOccurrences.count:0
                     project.failedNotInvestigated += buildType.failedNotInvestigated
