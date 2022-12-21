@@ -324,11 +324,11 @@ a:hover > div.linkIcon {
     border-bottom: 3px solid gold;
 }
 
-.buildTypePart.buildTypeLink {
+.buildTypePart.buildTypeLink.statusChanged {
     border-left: 3px solid gold;
 }
 
-.buildTypePart.buildList {
+.buildTypePart.buildList.statusChanged {
     border-right: 3px solid gold;
 }
 
