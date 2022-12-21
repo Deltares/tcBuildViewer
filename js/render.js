@@ -342,6 +342,8 @@ function renderBuildDetails(buildId,messages,tests,changes) {
 
         let testP = document.createElement('p')
         testP.classList.add('message')
+        let testA = document.createElement('a')
+        testA.attributes.add('href',`${test.webUrl}`)
 
         if (test.status == 'WARNING')
             testP.classList.add('warning')
@@ -355,13 +357,18 @@ function renderBuildDetails(buildId,messages,tests,changes) {
 
         if (test.test?.investigations?.investigation?.length == 0)
             tags += '🙈'
+        else {
+            let investigation_names = test.test.investigations.investigation.map((investigation) => {return investigation.assignee.name})
+            tags += `🕵 (${investigation_names})`
+        }
         if (test.ignored)
             tags += '🙉'
         if (test.muted)
             tags += '🙊'
 
-        testP.innerText = `${tags} JSON.stringify(test.test.parsedTestName.testShortName)`
-        testsDiv.appendChild(testP)
+        testP.innerText = `${tags} ${JSON.stringify(test.test.parsedTestName.testShortName)}`
+        testA.appendChild(testP)
+        testsDiv.appendChild(testA)
 
     })
 
