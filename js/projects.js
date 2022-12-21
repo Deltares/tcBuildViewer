@@ -179,11 +179,12 @@ async function add_tests_to_build(buildId) {
         .then((result) => result.json())
         .then((output) => {
 
-            let buildStats = Object();
-            buildStats.buildId = buildId
-            buildStats.testOccurrences = output.testOccurrences
-
-            renderBuildTypeStats(buildStats)
+            if (output.testOccurrences) {
+                let buildStats = Object();
+                buildStats.buildId = buildId
+                buildStats.testOccurrences = output.testOccurrences
+                renderBuildTypeStats(buildStats)
+            }
         })
         .catch(err => { console.log(err) })
         .finally(() => {checkFilterButtons(--download_queue_length)})
