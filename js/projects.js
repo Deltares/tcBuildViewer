@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 //const project_fields       = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds,investigations(investigation(id,state,assignee,assignment,scope,target))))'
-const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds(build(length))))'
+const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
 const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed))'
 const buildType_tests_fields = 'fields=testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(status,currentlyInvestigated))'
 //const build_fields         = 'fields=buildType(steps(step))'
@@ -57,7 +57,6 @@ async function append_projects_recursively(projectId, order) {
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
-                project.buildTypes.buildType = project.buildTypes.buildType.filter((buildType) => {console.log(buildType.builds);return buildType.builds.length > 0})
                 let promiseList = []
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
