@@ -57,7 +57,7 @@ async function append_projects_recursively(projectId, order) {
 
             // Check for builds to add to project
             if (project.buildTypes.buildType) {
-                project.buildTypes.buildType = project.buildTypes.buildType.filter((buildType) => {return buildType.builds.length > 0})
+                project.buildTypes.buildType = project.buildTypes.buildType.filter((buildType) => {console.log(buildType.builds);return buildType.builds.length > 0})
                 let promiseList = []
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
