@@ -280,7 +280,6 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
 }
 
 async function renderProjectStats(parentProjectStats, parentProjectIds) {
-    console.log(parentProjectStats)
     Object.entries(parentProjectIds).forEach(([key,projectId]) => {
         //console.log(projectStats)
         let element = document.getElementById(`${projectId}_stats`)
