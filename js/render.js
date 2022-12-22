@@ -260,8 +260,9 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
     let count = buildStats.testOccurrences?.count?buildStats.testOccurrences.count:0
     let percentage = Number((passed/count)*100).toFixed(2)
 
-    console.log(parentProjectStats)
+    
     Object.entries(parentProjectIds).forEach((projectId) => {
+        console.log(projectId)
         parentProjectStats[projectId].newFailed += newFailed
         parentProjectStats[projectId].failedInvestigated += failedInvestigated
         parentProjectStats[projectId].failedNotInvestigated += failedNotInvestigated
