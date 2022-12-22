@@ -261,6 +261,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
     let percentage = Number((passed/count)*100).toFixed(2)
 
     parentProjectStats.forEach((projectStats) => {
+        console.log(count)
         projectStats.newFailed += newFailed
         projectStats.failedInvestigated += failedInvestigated
         projectStats.failedNotInvestigated += failedNotInvestigated
@@ -278,7 +279,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
 }
 
 async function renderProjectStats(parentProjectStats) {
-    console.log(parentProjectStats)
+    //console.log(parentProjectStats)
     for ([projectId,projectStats] of parentProjectStats) {
         let element = document.getElementById(`${projectId}_stats`)
         let testStatisticsText = document.createTextNode(` ${projectStats.newFailed?'('+projectStats.newFailed+'×🚩) ':''}${projectStats.failedInvestigated?'('+projectStats.failedInvestigated+'×🕵) ':''}${projectStats.failedNotInvestigated?'('+projectStats.failedNotInvestigated+'×🙈) ':''}${projectStats.ignored?'('+projectStats.ignored+'×🙉) ':''}${projectStats.muted?'('+projectStats.muted+'×🙊) ':''}[${projectStats.passed?projectStats.passed:0}/${projectStats.count}] = ${projectStats.percentage}%`)
