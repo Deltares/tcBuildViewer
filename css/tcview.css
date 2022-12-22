@@ -207,7 +207,7 @@ a:hover > div.linkIcon {
 }
 
 /* visible when the user is not logged into TeamCity */
-#login, #firefox, #info {
+#login, #firefox, #info, #time {
     text-align: center;
     font-size: 150%;
     padding: 1em !important;
@@ -215,7 +215,7 @@ a:hover > div.linkIcon {
 }
 
 /* Hidden divisions */
-#firefox, #login, #info, #selection {
+#firefox, #login, #info, #selection, #time {
     font-size: 18px;
     margin: 10px;
     padding: 10px;
