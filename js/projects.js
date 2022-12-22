@@ -57,7 +57,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
             projectStats.ignored = 0
             projectStats.muted = 0
             projectStats.passed = 0
-            projectStats.count = count
+            projectStats.count = 0
             parentProjectStats[project.id] = projectStats;
 
             project.div = renderProject(project)
