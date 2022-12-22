@@ -89,6 +89,11 @@ async function renderProject(project) {
     projectLinkIcon.classList.add('linkIcon')
     projectLink.appendChild(projectLinkIcon)
 
+    let projectStats = document.createElement("div")
+    projectStats.setAttribute('id',`${project.id}_stats`)
+    projectStats.classList.add('projectStats')
+    projectHeaderWrapperDiv.appendChild(projectStats)
+
     return projectDiv
 
 }
@@ -263,11 +268,21 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
         projectStats.muted += muted
         projectStats.passed += passed
         projectStats.count += count
+        projectStats.percentage = Number((projectStats.passed/projectStats.count)*100).toFixed(2)
     })
+    renderProjectStats(parentProjectStats)
 
     let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
+}
+
+async function renderProjectStats(parentProjectStats) {
+    for ([projectId,projectStats] of parentProjectStats) {
+        let element = document.getElementById(`${projectId}_stats`)
+        let testStatisticsText = document.createTextNode(` ${projectStats.newFailed?'('+projectStats.newFailed+'×🚩) ':''}${projectStats.failedInvestigated?'('+projectStats.failedInvestigated+'×🕵) ':''}${projectStats.failedNotInvestigated?'('+projectStats.failedNotInvestigated+'×🙈) ':''}${projectStats.ignored?'('+projectStats.ignored+'×🙉) ':''}${projectStats.muted?'('+projectStats.muted+'×🙊) ':''}[${projectStats.passed?projectStats.passed:0}/${projectStats.count}] = ${projectStats.percentage}%`)
+        element.appendChild(testStatisticsText)    
+    }
 }
 
 async function renderBuildDetails(buildId,messages,tests,changes) {
