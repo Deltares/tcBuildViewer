@@ -37,7 +37,7 @@ async function renderProject(project) {
     let projectDiv = document.createElement("div")
     let parentElement = document.getElementById(project.parentProjectId)
     if (parentElement) {
-        projectDiv.style.order = project.order
+        projectDiv.style.order = project.order*4
         parentElement.appendChild(projectDiv)
     } else {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv)
