@@ -262,7 +262,6 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
 
     
     Object.entries(parentProjectIds).forEach(([key,projectId]) => {
-        console.log(projectId)
         parentProjectStats[projectId].newFailed += newFailed
         parentProjectStats[projectId].failedInvestigated += failedInvestigated
         parentProjectStats[projectId].failedNotInvestigated += failedNotInvestigated
