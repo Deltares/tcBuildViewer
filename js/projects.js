@@ -96,7 +96,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
     let time_boundries
     if (end_time) {
-        time_boundries = `endDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
+        time_boundries = `startDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
     } else {
         time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
     }
