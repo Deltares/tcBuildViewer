@@ -19,7 +19,7 @@ let download_queue_length = 0
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projectId, order, parentProjects) {
+async function append_projects_recursively(projectId, order, parentProjectStats) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
@@ -44,14 +44,17 @@ async function append_projects_recursively(projectId, order, parentProjects) {
         })
         .then((project) => {
 
+            let projectStats
+
             project.order = order // Consistent ordering of projects.
 
-            project.testNewFailed = 0
-            project.testMuted     = 0
-            project.testIgnored   = 0
-            project.testPassed    = 0
-            project.testCount     = 0
-            project.failedNotInvestigated = 0
+            projectStats.testNewFailed = 0
+            projectStats.testMuted     = 0
+            projectStats.testIgnored   = 0
+            projectStats.testPassed    = 0
+            projectStats.testCount     = 0
+            projectStats.failedNotInvestigated = 0
+            parentProjectStats[project.id] = projectStats;
 
             project.div = renderProject(project)
 
@@ -62,15 +65,14 @@ async function append_projects_recursively(projectId, order, parentProjects) {
                     buildType.order = key // Consistent ordering of buildTypes.
                     promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
                 })
-                let start = new Date()
+
                 Promise.all(promiseList).then(() => {/*renderProjectTestStatistics(project)*/})
             }
             
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    parentProjects.push(subproject.id);
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjects) // Make sure that projects are below the buildTypes.
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjectStats) // Make sure that projects are below the buildTypes.
                 })
             }
 
