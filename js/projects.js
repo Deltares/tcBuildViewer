@@ -165,7 +165,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
     return promise
 }
 
-async function add_tests_to_build(buildId, parentProjectStats) {
+async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds) {
 
     let promise = fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}?${buildType_tests_fields}`, {
         headers: {
