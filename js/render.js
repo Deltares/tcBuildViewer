@@ -281,7 +281,7 @@ async function renderProjectStats(parentProjectStats) {
     for ([projectId,projectStats] of parentProjectStats) {
         let element = document.getElementById(`${projectId}_stats`)
         let testStatisticsText = document.createTextNode(` ${projectStats.newFailed?'('+projectStats.newFailed+'×🚩) ':''}${projectStats.failedInvestigated?'('+projectStats.failedInvestigated+'×🕵) ':''}${projectStats.failedNotInvestigated?'('+projectStats.failedNotInvestigated+'×🙈) ':''}${projectStats.ignored?'('+projectStats.ignored+'×🙉) ':''}${projectStats.muted?'('+projectStats.muted+'×🙊) ':''}[${projectStats.passed?projectStats.passed:0}/${projectStats.count}] = ${projectStats.percentage}%`)
-        element.appendChild(testStatisticsText)    
+        element.replaceChildren(testStatisticsText)    
     }
 }
 
