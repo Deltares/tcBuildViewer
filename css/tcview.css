@@ -500,10 +500,11 @@ a:hover > div.linkIcon {
 .projectBuildTypesDiv {
     display: grid;
     grid-template-columns: auto fit-content(100%) fit-content(100%);
-    row-gap: 5px;
+    row-gap: 0px;
 }
 
 .projectBuildTypesDiv > * {
+    margin: 5px;
     padding: 5px;
     background-color: #eee;
 }
