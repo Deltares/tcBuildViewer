@@ -279,13 +279,19 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
 }
 
 async function renderProjectStats(parentProjectStats) {
-    
+
+    Object.entries(parentProjectStats).forEach(([projectId,projectStats]) => {
+        let element = document.getElementById(`${projectId}_stats`)
+        let testStatisticsText = document.createTextNode(` ${projectStats.newFailed?'('+projectStats.newFailed+'×🚩) ':''}${projectStats.failedInvestigated?'('+projectStats.failedInvestigated+'×🕵) ':''}${projectStats.failedNotInvestigated?'('+projectStats.failedNotInvestigated+'×🙈) ':''}${projectStats.ignored?'('+projectStats.ignored+'×🙉) ':''}${projectStats.muted?'('+projectStats.muted+'×🙊) ':''}[${projectStats.passed?projectStats.passed:0}/${projectStats.count}] = ${projectStats.percentage}%`)
+        element.replaceChildren(testStatisticsText)    
+    })
+/*
     for ([projectId,projectStats] of parentProjectStats) {
         let element = document.getElementById(`${projectId}_stats`)
-        console.log(element)
         let testStatisticsText = document.createTextNode(` ${projectStats.newFailed?'('+projectStats.newFailed+'×🚩) ':''}${projectStats.failedInvestigated?'('+projectStats.failedInvestigated+'×🕵) ':''}${projectStats.failedNotInvestigated?'('+projectStats.failedNotInvestigated+'×🙈) ':''}${projectStats.ignored?'('+projectStats.ignored+'×🙉) ':''}${projectStats.muted?'('+projectStats.muted+'×🙊) ':''}[${projectStats.passed?projectStats.passed:0}/${projectStats.count}] = ${projectStats.percentage}%`)
         element.replaceChildren(testStatisticsText)    
     }
+*/
 }
 
 async function renderBuildDetails(buildId,messages,tests,changes) {
