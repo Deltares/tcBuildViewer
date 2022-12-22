@@ -96,7 +96,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
     let time_boundries
     if (end_time) {
-        time_boundries = `startDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
+        time_boundries = `startDate:(date:${cutoffTcString(htmlDateTimeToUnix(end_time))},condition:before)`
     } else {
         time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
     }
@@ -307,9 +307,23 @@ function htmlDateTimeToTcTime(htmlDateTime) {
     return tcTime
 }
 
+// Convert TeamCity's weird time notation to Unix timestamp.
+function htmlDateTimeToUnix(htmlDateTime) {
+    split    = htmlDateTime.split('') // 2022-12-22T23:15
+    year     = split.slice(0, 4).join('')
+    month    = split.slice(5, 7).join('')
+    day      = split.slice(8, 10).join('')
+    t        = split.slice(10, 11).join('')
+    hour     = split.slice(11, 13).join('')
+    minute   = split.slice(14, 16).join('')
+    let date = new Date(`${year}-${month}-${day}T${hour}:${minute}`)
+    return date.getTime() // Unix timestamp from Date object.
+}
+
 // Cut-off date in TeamCity's weird time notation, used for API calls.
-const cutoffTcString = function () {
-    let d = new Date()
+const cutoffTcString = function (d) {
+    if (!date)
+        d = new Date()
     d.setDate(d.getDate()-build_cutoff_days)
     return DateToTcTime(d)
 }
