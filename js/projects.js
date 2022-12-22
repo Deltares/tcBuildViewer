@@ -44,7 +44,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
         })
         .then((project) => {
 
-            let projectStats
+            let projectStats = {}
 
             project.order = order // Consistent ordering of projects.
 
