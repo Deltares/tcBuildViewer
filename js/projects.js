@@ -19,14 +19,18 @@ let download_queue_length = 0
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projectId, order, parentProjectStats) {
+async function append_projects_recursively(projectId, order, parentProjectStats, parentProjectIds) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
         return
-    
-    if (!parentProjectStats)
+
+    if (!parentProjectStats) {
         parentProjectStats = []
+        parentProjectIds = []
+    }
+
+    parentProjectIds.push(projectId)
 
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
@@ -67,7 +71,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
                 let promiseList = []
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
-                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], parentProjectStats))
+                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], parentProjectStats, parentProjectIds))
                 })
 
                 Promise.all(promiseList).then(() => {/*renderProjectTestStatistics(project)*/})
@@ -76,7 +80,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, [...parentProjectStats]) // Make sure that projects are below the buildTypes.
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjectStats, [...parentProjectIds]) // Make sure that projects are below the buildTypes.
                 })
             }
 
@@ -85,7 +89,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
         .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
-async function add_builds_to_buildtype(buildType, parentProjectStats) {
+async function add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds) {
 
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
@@ -126,7 +130,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats) {
 
                 let build = buildType.builds.build
 
-                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, parentProjectStats)
+                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, parentProjectStats, parentProjectIds)
 /*
                 // Add cumulative test statistics to project.
                 if (build[0].testOccurrences) {
@@ -177,7 +181,7 @@ async function add_tests_to_build(buildId, parentProjectStats) {
                 let buildStats = Object();
                 buildStats.buildId = buildId
                 buildStats.testOccurrences = output.testOccurrences
-                renderBuildTypeStats(buildStats, parentProjectStats)
+                renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds)
             }
 
         })
