@@ -98,11 +98,19 @@
             <div class="wide" style="text-align: center; display: flex; flex-direction: column">
                 <div class="header" style="margin-bottom: 1em">
                     End time:<br />
-                    <input type="datetime-local" id="end-time" value=""/><br />
+                    <input type="datetime-local" id="end_time" value=""/><br />
                     Number of days:<br />
-                    <input type="number" id="days" value="14" min="0" max="60" style="width: 3em"/><br />
+                    <input type="number" id="build_cutoff_days" value="14" min="0" max="60" style="width: 3em"/><br />
                     Number of builds:<br />
-                    <input type="number" id="builds" value="14" min="0" max="60" style="width: 3em"/>
+                    <input type="number" id="build_count" value="14" min="0" max="60" style="width: 3em"/><br />
+                    <button
+                        onclick="
+                            build_count      = document.getElementById('end-time').value
+                            build_cutoff_days= document.getElementById('build_cutoff_days').value
+                            end_time         = document.getElementById('end_time').value
+                            fetchProjects()
+                        ">
+                    </button>
                 </div>
             </div>
         </div>
@@ -206,6 +214,7 @@
 
             // TeamCity user data.
             let user
+            let endTime
 
             // Included and excluded projects.
             let selection
