@@ -322,7 +322,7 @@ function htmlDateTimeToUnix(htmlDateTime) {
 
 // Cut-off date in TeamCity's weird time notation, used for API calls.
 const cutoffTcString = function (d) {
-    if (!date)
+    if (!d)
         d = new Date()
     d.setDate(d.getDate()-build_cutoff_days)
     return DateToTcTime(d)
