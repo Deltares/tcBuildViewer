@@ -270,7 +270,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
         parentProjectStats[projectId].passed += passed
         parentProjectStats[projectId].count += count
         parentProjectStats[projectId].percentage = Number((parentProjectStats[projectId].passed/parentProjectStats[projectId].count)*100).toFixed(2)
-    }), this
+    }, this)
     renderProjectStats(parentProjectStats, parentProjectIds)
 
     let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
@@ -285,7 +285,7 @@ async function renderProjectStats(parentProjectStats, parentProjectIds) {
         let element = document.getElementById(`${projectId}_stats`)
         let testStatisticsText = document.createTextNode(` ${parentProjectStats[projectId].newFailed?'('+parentProjectStats[projectId].newFailed+'×🚩) ':''}${parentProjectStats[projectId].failedInvestigated?'('+parentProjectStats[projectId].failedInvestigated+'×🕵) ':''}${parentProjectStats[projectId].failedNotInvestigated?'('+parentProjectStats[projectId].failedNotInvestigated+'×🙈) ':''}${parentProjectStats[projectId].ignored?'('+parentProjectStats[projectId].ignored+'×🙉) ':''}${parentProjectStats[projectId].muted?'('+parentProjectStats[projectId].muted+'×🙊) ':''}[${parentProjectStats[projectId].passed?parentProjectStats[projectId].passed:0}/${parentProjectStats[projectId].count}] = ${parentProjectStats[projectId].percentage}%`)
         element.replaceChildren(testStatisticsText)    
-    }), this
+    }, this)
 /*
     for ([projectId,projectStats] of parentProjectStats) {
         let element = document.getElementById(`${projectId}_stats`)
