@@ -269,7 +269,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
         projectStats.passed += passed
         projectStats.count += count
         projectStats.percentage = Number((projectStats.passed/projectStats.count)*100).toFixed(2)
-    })
+    }), this
     renderProjectStats(parentProjectStats)
 
     let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
