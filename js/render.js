@@ -127,7 +127,6 @@ async function renderBuildType(buildType) {
     buildTypeLink.classList.add('buildTypePart')
     buildTypeLink.classList.add(buildType.projectId)
     buildTypeLink.style.gridRow = buildType.order*2
-
     parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
     buildTypeLink.classList.add(buildType.builds.build[0].status)
@@ -185,7 +184,7 @@ async function renderBuildType(buildType) {
     buildListDiv.setAttribute('id', buildType.id + '_buildList')
     buildListDiv.classList.add('buildList')
     buildListDiv.classList.add('buildTypePart')
-    testStatisticsDiv.style.gridRow = buildType.order*2
+    buildListDiv.style.gridRow = buildType.order*2
     parentElement.appendChild(buildListDiv)
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
