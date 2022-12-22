@@ -97,12 +97,12 @@
         <div id="time" class="hidden">
             <div class="wide" style="text-align: center; display: flex; flex-direction: column">
                 <div class="header" style="margin-bottom: 1em">
-                    End time:<br />
-                    <input type="datetime-local" id="end_time" value=""/><br />
-                    Number of days:<br />
-                    <input type="number" id="build_cutoff_days" value="14" min="0" max="60" style="width: 3em"/><br />
-                    Number of builds:<br />
-                    <input type="number" id="build_count" value="14" min="0" max="60" style="width: 3em"/><br />
+                    <div class="header">Number of days</div>
+                    <input type="number" id="build_cutoff_days" value="14" min="0" max="60" style="width: 3em"/>
+                    <div class="header">Number of builds</div>
+                    <input type="number" id="build_count" value="14" min="0" max="60" style="width: 3em"/>
+                    <div class="header">Before</div>
+                    <input type="datetime-local" id="end_time" value=""/>
                     <button class="filter_button" style="margin-top:2em"
                         onclick="
                             build_count      = document.getElementById('build_count').value
