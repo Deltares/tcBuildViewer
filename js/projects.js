@@ -94,7 +94,14 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
 
-    let promise = fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
+    let time_boundries
+    if (end_time) {
+        time_boundries = `endDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
+    } else {
+        time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
+    }
+
+    let promise = fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -279,6 +286,21 @@ function DateToTcTime(date) {
     day      = date.toISOString().substr(8, 2)
     hour     = '00' // Well... let's not get nitty gritty here.
     minute   = '00'
+    second   = '00'
+    timezone = '%2B0000' // +0000
+    let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}` // TeamCity time format: 20221206T080035+0100
+    return tcTime
+}
+
+// Convert HTML input datetime-local to TeamCity's weird time notation.
+function htmlDateTimeToTcTime(htmlDateTime) {
+    split    = htmlDateTime.split('') // 2022-12-22T23:15
+    year     = split.slice(0, 4).join('')
+    month    = split.slice(5, 6).join('')
+    day      = split.slice(6, 8).join('')
+    t        = split.slice(8, 9).join('')
+    hour     = split.slice(9, 11).join('')
+    minute   = split.slice(11, 13).join('')
     second   = '00'
     timezone = '%2B0000' // +0000
     let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}` // TeamCity time format: 20221206T080035+0100
