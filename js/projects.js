@@ -296,11 +296,11 @@ function DateToTcTime(date) {
 function htmlDateTimeToTcTime(htmlDateTime) {
     split    = htmlDateTime.split('') // 2022-12-22T23:15
     year     = split.slice(0, 4).join('')
-    month    = split.slice(5, 6).join('')
-    day      = split.slice(6, 8).join('')
-    t        = split.slice(8, 9).join('')
-    hour     = split.slice(9, 11).join('')
-    minute   = split.slice(11, 13).join('')
+    month    = split.slice(5, 7).join('')
+    day      = split.slice(8, 10).join('')
+    t        = split.slice(10, 11).join('')
+    hour     = split.slice(11, 14).join('')
+    minute   = split.slice(14, 17).join('')
     second   = '00'
     timezone = '%2B0000' // +0000
     let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}` // TeamCity time format: 20221206T080035+0100
