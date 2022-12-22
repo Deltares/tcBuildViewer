@@ -300,7 +300,7 @@ function htmlDateTimeToTcTime(htmlDateTime) {
     day      = split.slice(8, 10).join('')
     t        = split.slice(10, 11).join('')
     hour     = split.slice(11, 14).join('')
-    minute   = split.slice(14, 17).join('')
+    minute   = split.slice(15, 17).join('')
     second   = '00'
     timezone = '%2B0000' // +0000
     let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}` // TeamCity time format: 20221206T080035+0100
