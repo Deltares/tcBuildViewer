@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
-    <link rel="stylesheet" href="css/tcview.css?v1.0.1" type="text/css" media="all">
+    <link rel="stylesheet" href="css/tcview.css?v1.0.1.1" type="text/css" media="all">
     <link rel="manifest" href="img/manifest.json">
-    <script src="config.js?v1.0.1"></script>
-    <script src="js/user.js?v1.0.1"></script>
-    <script src="js/projects.js?v1.0.1"></script>
-    <script src="js/render.js?v1.0.1"></script>
+    <script src="config.js?v1.0.1.1"></script>
+    <script src="js/user.js?v1.0.1.1"></script>
+    <script src="js/projects.js?v1.0.1.1"></script>
+    <script src="js/render.js?v1.0.1.1"></script>
 </head>
 
 <body>
@@ -57,6 +57,9 @@
             <button id="toggle_selection" class="toggle"
                 onclick="document.getElementById('selection').classList.toggle('hidden');this.classList.toggle('active')">Project Selection</button>
 
+            <button id="toggle_time" class="toggle"
+                onclick="document.getElementById('time').classList.toggle('hidden');this.classList.toggle('active')">Time Selection</button>
+
             <button id="toggle_info" class="toggle"
                 onclick="
                 document.getElementById('info').classList.toggle('hidden')
@@ -90,6 +93,28 @@
             <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
             <br />
         </div>
+
+        <div id="time" class="hidden">
+            <div class="wide" style="text-align: center; display: flex; flex-direction: column">
+                <div class="header" style="margin-bottom: 1em">
+                    <div class="header">Number of days</div>
+                    <input type="number" id="build_cutoff_days" value="14" min="0" max="60" style="width: 3em"/>
+                    <div class="header">Number of builds</div>
+                    <input type="number" id="build_count" value="14" min="0" max="60" style="width: 3em"/>
+                    <div class="header">Before</div>
+                    <input type="datetime-local" id="end_time" value=""/><br />
+                    <button class="filter_button" style="margin-top:1em"
+                        onclick="
+                            build_count      = document.getElementById('build_count').value
+                            build_cutoff_days= document.getElementById('build_cutoff_days').value
+                            end_time         = document.getElementById('end_time').value
+                            fetchProjects()
+                        ">Apply
+                    </button>
+                </div>
+            </div>
+        </div>
+
 
         <div id="selection" class="hidden">
             <div class="wide" style="text-align: center; display: flex; flex-direction: column">
@@ -189,6 +214,7 @@
 
             // TeamCity user data.
             let user
+            let end_time
 
             // Included and excluded projects.
             let selection

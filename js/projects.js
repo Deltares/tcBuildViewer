@@ -19,12 +19,19 @@ let download_queue_length = 0
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projectId, order) {
+async function append_projects_recursively(projectId, order, parentProjectStats, parentProjectIds) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
         return
-    
+
+    if (!parentProjectStats) {
+        parentProjectStats = []
+        parentProjectIds = []
+    }
+
+    parentProjectIds.push(projectId)
+
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
 
@@ -34,7 +41,7 @@ async function append_projects_recursively(projectId, order) {
         },
         credentials: 'include',
         priority: 'high',
-    })
+    }, this)
         .then((result) => {
             if (result.status == 200) {
                 return result.json()
@@ -44,14 +51,18 @@ async function append_projects_recursively(projectId, order) {
         })
         .then((project) => {
 
+            let projectStats = {}
+
             project.order = order // Consistent ordering of projects.
 
-            project.testNewFailed = 0
-            project.testMuted     = 0
-            project.testIgnored   = 0
-            project.testPassed    = 0
-            project.testCount     = 0
-            project.failedNotInvestigated = 0
+            projectStats.newFailed = 0
+            projectStats.failedInvestigated = 0
+            projectStats.failedNotInvestigated = 0
+            projectStats.ignored = 0
+            projectStats.muted = 0
+            projectStats.passed = 0
+            projectStats.count = 0
+            parentProjectStats[project.id] = projectStats;
 
             project.div = renderProject(project)
 
@@ -60,17 +71,17 @@ async function append_projects_recursively(projectId, order) {
                 let promiseList = []
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
-                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
-                })
-                let start = new Date()
+                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], parentProjectStats, parentProjectIds))
+                }, this)
+
                 Promise.all(promiseList).then(() => {/*renderProjectTestStatistics(project)*/})
             }
             
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key) // Make sure that projects are below the buildTypes.
-                })
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjectStats, [...parentProjectIds]) // Make sure that projects are below the buildTypes.
+                }, this)
             }
 
         })
@@ -78,12 +89,19 @@ async function append_projects_recursively(projectId, order) {
         .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
-async function add_builds_to_buildtype(buildType, project) {
+async function add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds) {
 
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
 
-    let promise = fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),startDate:(date:${cutoffTcString()},condition:after),count:${build_count}&${buildType_fields}`, {
+    let time_boundries
+    if (end_time) {
+        time_boundries = `startDate:(date:${cutoffTcString(htmlDateTimeToDate(end_time))},condition:after),startDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
+    } else {
+        time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
+    }
+
+    let promise = fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,state:(finished:true),buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -119,7 +137,7 @@ async function add_builds_to_buildtype(buildType, project) {
 
                 let build = buildType.builds.build
 
-                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id)
+                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, parentProjectStats, parentProjectIds)
 /*
                 // Add cumulative test statistics to project.
                 if (build[0].testOccurrences) {
@@ -154,7 +172,7 @@ async function add_builds_to_buildtype(buildType, project) {
     return promise
 }
 
-async function add_tests_to_build(buildId) {
+async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds) {
 
     let promise = fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}?${buildType_tests_fields}`, {
         headers: {
@@ -170,7 +188,7 @@ async function add_tests_to_build(buildId) {
                 let buildStats = Object();
                 buildStats.buildId = buildId
                 buildStats.testOccurrences = output.testOccurrences
-                renderBuildTypeStats(buildStats)
+                renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds)
             }
 
         })
@@ -274,9 +292,50 @@ function DateToTcTime(date) {
     return tcTime
 }
 
+// Convert HTML input datetime-local to TeamCity's weird time notation.
+function htmlDateTimeToTcTime(htmlDateTime) {
+    split    = htmlDateTime.split('') // 2022-12-22T23:15
+    year     = split.slice(0, 4).join('')
+    month    = split.slice(5, 7).join('')
+    day      = split.slice(8, 10).join('')
+    t        = split.slice(10, 11).join('')
+    hour     = split.slice(11, 13).join('')
+    minute   = split.slice(14, 16).join('')
+    second   = '00'
+    timezone = '%2B0000' // +0000
+    let tcTime = `${year}${month}${day}T${hour}${minute}${second}${timezone}` // TeamCity time format: 20221206T080035+0100
+    return tcTime
+}
+
+// Convert TeamCity's weird time notation to Unix timestamp.
+function htmlDateTimeToUnix(htmlDateTime) {
+    split    = htmlDateTime.split('') // 2022-12-22T23:15
+    year     = split.slice(0, 4).join('')
+    month    = split.slice(5, 7).join('')
+    day      = split.slice(8, 10).join('')
+    t        = split.slice(10, 11).join('')
+    hour     = split.slice(11, 13).join('')
+    minute   = split.slice(14, 16).join('')
+    let date = new Date(`${year}-${month}-${day}T${hour}:${minute}`)
+    return date.getTime() // Unix timestamp from Date object.
+}
+
+// Convert TeamCity's weird time notation to Unix timestamp.
+function htmlDateTimeToDate(htmlDateTime) {
+    split    = htmlDateTime.split('') // 2022-12-22T23:15
+    year     = split.slice(0, 4).join('')
+    month    = split.slice(5, 7).join('')
+    day      = split.slice(8, 10).join('')
+    t        = split.slice(10, 11).join('')
+    hour     = split.slice(11, 13).join('')
+    minute   = split.slice(14, 16).join('')
+    return date = new Date(`${year}-${month}-${day}T${hour}:${minute}`)
+}
+
 // Cut-off date in TeamCity's weird time notation, used for API calls.
-const cutoffTcString = function () {
-    let d = new Date()
+const cutoffTcString = function (d) {
+    if (!d)
+        d = new Date()
     d.setDate(d.getDate()-build_cutoff_days)
     return DateToTcTime(d)
 }
