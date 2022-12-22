@@ -66,7 +66,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
                 let promiseList = []
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
-                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], project))
+                    promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], parentProjectStats))
                 })
 
                 Promise.all(promiseList).then(() => {/*renderProjectTestStatistics(project)*/})
@@ -84,7 +84,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
         .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
-async function add_builds_to_buildtype(buildType, project) {
+async function add_builds_to_buildtype(buildType, parentProjectStats) {
 
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
@@ -125,7 +125,7 @@ async function add_builds_to_buildtype(buildType, project) {
 
                 let build = buildType.builds.build
 
-                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id)
+                build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, parentProjectStats)
 /*
                 // Add cumulative test statistics to project.
                 if (build[0].testOccurrences) {
@@ -160,7 +160,7 @@ async function add_builds_to_buildtype(buildType, project) {
     return promise
 }
 
-async function add_tests_to_build(buildId) {
+async function add_tests_to_build(buildId, parentProjectStats) {
 
     let promise = fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}?${buildType_tests_fields}`, {
         headers: {
@@ -176,7 +176,7 @@ async function add_tests_to_build(buildId) {
                 let buildStats = Object();
                 buildStats.buildId = buildId
                 buildStats.testOccurrences = output.testOccurrences
-                renderBuildTypeStats(buildStats)
+                renderBuildTypeStats(buildStats, parentProjectStats)
             }
 
         })

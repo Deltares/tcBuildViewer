@@ -245,7 +245,7 @@ async function renderBuild(build) {
 
 }
 
-async function renderBuildTypeStats(buildStats) {
+async function renderBuildTypeStats(buildStats, parentProjectStats) {
     let newFailed = buildStats.testOccurrences?.newFailed?buildStats.testOccurrences.newFailed:0
     let failedInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && testOccurrence.currentlyInvestigated}).length
     let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated}).length
@@ -254,6 +254,16 @@ async function renderBuildTypeStats(buildStats) {
     let passed = buildStats.testOccurrences?.passed?buildStats.testOccurrences.passed:0
     let count = buildStats.testOccurrences?.count?buildStats.testOccurrences.count:0
     let percentage = Number((passed/count)*100).toFixed(2)
+
+    parentProjectStats.forEach((projectStats) => {
+        projectStats.newFailed += newFailed
+        projectStats.failedInvestigated += failedInvestigated
+        projectStats.failedNotInvestigated += failedNotInvestigated
+        projectStats.ignored += ignored
+        projectStats.muted += muted
+        projectStats.passed += passed
+        projectStats.count += count
+    })
 
     let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
