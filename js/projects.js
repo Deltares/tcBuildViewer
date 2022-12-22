@@ -72,7 +72,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
                 Object.entries(project.buildTypes.buildType).forEach(([key, buildType]) => {
                     buildType.order = key // Consistent ordering of buildTypes.
                     promiseList.push(add_builds_to_buildtype(project.buildTypes.buildType[key], parentProjectStats, parentProjectIds))
-                })
+                }, this)
 
                 Promise.all(promiseList).then(() => {/*renderProjectTestStatistics(project)*/})
             }
@@ -81,7 +81,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
                     append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjectStats, [...parentProjectIds]) // Make sure that projects are below the buildTypes.
-                })
+                }, this)
             }
 
         })
