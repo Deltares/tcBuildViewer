@@ -19,7 +19,7 @@ let download_queue_length = 0
 /
 /  Note: Project IDs in exclude_projects[] are skipped
 */
-async function append_projects_recursively(projectId, order) {
+async function append_projects_recursively(projectId, order, parentProjects) {
 
     // Excluded projects are skipped entirely.
     if (selection.exclude_projects.includes(projectId))
@@ -69,7 +69,8 @@ async function append_projects_recursively(projectId, order) {
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key) // Make sure that projects are below the buildTypes.
+                    parentProjects.push(subproject.id);
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjects) // Make sure that projects are below the buildTypes.
                 })
             }
 
