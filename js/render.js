@@ -37,7 +37,7 @@ async function renderProject(project) {
     let projectDiv = document.createElement("div")
     let parentElement = document.getElementById(project.parentProjectId)
     if (parentElement) {
-        projectDiv.style.gridRow = project.order*2+1
+        projectDiv.style.gridRow = project.order
         parentElement.appendChild(projectDiv)
     } else {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv)
@@ -126,7 +126,7 @@ async function renderBuildType(buildType) {
     buildTypeLink.classList.add('buildType')
     buildTypeLink.classList.add('buildTypePart')
     buildTypeLink.classList.add(buildType.projectId)
-    buildTypeLink.style.gridRow = Number(buildType.order)*2+1
+    buildTypeLink.style.gridRow = buildType.order*2+1
     parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
     buildTypeLink.classList.add(buildType.builds.build[0].status)
@@ -151,7 +151,7 @@ async function renderBuildType(buildType) {
     let testStatisticsDiv = document.createElement('div')
     testStatisticsDiv.classList.add('test_statistics_text')
     testStatisticsDiv.classList.add('buildTypePart')
-    testStatisticsDiv.style.gridRow = Number(buildType.order)*2+1
+    testStatisticsDiv.style.gridRow = buildType.order*2+1
     parentElement.appendChild(testStatisticsDiv)
 /*
     // Test statistics
@@ -184,7 +184,7 @@ async function renderBuildType(buildType) {
     buildListDiv.setAttribute('id', buildType.id + '_buildList')
     buildListDiv.classList.add('buildList')
     buildListDiv.classList.add('buildTypePart')
-    buildListDiv.style.gridRow = Number(buildType.order)*2+1
+    buildListDiv.style.gridRow = buildType.order*2+1
     parentElement.appendChild(buildListDiv)
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
@@ -192,7 +192,7 @@ async function renderBuildType(buildType) {
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
-    buildSteps.style.gridRow = Number(buildType.order)*2+2
+    buildSteps.style.gridRow = buildType.order*2+2
     parentElement.appendChild(buildSteps)
 
     // Add statusChanged when the last build status is different.
