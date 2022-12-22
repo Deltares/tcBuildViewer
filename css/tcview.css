@@ -16,7 +16,7 @@
     background: #eee; /* A bit less white. */
 }
 
-.collapsed > .project, .collapsed > .buildType {
+.collapsed > .project, .collapsed > .projectBuildTypesDiv {
     display: none !important;
 }
 
@@ -40,10 +40,8 @@
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 0.5em;
-    font-size: 0.8em;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
-    line-height: 1.1em;
 }
 
 /* From Deltares.nl */
@@ -265,38 +263,19 @@ a:hover > div.linkIcon {
     display:none !important;
 }
 
-/* A 'build type' contains builds. */
-.buildType {
-    background-color: #eee;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: initial;
-    padding: 0.2em;
-    margin: 0.2em;
-    margin-left: 20px;
-    display: grid;
-    grid-template-columns: auto fit-content(100%);
-    column-gap: 5px;
-    grid-template-rows: minmax(1em,);
-}
-
 /* Build types where the last build failed. */
-.buildType:has(div.buildList > .build:last-child.FAILURE) {
+.buildTypePart.FAILURE {
     background-color: #fee !important;
 }
 
 /* Build types where the last build succeeded. */
-.buildType:has(div.buildList > .build:last-child.SUCCESS) {
+.buildTypePart.SUCCESS {
     background-color: #efe !important;
 }
 
 /* Build types where the last build succeeded. */
-.buildType:has(div.buildList > .build:last-child.UNKNOWN) {
+.buildTypePart.UNKNOWN {
     background-color: #fee !important;
-}
-
-/* Hide build types without builds. */
-.buildType:not(:has(.build)) {
-    display:none;
 }
 
 /* Name of the build type. */
@@ -306,19 +285,37 @@ a:hover > div.linkIcon {
     word-break: break-all;
 }
 
-/* When the last build has a different status than the second-last. */
-.buildType.statusChanged {
-    border: 3px solid gold;
+.projectBuildTypesDiv {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: initial;
+    /*padding: 0.2em;
+    margin: 0.2em;*/
+    margin-left: 20px;
 }
 
-.buildType:not(.statusChanged) {
-    border: 3px solid white;
+/*.BuildTypeLink {
+    color: black;
+    background-color: #eee;
+}*/
+
+/* When the last build has a different status than the second-last. */
+.buildTypePart.statusChanged {
+    border-top: 3px solid gold;
+    border-bottom: 3px solid gold;
+}
+
+.buildTypePart.buildTypeLink.statusChanged {
+    border-left: 3px solid gold;
+}
+
+.buildTypePart.buildList.statusChanged {
+    border-right: 3px solid gold;
 }
 
 /* List of builds for the build type. */
 .buildList {
     display: block;
-    grid-column: 2;
+    grid-column: 3;
     text-align: right;
     white-space: nowrap;
     letter-spacing: 0.0625em;
@@ -351,13 +348,13 @@ a:hover > div.linkIcon {
 .build.newFailed.FAILURE > a {
     border: none;
     color: #FFE8B3;
-    -webkit-text-stroke: 2px #F0C0B3;
+    -webkit-text-stroke: 4px #F0C0B3;
 }
 
 .build.newFailed.SUCCESS > a {
     border: none;
     color: #FFE8B3;
-    -webkit-text-stroke: 2px #B5DBB6;
+    -webkit-text-stroke: 4px #B5DBB6;
 }
 
 .build.FAILURE:last-child > a {
@@ -375,13 +372,13 @@ a:hover > div.linkIcon {
 .build.newFailed.FAILURE:last-child > a {
     border: none;
     color: gold;
-    -webkit-text-stroke: 2px red;
+    -webkit-text-stroke: 4px red;
 }
 
 .build.newFailed.SUCCESS:last-child > a {
     border: none;
     color: gold;
-    -webkit-text-stroke: 2px green;
+    -webkit-text-stroke: 4px green;
 }
 
 .build:hover {
@@ -392,9 +389,9 @@ a:hover > div.linkIcon {
 /* Button to expand build list info. */
 .buildButtonBar {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(5, 1fr);
     column-gap: 1em;
-    margin: 0.8em 0px;
+    margin: 0px;
 }
 
 /* Build steps on expansion of build type. */
@@ -430,14 +427,24 @@ a:hover > div.linkIcon {
     color: goldenrod;
 }
 
+.message.unknown {
+    font-weight: bold;
+    color: gray;
+}
+
 .message, .change {
     grid-column: 1;
-    margin: 0px;
+    margin: 0.5em;
     padding: 0.5em;
+    display: block;
 }
 
 .message:nth-child(odd), .change:nth-child(odd) {
     background: #eee;
+}
+
+.message > p {
+    display: inline;
 }
 
 .changes {
@@ -450,7 +457,6 @@ a:hover > div.linkIcon {
     padding: 0.5em;
     background: #eee;
     border-radius: 10px;
-    line-break: anywhere;
 }
 
 .smaller {
@@ -482,4 +488,33 @@ a:hover > div.linkIcon {
     animation-name: pulsate;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+.project_header_wrapper {
+    margin-right: 0.4em;
+    display: grid;
+    grid-template-columns: fit-content(100%) fit-content(100%) auto;
+    margin-bottom: 5px;
+}
+
+.projectBuildTypesDiv {
+    display: grid;
+    grid-template-columns: auto fit-content(100%) fit-content(100%);
+    row-gap: 0px;
+}
+
+.projectBuildTypesDiv > * {
+    margin: 5px 0px;
+    padding: 5px;
+    background-color: #eee;
+}
+
+.test_statistics_text {
+    text-align: right;
+}
+
+.tests, .messages, .changes {
+    background-color: white;
+    padding: 0.5em;
+    line-break: anywhere;
 }

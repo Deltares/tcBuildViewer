@@ -6,12 +6,12 @@
     <meta charset="utf-8">
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
-    <link rel="stylesheet" href="css/tcview.css?v1.0.0.2" type="text/css" media="all">
+    <link rel="stylesheet" href="css/tcview.css?v1.0.1" type="text/css" media="all">
     <link rel="manifest" href="img/manifest.json">
-    <script src="config.js?v1.0.0.1"></script>
-    <script src="js/user.js?v1.0.0.1"></script>
-    <script src="js/projects.js?v1.0.0.1"></script>
-    <script src="js/render.js?v1.0.0.1"></script>
+    <script src="config.js?v1.0.1"></script>
+    <script src="js/user.js?v1.0.1"></script>
+    <script src="js/projects.js?v1.0.1"></script>
+    <script src="js/render.js?v1.0.1"></script>
 </head>
 
 <body>
@@ -19,9 +19,15 @@
         <div style="grid-column: span 2; font-weight: bold">Build result:</div>
         <div style="color: green">⬤</div><div>successful</div>
         <div style="color: red">⬤</div><div>failed</div>
-        <div style="color: gold; -webkit-text-stroke: 2px red">⬤</div><div>changed</div>
-        <div style="color: gold; -webkit-text-stroke: 2px green">⬤</div><div>recovered</div>
+        <div style="color: gold; -webkit-text-stroke: 4px red">⬤</div><div>changed</div>
+        <div style="color: gold; -webkit-text-stroke: 4px green">⬤</div><div>recovered</div>
         <div style="color: black">⬤</div><div>unknown</div>
+        <div style="grid-column: span 2; font-weight: bold; margin-top: 1em">Tests failures:</div>
+        <div>🚩</div><div>new failed</div>
+        <div>🕵</div><div>investigating</div>
+        <div>🙈</div><div>uninvestigated</div>
+        <div>🙉</div><div>ignored</div>
+        <div>🙊</div><div>muted</div>
     </div>
     <div id="body_wrap">
 

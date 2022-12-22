@@ -1,5 +1,5 @@
 // Will enable/disable buttons when there are downloads in progress.
-function checkFilterButtons(downloadQueueLength) {
+async function checkFilterButtons(downloadQueueLength) {
 
     document.getElementById('queue_number').innerHTML = downloadQueueLength
 
@@ -31,17 +31,22 @@ function initiateProjectElements(include_projects) {
 
 }
 
-function renderProject(project) {
+async function renderProject(project) {
 
     // Add project to parent project.
     let projectDiv = document.createElement("div")
     let parentElement = document.getElementById(project.parentProjectId)
     if (parentElement) {
-        projectDiv.style.order = project.order
+        projectDiv.style.order = project.order+2
         parentElement.appendChild(projectDiv)
     } else {
         document.getElementById(`${project.id}_wrapper`).appendChild(projectDiv)
     }
+
+    let projectBuildTypesDiv = document.createElement("div")
+    projectBuildTypesDiv.classList.add('projectBuildTypesDiv')
+    projectBuildTypesDiv.style.order = '1';
+    projectDiv.appendChild(projectBuildTypesDiv)
 
     // Create projectDiv.
     projectDiv.setAttribute('id', project.id)
@@ -50,15 +55,17 @@ function renderProject(project) {
     projectDiv.setAttribute('title', `Project ID: ${project.id}`)
 
     // Wrapper for project collapse button and title.
-    let projectWrapperDiv = document.createElement("div")
-    projectDiv.appendChild(projectWrapperDiv)
+    let projectHeaderWrapperDiv = document.createElement("div")
+    projectHeaderWrapperDiv.classList.add('project_header_wrapper')
+    projectHeaderWrapperDiv.style.order = '0';
+    projectDiv.appendChild(projectHeaderWrapperDiv)
 
     // Collapse button.
     let collapseDiv = document.createElement("div")
     collapseDiv.classList.add('collapse_button')
     collapseDiv.setAttribute('title','collapse')
     collapseDiv.setAttribute('onclick', `this.parentElement.parentElement.classList.toggle('collapsed');this.innerHTML=this.innerHTML=='▼'?'▶':'▼'`)
-    projectWrapperDiv.appendChild(collapseDiv)
+    projectHeaderWrapperDiv.appendChild(collapseDiv)
 
     // Collapse button text.
     let collapseDivText = document.createTextNode('▼')
@@ -69,7 +76,7 @@ function renderProject(project) {
     projectLink.classList.add('project_title')
     projectLink.setAttribute('href', project.webUrl)
     projectLink.setAttribute('target', '_blank')
-    projectWrapperDiv.appendChild(projectLink)
+    projectHeaderWrapperDiv.appendChild(projectLink)
 
     // Text for TeamCity project link.
     let projectText = document.createTextNode(`${project.name}`)
@@ -82,40 +89,53 @@ function renderProject(project) {
     projectLinkIcon.classList.add('linkIcon')
     projectLink.appendChild(projectLinkIcon)
 
-}
+    return projectDiv
 
+}
+/*
+function renderProjectTestStatistics(project) {
+    if(project.testCount) {
+        project.testPercentage = Number((project.testPassed/project.testCount)*100).toFixed(2)
+        let testStatisticsSumText = document.createTextNode(`${project.testNewFailed?'('+project.testNewFailed+' new failed) ':''}${project.failedNotInvestigated?'['+project.failedNotInvestigated+'×🙈] ':''}${project.testIgnored?'['+project.testIgnored+'×🙉] ':''}${project.testMuted?'['+project.testMuted+'×🙊] ':''}[${project.testPassed?project.testPassed:0}/${project.testCount}] = ${project.testPercentage}%`)
+        let testStatisticsSumDiv = document.createElement('div')
+        testStatisticsSumDiv.style.textAlign = 'right'
+        testStatisticsSumDiv.style.display = 'inline-block'
+        testStatisticsSumDiv.appendChild(testStatisticsSumText)
+        project.div.getElementsByClassName('project_title')[0].after(testStatisticsSumDiv)
+    }
+}
+*/
 // Add buildType to project.
-function renderBuildType(buildType) {
+async function renderBuildType(buildType) {
 
     // Skip build types with no builds.
     if (!buildType.builds.build[0])
         return
 
     // Add buildType to project.
-    let buildTypeDiv = document.createElement("div")
-    let parentElement = document.getElementById(buildType.projectId)
-    buildTypeDiv.style.order = buildType.order
-    parentElement.appendChild(buildTypeDiv)
+    //let buildTypeDiv = document.createElement("div")
+    let parentElement = document.getElementById(buildType.projectId).getElementsByClassName('projectBuildTypesDiv')[0]
+    //buildTypeDiv.style.order = buildType.order
+    //parentElement.appendChild(buildTypeDiv)
+
+    let buildTypeLink = document.createElement("a")
 
     // Create buildTextDiv.
-    buildTypeDiv.setAttribute('id', buildType.id)
-    buildTypeDiv.setAttribute('title',`BuildType ID: ${buildType.id}`)
-    buildTypeDiv.classList.add('buildType')
-    buildTypeDiv.classList.add(buildType.projectId)
-
+    buildTypeLink.setAttribute('id', buildType.id)
+    buildTypeLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
+    buildTypeLink.classList.add('buildType')
+    buildTypeLink.classList.add('buildTypePart')
+    buildTypeLink.classList.add(buildType.projectId)
+    buildTypeLink.style.gridRow = buildType.order*2+1
+    parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
-    buildTypeDiv.classList.add(buildType.builds.build[0].status)
-
-    // Add statusChanged when the last build status is different.
-    if (buildType.statusChanged) {
-        buildTypeDiv.classList.add('statusChanged')
-    }
+    buildTypeLink.classList.add(buildType.builds.build[0].status)
 
     // Link to TeamCity build type page.
-    let buildTypeLink = document.createElement("a")
     buildTypeLink.setAttribute('href', buildType.webUrl)
+    buildTypeLink.classList.add('buildTypeLink');
+    buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}`)
     buildTypeLink.setAttribute('target', '_blank')
-    buildTypeDiv.appendChild(buildTypeLink)
 
     // Text for the buildType.
     let buildTypeText = document.createTextNode(buildType.name)
@@ -128,23 +148,70 @@ function renderBuildType(buildType) {
     buildTypeLinkIcon.classList.add('linkIcon')
     buildTypeLink.appendChild(buildTypeLinkIcon)
 
+    let testStatisticsDiv = document.createElement('div')
+    testStatisticsDiv.classList.add('test_statistics_text')
+    testStatisticsDiv.classList.add('buildTypePart')
+    testStatisticsDiv.style.gridRow = buildType.order*2+1
+    parentElement.appendChild(testStatisticsDiv)
+/*
+    // Test statistics
+    if (buildType.builds.build[0].testOccurrences) {
+        let testOccurrences = buildType.builds.build[0].testOccurrences
+        let newFailed = testOccurrences.newFailed?testOccurrences.newFailed:0
+        let muted = testOccurrences.muted?testOccurrences.muted:0
+        let ignored = testOccurrences.ignored?testOccurrences.ignored:0
+        let passed = testOccurrences.passed?testOccurrences.passed:0
+        let count = testOccurrences.count
+        let percentage = Number((passed/count)*100).toFixed(2)
+        let failedNotInvestigated = buildType.failedNotInvestigated
+
+        let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
+        testStatisticsDiv.appendChild(testStatisticsText)
+    }
+*/
+    // Investigations
+    /*
+    if (buildType.investigations?.investigation?.length > 0) {
+        for (investigation in buildType.investigations.investigation) {
+            console.log(buildType.investigations.investigation[investigation].assignee.name)
+            testStatisticsDiv.prepend(document.createTextNode(buildType.investigations.investigation[investigation].assignee.name))
+        }
+    }
+    */
+
     // Element to hold the list of builds.
     let buildListDiv = document.createElement("div")
     buildListDiv.setAttribute('id', buildType.id + '_buildList')
     buildListDiv.classList.add('buildList')
-    buildTypeDiv.appendChild(buildListDiv)
+    buildListDiv.classList.add('buildTypePart')
+    buildListDiv.style.gridRow = buildType.order*2+1
+    parentElement.appendChild(buildListDiv)
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
     let buildSteps = document.createElement("div")
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
-    buildTypeDiv.appendChild(buildSteps)
+    buildSteps.style.gridRow = buildType.order*2+2
+    parentElement.appendChild(buildSteps)
+
+    // Add statusChanged when the last build status is different.
+    if (buildType.statusChanged) {
+        buildTypeLink.classList.add('statusChanged')
+        testStatisticsDiv.classList.add('statusChanged')
+        buildListDiv.classList.add('statusChanged')
+    }
+
+    if (buildType.status) {
+        buildTypeLink.classList.add(buildType.status)
+        testStatisticsDiv.classList.add(buildType.status)
+        buildListDiv.classList.add(buildType.status)
+    }
 
 }
 
 // Add build to buildList.
-function renderBuild(build) {
+async function renderBuild(build) {
 
     // Add build to buildList.
     let buildDiv = document.createElement("div")
@@ -178,9 +245,24 @@ function renderBuild(build) {
 
 }
 
-function renderBuildDetails(buildId,messages,changes) {
-    let parentElementId = document.getElementById(buildId).parentElement.parentElement.id
-    let buildDetails = document.querySelectorAll(`#${parentElementId} > .buildSteps`)[0]
+async function renderBuildTypeStats(buildStats) {
+    let newFailed = buildStats.testOccurrences?.newFailed?buildStats.testOccurrences.newFailed:0
+    let failedInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && testOccurrence.currentlyInvestigated}).length
+    let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated}).length
+    let ignored = buildStats.testOccurrences?.ignored?buildStats.testOccurrences.ignored:0
+    let muted = buildStats.testOccurrences?.muted?buildStats.testOccurrences.muted:0
+    let passed = buildStats.testOccurrences?.passed?buildStats.testOccurrences.passed:0
+    let count = buildStats.testOccurrences?.count?buildStats.testOccurrences.count:0
+    let percentage = Number((passed/count)*100).toFixed(2)
+
+    let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
+    let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
+    element.appendChild(testStatisticsText)
+}
+
+async function renderBuildDetails(buildId,messages,tests,changes) {
+    let parentElementId = document.getElementById(buildId).parentElement.id
+    let buildDetails = document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
 
@@ -198,9 +280,22 @@ function renderBuildDetails(buildId,messages,changes) {
         `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
         this.classList.add('active')
         this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden')
+        this.parentElement.parentElement.getElementsByClassName('tests')[0].classList.add('hidden')
         this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden')`)
     buildMessagesButton.appendChild(document.createTextNode('Logs'))
     buildButtonBar.appendChild(buildMessagesButton)
+
+    // Show tests
+    let buildStepsButton = document.createElement('button')
+    buildStepsButton.classList.add('toggle')
+    buildStepsButton.setAttribute('onclick',
+    `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
+    this.classList.add('active')
+    this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden')
+    this.parentElement.parentElement.getElementsByClassName('tests')[0].classList.remove('hidden')
+    this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden')`)
+    buildStepsButton.appendChild(document.createTextNode('Tests'))
+    buildButtonBar.appendChild(buildStepsButton)
 
     // Show changes
     let buildChangesButton = document.createElement('button')
@@ -209,6 +304,7 @@ function renderBuildDetails(buildId,messages,changes) {
     `this.parentElement.getElementsByClassName('active')[0].classList.remove('active')
     this.classList.add('active')
     this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.add('hidden')
+    this.parentElement.parentElement.getElementsByClassName('tests')[0].classList.add('hidden')
     this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.remove('hidden')`)
     buildChangesButton.appendChild(document.createTextNode('Blame'))
     buildButtonBar.appendChild(buildChangesButton)
@@ -221,7 +317,7 @@ function renderBuildDetails(buildId,messages,changes) {
 
     // Close build details
     let buildCloseButton = document.createElement('button')
-    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId} > .buildSteps')[0].classList.add('hidden')`)
+    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId}')[0].nextSibling.classList.add('hidden')`)
     buildCloseButton.appendChild(document.createTextNode('Close'))
     buildButtonBar.appendChild(buildCloseButton)
 
@@ -229,6 +325,12 @@ function renderBuildDetails(buildId,messages,changes) {
     let messagesDiv = document.createElement('div')
     messagesDiv.classList.add('messages')
     buildDetails.appendChild(messagesDiv)
+
+    // Steps DIV
+    let testsDiv = document.createElement('div')
+    testsDiv.classList.add('tests')
+    testsDiv.classList.add('hidden')
+    buildDetails.appendChild(testsDiv)
 
     // Changes DIV
     let changesDiv = document.createElement('div')
@@ -252,6 +354,51 @@ function renderBuildDetails(buildId,messages,changes) {
 
     if (changes.length == 0) {
         changesDiv.innerHTML = 'Nobody to blame... 😭'
+    }
+
+    Object.entries(tests).forEach(([key, test]) => {
+
+        let testP = document.createElement('p')
+        let testA = document.createElement('a')
+        testA.classList.add('message')
+        testA.setAttribute('target','_blank')
+        testA.setAttribute('href',`${teamcity_base_url}/buildConfiguration/${test.build.buildTypeId}/${test.build.id}?showLog=${test.build.id}_${test.logAnchor}`)
+
+        if (test.status == 'WARNING')
+            testA.classList.add('warning')
+        if (test.status == 'FAILURE')
+            testA.classList.add('error')
+        if (test.status == 'UNKNOWN') {
+            testA.classList.add('unknown')
+        }
+
+        let tags = ''
+        let investigation_names = ''
+
+        if (test.test?.investigations?.investigation?.length == 0)
+            tags += '🙈'
+        else {
+            investigation_names = test.test.investigations.investigation.map((investigation) => {return investigation.assignee.name})
+            tags += '🕵'
+            testP.style.color = 'var(--deltares-blue)'
+        }
+        if (test.ignored)
+            tags += '🙉'
+        if (test.muted)
+            tags += '🙊'
+
+        testP.innerText = `${tags} ${investigation_names?'('+investigation_names+')':''} ${test.test.parsedTestName.testShortName}\n⇾ ${test.details}`
+        testA.appendChild(testP)
+
+        if (investigation_names)
+            testsDiv.insertBefore(testA, testsDiv.firstChild)
+        else
+            testsDiv.appendChild(testA)
+
+    })
+
+    if (tests.length == 0) {
+        testsDiv.innerHTML = 'No failed tests!'
     }
 
     Object.entries(changes).forEach(([key, change]) => {
@@ -279,7 +426,7 @@ function renderBuildDetails(buildId,messages,changes) {
 // Show or hide all build types of which the last build was successful.
 function toggleGreen() {
 
-    let greenBuildTypes = document.querySelectorAll('#_projects div.buildType.SUCCESS')
+    let greenBuildTypes = document.querySelectorAll('#_projects .buildTypePart.SUCCESS')
 
     for (item of greenBuildTypes) {
         item.classList.toggle('hidden')
@@ -290,7 +437,7 @@ function toggleGreen() {
 // Show or hide all build types of which the last build was successful.
 function toggleUnchangedBuildTypes() {
 
-    let unchangedBuildTypes = document.querySelectorAll('#_projects div.buildType:not(.statusChanged)')
+    let unchangedBuildTypes = document.querySelectorAll('#_projects .buildTypePart:not(.statusChanged)')
 
     for (item of unchangedBuildTypes) {
         item.classList.toggle('hidden_statusChanged')
