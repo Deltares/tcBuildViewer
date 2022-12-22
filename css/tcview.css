@@ -348,13 +348,13 @@ a:hover > div.linkIcon {
 .build.newFailed.FAILURE > a {
     border: none;
     color: #FFE8B3;
-    -webkit-text-stroke: 2px #F0C0B3;
+    -webkit-text-stroke: 4px #F0C0B3;
 }
 
 .build.newFailed.SUCCESS > a {
     border: none;
     color: #FFE8B3;
-    -webkit-text-stroke: 2px #B5DBB6;
+    -webkit-text-stroke: 4px #B5DBB6;
 }
 
 .build.FAILURE:last-child > a {
@@ -372,13 +372,13 @@ a:hover > div.linkIcon {
 .build.newFailed.FAILURE:last-child > a {
     border: none;
     color: gold;
-    -webkit-text-stroke: 2px red;
+    -webkit-text-stroke: 4px red;
 }
 
 .build.newFailed.SUCCESS:last-child > a {
     border: none;
     color: gold;
-    -webkit-text-stroke: 2px green;
+    -webkit-text-stroke: 4px green;
 }
 
 .build:hover {
