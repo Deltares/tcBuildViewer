@@ -504,7 +504,7 @@ a:hover > div.linkIcon {
 }
 
 .projectBuildTypesDiv > * {
-    margin: 5px;
+    margin: 5px 0px;
     padding: 5px;
     background-color: #eee;
 }
