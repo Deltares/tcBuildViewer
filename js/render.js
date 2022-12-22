@@ -261,15 +261,15 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
     let percentage = Number((passed/count)*100).toFixed(2)
 
     //console.log(parentProjectStats)
-    Object.entries(parentProjectStats).forEach((projectStats) => {
-        projectStats.newFailed += newFailed
-        projectStats.failedInvestigated += failedInvestigated
-        projectStats.failedNotInvestigated += failedNotInvestigated
-        projectStats.ignored += ignored
-        projectStats.muted += muted
-        projectStats.passed += passed
-        projectStats.count += count
-        projectStats.percentage = Number((projectStats.passed/projectStats.count)*100).toFixed(2)
+    Object.entries(parentProjectStats).forEach(([projectId,projectStats]) => {
+        parentProjectStats[projectId].newFailed += newFailed
+        parentProjectStats[projectId].failedInvestigated += failedInvestigated
+        parentProjectStats[projectId].failedNotInvestigated += failedNotInvestigated
+        parentProjectStats[projectId].ignored += ignored
+        parentProjectStats[projectId].muted += muted
+        parentProjectStats[projectId].passed += passed
+        parentProjectStats[projectId].count += count
+        parentProjectStats[projectId].percentage = Number((parentProjectStats[projectId].passed/parentProjectStats[projectId].count)*100).toFixed(2)
     }), this
     renderProjectStats(parentProjectStats)
 
@@ -279,7 +279,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
 }
 
 async function renderProjectStats(parentProjectStats) {
-    console.log(parentProjectStats)
+    //console.log(parentProjectStats)
     Object.entries(parentProjectStats).forEach(([projectId,projectStats]) => {
         //console.log(projectStats)
         let element = document.getElementById(`${projectId}_stats`)
