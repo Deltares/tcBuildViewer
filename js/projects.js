@@ -51,12 +51,13 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
 
             project.order = order // Consistent ordering of projects.
 
-            projectStats.testNewFailed = 0
-            projectStats.testMuted     = 0
-            projectStats.testIgnored   = 0
-            projectStats.testPassed    = 0
-            projectStats.testCount     = 0
+            projectStats.newFailed = 0
+            projectStats.failedInvestigated = 0
             projectStats.failedNotInvestigated = 0
+            projectStats.ignored = 0
+            projectStats.muted = 0
+            projectStats.passed = 0
+            projectStats.count = count
             parentProjectStats[project.id] = projectStats;
 
             project.div = renderProject(project)
