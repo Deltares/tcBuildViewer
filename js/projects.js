@@ -76,7 +76,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
             // Check for sub-projects to add
             if (project.projects.project) {
                 Object.entries(project.projects.project).forEach(([key, subproject]) => {
-                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, parentProjectStats) // Make sure that projects are below the buildTypes.
+                    append_projects_recursively(subproject.id, project.buildTypes?project.buildTypes.buildType.length+key:key, [...parentProjectStats]) // Make sure that projects are below the buildTypes.
                 })
             }
 
