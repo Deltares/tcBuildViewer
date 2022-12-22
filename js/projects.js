@@ -25,6 +25,9 @@ async function append_projects_recursively(projectId, order, parentProjectStats)
     if (selection.exclude_projects.includes(projectId))
         return
     
+    if (!parentProjectStats)
+        parentProjectStats = []
+
     // Will enable/disable buttons when there are downloads in progress.
     checkFilterButtons(++download_queue_length)
 
