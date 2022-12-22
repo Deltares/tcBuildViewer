@@ -261,7 +261,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats) {
     let percentage = Number((passed/count)*100).toFixed(2)
 
     //console.log(parentProjectStats)
-    parentProjectStats.forEach((projectStats) => {
+    Object.entries(parentProjectStats).forEach((projectStats) => {
         console.log('bla')
         projectStats.newFailed += newFailed
         projectStats.failedInvestigated += failedInvestigated
