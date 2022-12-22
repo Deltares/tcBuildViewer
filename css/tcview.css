@@ -518,3 +518,7 @@ a:hover > div.linkIcon {
     padding: 0.5em;
     line-break: anywhere;
 }
+
+.projectStats {
+    text-align: right;
+}
