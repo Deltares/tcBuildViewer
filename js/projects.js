@@ -41,7 +41,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
         },
         credentials: 'include',
         priority: 'high',
-    })
+    }, this)
         .then((result) => {
             if (result.status == 200) {
                 return result.json()
