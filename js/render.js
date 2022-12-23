@@ -393,18 +393,20 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 messageP.style.display = 'flex'
                 messageP.style.flexDirection = 'column'
 
+                let subMessagesCollapse = document.createElement('span')
+                messageSpan.prepend(subMessagesCollapse)
+                subMessagesCollapse.storeText = message.text
+                subMessagesCollapse.innerText = `▶ ${subMessagesCollapse.storeText}`
+                subMessagesCollapse.classList.add('collapse_button')
+                subMessagesCollapse.style.display = 'inline-block'
+                subMessagesCollapse.setAttribute('onclick',`this.innerHTML=this.innerHTML=='▼ ${subMessagesCollapse.storeText}'?'▶ ${subMessagesCollapse.storeText}':'▼ ${subMessagesCollapse.storeText}';this.classList.toggle('active');this.parent.nextSibling.classList.toggle("hidden")`)
+                messageSpan.style.display = 'none'
+                messageP.appendChild(subMessagesCollapse)
+
                 let subMessages = document.createElement('div')
                 messageP.appendChild(subMessages)
                 subMessages.style.borderLeft = '2px solid black'
                 subMessages.classList.add('hidden')
-
-                let subMessagesCollapse = document.createElement('span')
-                messageSpan.prepend(subMessagesCollapse)
-                subMessagesCollapse.innerText = '▶'
-                subMessagesCollapse.classList.add('collapse_button')
-                subMessagesCollapse.style.display = 'inline-block'
-                subMessagesCollapse.setAttribute('onclick',`this.innerHTML=this.innerHTML=='▼'?'▶':'▼';this.classList.toggle('active');this.parent.nextSibling.classList.toggle("hidden")`)
-                messageP.appendChild(subMessagesCollapse)
 
                 addMessagesToElement(await moreMessages, subMessages)
             }
