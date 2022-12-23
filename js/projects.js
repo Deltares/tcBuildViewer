@@ -276,7 +276,7 @@ async function get_more_messages(buildId,messageId) {
 
     let messagesJSON = await messagesRequest.json()
 
-    let messages = messagesJSON.messages
+    let messages = messagesJSON.messages.filter((message) => {return message.parentId == messageId})
 
     return messages
 
