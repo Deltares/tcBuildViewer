@@ -393,6 +393,8 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 messageP.style.display = 'flex'
                 messageP.style.flexDirection = 'column'
 
+                messageSpan.classList.add('hidden')
+
                 let subMessages = document.createElement('p')
                 messageP.appendChild(subMessages)
                 subMessages.style.borderLeft = '2px solid black'
