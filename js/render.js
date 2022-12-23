@@ -398,6 +398,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 let subMessages = document.createElement('p')
                 messageP.appendChild(subMessages)
                 subMessages.style.borderLeft = '2px solid black'
+                subMessages.classList.add('hidden')
 
                 let subMessagesCollapse = document.createElement('span')
                 subMessagesCollapse.innerText = '▶'
