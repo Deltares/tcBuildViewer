@@ -387,15 +387,22 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
             element.appendChild(messageP)
 
             if (message.containsMessages && message.id != 0) {
+
                 let moreMessages = get_more_messages(buildId,message.id)
+
                 messageP.style.display = 'flex'
                 messageP.style.flexDirection = 'column'
-                let subMessagesCollapse = document.createElement('p')
-                subMessagesCollapse.innerText = '▶'
+
                 let subMessages = document.createElement('p')
-                messageP.prepend(subMessagesCollapse)
                 messageP.appendChild(subMessages)
                 subMessages.style.borderLeft = '2px solid black'
+                subMessages.classList.add('hidden')
+
+                let subMessagesCollapse = document.createElement('button')
+                subMessagesCollapse.innerText = '▶'
+                subMessagesCollapse.setAttribute('onclick',this.nextSibling.classList.toggle('hidden'))
+                messageP.prepend(subMessagesCollapse)
+
                 addMessagesToElement(await moreMessages, subMessages)
             }
     
