@@ -398,7 +398,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 subMessages.style.borderLeft = '2px solid black'
                 subMessages.classList.add('hidden')
 
-                let subMessagesCollapse = document.createElement('div')
+                let subMessagesCollapse = document.createElement('span')
                 subMessagesCollapse.innerText = '▶'
                 subMessagesCollapse.style.display = 'inline-block'
                 subMessagesCollapse.setAttribute('onclick',`this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
