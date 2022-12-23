@@ -381,7 +381,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 messageP.classList.add('warning')
             if (message.status == 4)
                 messageP.classList.add('error')
-            let messageText = JSON.parse(message.text)
+            let messageText = JSON.stringify(message.text)
             messageP.innerText = messageText
             
             element.appendChild(messageP)
