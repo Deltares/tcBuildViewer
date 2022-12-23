@@ -388,6 +388,9 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
             if (message.containsMessages && message.id != 0) {
                 let moreMessages = get_more_messages(buildId,message.id)
+                messageP.style.display = 'flex'
+                messageP.style.flexDirection = 'column'
+                messageP.innerText = `> ${messageP.innerText}`
                 addMessagesToElement(await moreMessages, messageP)
             }
     
