@@ -267,7 +267,7 @@ async function get_build_details(buildId) {
 // On-demand information when a message is clicked.
 async function get_more_messages(buildId,messageId) {
 
-    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&messageId=${messageId}&${message_fields}`, {
+    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&messageId=${messageId}&view=flowAware`, {
         headers: {
             'Accept': 'application/json',
         },
