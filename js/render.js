@@ -375,7 +375,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
     function addMessagesToElement(messages, element) {
         Object.entries(messages).forEach(async ([key, message]) => {
 
-            let messageP = document.createElement('p')
+            let messageP = document.createElement('div')
             messageP.classList.add('message')
             if (message.status == 2)
                 messageP.classList.add('warning')
