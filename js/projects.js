@@ -278,7 +278,7 @@ async function get_more_messages(buildId,messageId) {
 
     let messages = messagesJSON.messages
 
-    return messages
+    return await messages
 
 }
 
