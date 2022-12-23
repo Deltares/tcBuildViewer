@@ -399,7 +399,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 subMessagesCollapse.innerText = `▶ ${subMessagesCollapse.storeText}`
                 //subMessagesCollapse.classList.add('collapse_button')
                 subMessagesCollapse.style.display = 'inline-block'
-                subMessagesCollapse.setAttribute('onclick',`this.innerHTML[0]=this.innerHTML[0]=='▼'?'▶':'▼';this.classList.toggle('active');this.nextSibling.classList.toggle("hidden")`)
+                subMessagesCollapse.setAttribute('onclick',`this.innerText=this.innerText.startsWith('▼')?'▶ ${subMessagesCollapse.storeText}':'▼ ${subMessagesCollapse.storeText}';this.classList.toggle('active');this.nextSibling.classList.toggle("hidden")`)
                 messageSpan.style.display = 'none'
                 messageP.appendChild(subMessagesCollapse)
 
