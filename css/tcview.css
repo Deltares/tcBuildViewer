@@ -443,6 +443,10 @@ a:hover > div.linkIcon {
     background: #eee;
 }
 
+.message:nth-child(even), .change:nth-child(even) {
+    background: #fff;
+}
+
 .message > p {
     display: inline;
 }
