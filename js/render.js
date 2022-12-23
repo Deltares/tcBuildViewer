@@ -372,19 +372,27 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
     changesDiv.classList.add('hidden')
     buildDetails.appendChild(changesDiv)
 
-    Object.entries(messages).forEach(([key, message]) => {
+    function addMessagesToElement(messages, element) {
+        Object.entries(messages).forEach(([key, message]) => {
 
-        let messageP = document.createElement('p')
-        messageP.classList.add('message')
-        if (message.status == 2)
-            messageP.classList.add('warning')
-        if (message.status == 4)
-            messageP.classList.add('error')
-        let messageText = JSON.stringify(message.text)
-        messageP.innerText = messageText
-        messagesDiv.appendChild(messageP)
+            let messageP = document.createElement('p')
+            messageP.classList.add('message')
+            if (message.status == 2)
+                messageP.classList.add('warning')
+            if (message.status == 4)
+                messageP.classList.add('error')
+            let messageText = JSON.stringify(message.text)
+            messageP.innerText = messageText
+            
+            element.appendChild(messageP)
 
-    })
+            if (message.containsMessages)
+                addMessagesToElement(get_more_messages(buildId,message.id), messageP)
+    
+        })
+    }
+
+    addMessagesToElement(messages, messagesDiv)
 
     if (changes.length == 0) {
         changesDiv.innerHTML = 'Nobody to blame... 😭'

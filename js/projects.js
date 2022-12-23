@@ -261,7 +261,25 @@ async function get_build_details(buildId) {
 
     let changes = changesJSON.change
 
-    renderBuildDetails(buildId, await messages, await tests, await changes)
+    renderBuildDetails(buildId, messages, tests, changes)
+}
+
+// On-demand information when a build is clicked.
+async function get_more_messages(buildId,messageId) {
+
+    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&messageId=${messageId}&${message_fields}`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+
+    let messagesJSON = await messagesRequest.json()
+
+    let messages = messagesJSON.messages
+
+    return messages
+
 }
 
 // Convert TeamCity's weird time notation to Unix timestamp.
