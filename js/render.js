@@ -388,7 +388,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
             if (message.containsMessages) {
                 console.log(get_more_messages(buildId,message.id))
-                addMessagesToElement(get_more_messages(buildId,message.id), messageP)
+                addMessagesToElement(get_more_messages(buildId,message.id).then(bla), messageP)
             }
     
         })

@@ -264,7 +264,7 @@ async function get_build_details(buildId) {
     renderBuildDetails(buildId, messages, tests, changes)
 }
 
-// On-demand information when a build is clicked.
+// On-demand information when a message is clicked.
 async function get_more_messages(buildId,messageId) {
 
     let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&messageId=${messageId}&${message_fields}`, {
@@ -278,7 +278,7 @@ async function get_more_messages(buildId,messageId) {
 
     let messages = messagesJSON.messages
 
-    return await messages
+    return messages
 
 }
 
