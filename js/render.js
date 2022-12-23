@@ -381,9 +381,9 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 messageP.classList.add('warning')
             if (message.status == 4)
                 messageP.classList.add('error')
-            let messageText = JSON.stringify(message.text)
-            messageP.innerText = messageText
-            
+            let messageSpan = document.createElement('span')
+            messageSpan.innerText = JSON.stringify(message.text)
+            messageP.appendChild(messageSpan)
             element.appendChild(messageP)
 
             if (message.containsMessages && message.id != 0) {
@@ -400,7 +400,6 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
                 let subMessagesCollapse = document.createElement('span')
                 subMessagesCollapse.innerText = `▶ ${messageP.innerText}`
-                messageP.innerText = ''
                 subMessagesCollapse.style.display = 'inline-block'
                 subMessagesCollapse.setAttribute('onclick',`this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
                 messageP.prepend(subMessagesCollapse)
