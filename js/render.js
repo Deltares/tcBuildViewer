@@ -398,12 +398,11 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 let subMessages = document.createElement('p')
                 messageP.appendChild(subMessages)
                 subMessages.style.borderLeft = '2px solid black'
-                subMessages.classList.add('hidden')
 
                 let subMessagesCollapse = document.createElement('span')
-                subMessagesCollapse.innerText = `▶ ${message.text}`
+                subMessagesCollapse.innerText = '▶'
                 subMessagesCollapse.style.display = 'inline-block'
-                subMessagesCollapse.setAttribute('onclick',`this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
+                subMessagesCollapse.setAttribute('onclick',`this.innerHTML=this.innerHTML=='▼'?'▶':'▼';this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
                 messageP.prepend(subMessagesCollapse)
 
                 addMessagesToElement(await moreMessages, subMessages)
