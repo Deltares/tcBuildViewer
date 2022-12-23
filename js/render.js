@@ -382,7 +382,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
             if (message.status == 4)
                 messageP.classList.add('error')
             let messageSpan = document.createElement('span')
-            messageSpan.innerText = JSON.stringify(message.text)
+            messageSpan.innerText = message.text
             messageP.appendChild(messageSpan)
             element.appendChild(messageP)
 
@@ -401,7 +401,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 subMessages.classList.add('hidden')
 
                 let subMessagesCollapse = document.createElement('span')
-                subMessagesCollapse.innerText = `▶ ${JSON.stringify(message.text)}`
+                subMessagesCollapse.innerText = `▶ ${message.text}`
                 subMessagesCollapse.style.display = 'inline-block'
                 subMessagesCollapse.setAttribute('onclick',`this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
                 messageP.prepend(subMessagesCollapse)
