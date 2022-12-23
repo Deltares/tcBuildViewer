@@ -379,8 +379,11 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
             messageP.classList.add('message')
             if (message.status == 2)
                 messageP.classList.add('warning')
-            if (message.status == 4)
+            else if (message.status == 4)
                 messageP.classList.add('error')
+            else {
+                messageP.classList.add('normal')
+            }
             let messageSpan = document.createElement('span')
             messageSpan.innerText = message.text
             messageP.appendChild(messageSpan)

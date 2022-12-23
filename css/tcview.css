@@ -432,6 +432,11 @@ a:hover > div.linkIcon {
     color: gray;
 }
 
+.message.normal {
+    color:black;
+    font-weight: normal;
+}
+
 .message, .change {
     grid-column: 1;
     margin: 0.5em;
