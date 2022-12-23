@@ -400,7 +400,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 messageSpan.prepend(subMessagesCollapse)
                 subMessagesCollapse.storeText = message.text
                 subMessagesCollapse.innerText = `▶ ${subMessagesCollapse.storeText}`
-                //subMessagesCollapse.classList.add('collapse_button')
+                subMessagesCollapse.classList.add('collapse_message_button')
                 subMessagesCollapse.style.display = 'inline-block'
                 subMessagesCollapse.setAttribute('onclick',`this.innerText=this.innerText.startsWith('▼')?'▶ '+this.storeText:'▼ '+this.storeText;this.classList.toggle('active');this.nextSibling.classList.toggle("hidden")`)
                 messageSpan.style.display = 'none'

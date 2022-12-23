@@ -531,3 +531,7 @@ a:hover > div.linkIcon {
 .projectStats {
     text-align: right;
 }
+
+.collapse_message_button:hover {
+    cursor: pointer;
+}
