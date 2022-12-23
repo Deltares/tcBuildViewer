@@ -390,9 +390,11 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 let moreMessages = get_more_messages(buildId,message.id)
                 messageP.style.display = 'flex'
                 messageP.style.flexDirection = 'column'
-                messageP.style.borderLeft = '2px solid black'
-                messageP.innerText = `> ${messageP.innerText}`
-                addMessagesToElement(await moreMessages, messageP)
+                messageP.innerText = `▶ ${messageP.innerText}`
+                let subMessages = document.createElement('p')
+                messageP.appendChild(subMessages)
+                subMessages.style.borderLeft = '2px solid black'
+                addMessagesToElement(await moreMessages, subMessages)
             }
     
         })
