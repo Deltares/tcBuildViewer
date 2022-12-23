@@ -388,7 +388,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
             if (message.containsMessages && message.id != 0) {
                 let moreMessages = get_more_messages(buildId,message.id)
-                //addMessagesToElement(await moreMessages, messageP)
+                addMessagesToElement(await moreMessages, messageP)
             }
     
         })
