@@ -373,7 +373,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
     buildDetails.appendChild(changesDiv)
 
     function addMessagesToElement(messages, element) {
-        Object.entries(messages).forEach(([key, message]) => {
+        Object.entries(messages).forEach(async ([key, message]) => {
 
             let messageP = document.createElement('p')
             messageP.classList.add('message')
@@ -388,7 +388,8 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
             if (message.containsMessages) {
                 console.log(get_more_messages(buildId,message.id))
-                addMessagesToElement(get_more_messages(buildId,message.id).then(bla), messageP)
+                let moreMessages = get_more_messages(buildId,message.id)
+                addMessagesToElement(await moreMessages, messageP)
             }
     
         })
