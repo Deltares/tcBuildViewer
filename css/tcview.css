@@ -535,3 +535,7 @@ a:hover > div.linkIcon {
 .collapse_message_button:hover {
     cursor: pointer;
 }
+
+.collapse_message_button::first-letter {
+    width: 1em;
+}
