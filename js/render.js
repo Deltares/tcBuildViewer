@@ -372,19 +372,52 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
     changesDiv.classList.add('hidden')
     buildDetails.appendChild(changesDiv)
 
-    Object.entries(messages).forEach(([key, message]) => {
+    function addMessagesToElement(messages, element) {
+        Object.entries(messages).forEach(async ([key, message]) => {
 
-        let messageP = document.createElement('p')
-        messageP.classList.add('message')
-        if (message.status == 2)
-            messageP.classList.add('warning')
-        if (message.status == 4)
-            messageP.classList.add('error')
-        let messageText = JSON.stringify(message.text)
-        messageP.innerText = messageText
-        messagesDiv.appendChild(messageP)
+            let messageP = document.createElement('div')
+            messageP.classList.add('message')
+            if (message.status == 2)
+                messageP.classList.add('warning')
+            else if (message.status == 4)
+                messageP.classList.add('error')
+            else {
+                messageP.classList.add('normal')
+            }
+            let messageSpan = document.createElement('span')
+            messageSpan.innerText = message.text
+            messageP.appendChild(messageSpan)
+            element.appendChild(messageP)
 
-    })
+            if (message.containsMessages && message.id != 0) {
+
+                let moreMessages = get_more_messages(buildId,message.id)
+
+                messageP.style.display = 'flex'
+                messageP.style.flexDirection = 'column'
+
+                let subMessagesCollapse = document.createElement('span')
+                messageSpan.prepend(subMessagesCollapse)
+                subMessagesCollapse.storeText = message.text
+                subMessagesCollapse.innerText = `▶ ${subMessagesCollapse.storeText}`
+                subMessagesCollapse.classList.add('collapse_message_button')
+                subMessagesCollapse.style.display = 'inline-block'
+                subMessagesCollapse.setAttribute('onclick',`this.innerText=this.innerText.startsWith('▼')?'▶ '+this.storeText:'▼ '+this.storeText;this.classList.toggle('active');this.nextSibling.classList.toggle("hidden")`)
+                messageSpan.style.display = 'none'
+                messageP.appendChild(subMessagesCollapse)
+
+                let subMessages = document.createElement('div')
+                messageP.appendChild(subMessages)
+                subMessages.style.borderLeft = '2px solid black'
+                subMessages.classList.add('hidden')
+
+                addMessagesToElement(await moreMessages, subMessages)
+            }
+    
+        })
+    }
+
+    addMessagesToElement(messages, messagesDiv)
 
     if (changes.length == 0) {
         changesDiv.innerHTML = 'Nobody to blame... 😭'

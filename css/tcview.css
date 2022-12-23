@@ -432,6 +432,11 @@ a:hover > div.linkIcon {
     color: gray;
 }
 
+.message.normal {
+    color:black;
+    font-weight: normal;
+}
+
 .message, .change {
     grid-column: 1;
     margin: 0.5em;
@@ -441,6 +446,10 @@ a:hover > div.linkIcon {
 
 .message:nth-child(odd), .change:nth-child(odd) {
     background: #eee;
+}
+
+.message:nth-child(even), .change:nth-child(even) {
+    background: #fff;
 }
 
 .message > p {
@@ -521,4 +530,8 @@ a:hover > div.linkIcon {
 
 .projectStats {
     text-align: right;
+}
+
+.collapse_message_button:hover {
+    cursor: pointer;
 }
