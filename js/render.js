@@ -400,7 +400,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
                 let subMessagesCollapse = document.createElement('button')
                 subMessagesCollapse.innerText = '▶'
-                subMessagesCollapse.setAttribute('onclick',`this.nextSibling.classList.toggle("hidden")`)
+                subMessagesCollapse.setAttribute('onclick',`console.log(this.nextSibling);this.nextSibling.classList.toggle("hidden")`)
                 messageP.prepend(subMessagesCollapse)
 
                 addMessagesToElement(await moreMessages, subMessages)
