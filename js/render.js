@@ -393,18 +393,17 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
                 messageP.style.display = 'flex'
                 messageP.style.flexDirection = 'column'
 
-                messageSpan.classList.add('hidden')
-
                 let subMessages = document.createElement('p')
                 messageP.appendChild(subMessages)
                 subMessages.style.borderLeft = '2px solid black'
                 subMessages.classList.add('hidden')
 
                 let subMessagesCollapse = document.createElement('span')
+                messageSpan.prepend(subMessagesCollapse)
                 subMessagesCollapse.innerText = '▶'
                 subMessagesCollapse.classList.add('collapse_button')
                 subMessagesCollapse.style.display = 'inline-block'
-                subMessagesCollapse.setAttribute('onclick',`this.innerHTML=this.innerHTML=='▼'?'▶':'▼';this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
+                subMessagesCollapse.setAttribute('onclick',`this.innerHTML=this.innerHTML=='▼'?'▶':'▼';this.classList.toggle('active');this.parent.nextSibling.classList.toggle("hidden")`)
                 messageP.prepend(subMessagesCollapse)
 
                 addMessagesToElement(await moreMessages, subMessages)
