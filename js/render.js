@@ -400,6 +400,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
                 let subMessagesCollapse = document.createElement('span')
                 subMessagesCollapse.innerText = `▶ ${messageP.innerText}`
+                messageP.innerText = ''
                 subMessagesCollapse.style.display = 'inline-block'
                 subMessagesCollapse.setAttribute('onclick',`this.classList.toggle('active');this.nextSibling.nextSibling.classList.toggle("hidden")`)
                 messageP.prepend(subMessagesCollapse)
