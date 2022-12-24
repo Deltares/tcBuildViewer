@@ -281,8 +281,6 @@ async function get_more_messages(buildId,messageId) {
 
     let messages = messagesJSON.messages.filter((message) => {return message.parentId == messageId})
 
-    console.log(messages)
-
     return messages
 
 }
