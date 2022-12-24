@@ -1,13 +1,15 @@
 // 1. Check if the user is logged in.
 // 2. Present login button if not logged in.
 // 3. Check every second if the user is logged in.
-// 4. Return user when the user is logged in.
+// 4. When the user is logged in:"
+// 5. Hide login button
+// 6. Return function
 async function getCurrentUser() {
 
     if (!await userLoggedIn()) {
 
         // Show login button if the user is not logged in.
-        document.getElementById('login').classList.toggle('hidden')
+        document.getElementById('login').classList.remove('hidden')
         document.getElementById('user_name').innerHTML = 'waiting for login.'
 
         do {
@@ -16,19 +18,18 @@ async function getCurrentUser() {
         } while (! await userLoggedIn())
 
         // Remove login button if the user is logged in.
-        document.getElementById('login').classList.toggle('hidden')
+        document.getElementById('login').classList.add('hidden')
 
     }
 
     document.getElementById('user_name').innerHTML = user.username
-    return user
 
 }
 
 // Basically just show a login button.
 function showLoginButton() {
 
-    document.getElementById('login').classList.toggle('hidden')
+    document.getElementById('login').classList.remove('hidden')
 
 }
 
@@ -37,15 +38,15 @@ async function userLoggedIn() {
 
     try {
 
-        let response = await fetch(`${teamcity_base_url}/app/rest/users/current`, {
+        const promise = await fetch(`${teamcity_base_url}/app/rest/users/current`, {
             headers: {
                 'Accept': 'application/json',
             },
             credentials: 'include',
         })
 
-        if (response && response.ok) {
-            user = await response.json()
+        if (await promise?.ok) {
+            user = promise.json()
             return true
         } else {
             return false
@@ -61,23 +62,24 @@ async function userLoggedIn() {
 // Get favorite projects from TeamCity API.
 async function getFavoriteProjects() {
 
-    let response = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
+    const promise = await fetch(`${teamcity_base_url}/app/rest/projects?locator=archived:false,selectedByUser:(user:(current),mode:selected)&fields=project(id,parentProjectId)`, {
         headers: {
             'Accept': 'application/json',
         },
         credentials: 'include',
     })
 
-    let projects = await response.json()
+    // Assume that things work, now that the user is logged in.
+    const projects = await promise.json()
 
-    let all_project_ids = projects.project.map(x => x.id) // Only need IDs to (array-)filter on.
+    const all_project_ids = projects.project.map(x => x.id) // Only need IDs to (array-)filter on.
 
     // Only projects whose parent projects are not in the list, to avoid redundancy.
-    let favoriteProjectObjects = projects.project.filter( project => {
+    const favoriteProjectObjects = projects.project.filter( project => {
         return !all_project_ids.includes(project.parentProjectId)
     })
 
-    let favorite_projects = favoriteProjectObjects.map(x => x.id) // Only need IDs for selection.
+    const favorite_projects = favoriteProjectObjects.map(x => x.id) // Only need IDs for selection.
 
     // Selection JSON structure.
     return api_selection = {
@@ -89,7 +91,7 @@ async function getFavoriteProjects() {
 
 // The part where the user can edit the selection JSON.
 function updateSelectionForm() {
-    let selectionDiv = document.getElementById('selection_code')
+    const selectionDiv = document.getElementById('selection_code')
     selection_textarea.value = JSON.stringify(edit_selection, undefined, 2)
     selectionDiv.innerText = JSON.stringify(selection, undefined, 2)
 }
@@ -97,13 +99,13 @@ function updateSelectionForm() {
 function setCookie(cname, cvalue, exdays) {
     const d = new Date()
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
-    let expires = "expires="+d.toUTCString()
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/"
+    const expires = "expires="+d.toUTCString()
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None;Secure"
 }
   
 function getCookie(cname) {
-    let name = cname + '='
-    let ca = document.cookie.split(';')
+    const name = cname + '='
+    const ca = document.cookie.split(';')
     for(let i = 0; i < ca.length; i++) {
         let c = ca[i]
         while (c.charAt(0) == ' ') {
