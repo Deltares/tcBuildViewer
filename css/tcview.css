@@ -31,6 +31,7 @@
 }
 
 #legend {
+    z-index: 10;
     background: white;
     position: fixed;
     top: 0px;
@@ -42,13 +43,24 @@
     column-gap: 0.5em;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
+    transition: width 500ms;
+}
+
+@media (max-width: 110em) {
+    #legend {
+        width: 2ch;
+    }
+}
+
+#legend:hover {
+    width: 10em;
 }
 
 /* From Deltares.nl */
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
-    padding-top: 10px;
+    padding: 10px 3ch;
 }
 
 button {
@@ -85,7 +97,7 @@ button:hover {
 
 #body_wrap {
     min-width: 40em;
-    max-width: 100em;
+    max-width: 90em;
     margin: auto;
 }
 
