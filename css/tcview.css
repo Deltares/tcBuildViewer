@@ -31,6 +31,7 @@
 }
 
 #legend {
+    z-index: 10;
     background: white;
     position: fixed;
     top: 0px;
@@ -45,7 +46,7 @@
     transition: width 500ms;
 }
 
-@media (max-width: 104em) {
+@media (max-width: 110em) {
     #legend {
         width: 2ch;
     }
@@ -96,7 +97,7 @@ button:hover {
 
 #body_wrap {
     min-width: 40em;
-    max-width: 100em;
+    max-width: 90em;
     margin: auto;
 }
 
