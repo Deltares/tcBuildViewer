@@ -6,13 +6,13 @@
     <meta charset="utf-8">
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
-    <link rel="stylesheet" href="css/tcview.css?v1.0.1.2" type="text/css" media="all">
+    <link rel="stylesheet" href="css/tcview.css?v1.0.1.3" type="text/css" media="all">
     <link rel="manifest" href="img/manifest.json">
-    <script src="config.js?v1.0.1.2"></script>
-    <script src="js/time.js?v1.0.1.2"></script>
-    <script src="js/user.js?v1.0.1.2"></script>
-    <script src="js/projects.js?v1.0.1.2"></script>
-    <script src="js/render.js?v1.0.1.2"></script>
+    <script src="config.js?v1.0.1.3"></script>
+    <script src="js/time.js?v1.0.1.3"></script>
+    <script src="js/user.js?v1.0.1.3"></script>
+    <script src="js/projects.js?v1.0.1.3"></script>
+    <script src="js/render.js?v1.0.1.3"></script>
 </head>
 
 <body>
@@ -154,7 +154,7 @@
             <div class="header" style="grid-column: 1">Load selection from ...</div>
             <div class="header" style="grid-column: 3">Save selection to ...</div>
 
-            <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 1em">
+            <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em">
 
                 <button
                     onclick="getFavoriteProjects()
@@ -163,6 +163,12 @@
                     })">
                     TeamCity API
                 </button>
+
+
+                <select name="named_selection" id="named_selection" onchange="if (this.value == 'none') {return} edit_selection = named_selection[this.value]; updateSelectionForm()" disabled>
+                    <option value="none">Named selection:</option>
+                </select>
+
 
                 <button
                     onclick='const selectionFile = document.createElement("input")
@@ -184,12 +190,17 @@
                 </button>
 
             </div>
-            <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1em">
+            <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em">
 
                 <button
                     onclick="setCookie('tcSelection',JSON.stringify(selection),365)
                     alert('Selection saved to cookie!')">
                     Cookie
+                </button>
+
+                <button
+                    onclick="let name = prompt('Name for this selection:',''); storeNamedSelection(name)">
+                    Named selection
                 </button>
 
                 <!-- Create virtual anchor to attach file and let JavaScript click it. -->
@@ -218,7 +229,8 @@
             let end_time
 
             // Included and excluded projects.
-            let selection
+            let selection = {}
+            let named_selection = {}
             let edit_selection
             let api_selection
 
@@ -249,6 +261,21 @@
                         edit_selection = selection = api_selection
                         
                         console.log(`Project selection loaded from TeamCity API:\n\n${JSON.stringify(selection, undefined, 2)}`)
+
+                    }
+
+                    if (getCookie('tcNamedSelection')!= "") {
+                    
+                        named_selection = JSON.parse(getCookie('tcNamedSelection'))
+                        let dropdown = document.getElementById('named_selection')
+                        dropdown.disabled = false                        
+                        for (bla in named_selection) {
+                            let optionElement = document.createElement('option')
+                            optionElement.setAttribute('value',bla)
+                            optionElement.text = bla
+                            dropdown.appendChild(optionElement)
+                        }
+                        console.log(`Named project selections loaded from cookie:\n\n${JSON.stringify(named_selection, undefined, 2)}`)
 
                     }
 
