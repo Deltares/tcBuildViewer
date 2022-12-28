@@ -1,7 +1,6 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,newFailed))'
-const testOccurrences_fields = 'fields=testOccurrences(count,muted,ignored,passed,newFailed,testOccurrence(status,currentlyInvestigated))'
+const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
 const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
@@ -172,8 +171,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
 // Display test results of buildId to the build type and (parent)projects.
 async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds) {
-
-    fetch(`${teamcity_base_url}/app/rest/builds/id:${buildId}?${testOccurrences_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:FAILURE,currentlyInvestigated:false`, {
         headers: {
             'Accept': 'application/json',
         },

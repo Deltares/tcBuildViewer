@@ -96,12 +96,13 @@ function updateSelectionForm() {
     selectionDiv.innerText = JSON.stringify(selection, undefined, 2)
 }
 
-// Named selections, to switch between 'workspaces'.
+// Create 'named project selection' to switch between.
 function storeNamedSelection(name) {
 
     if (!named_selection[name]) {
         let option = document.createElement('option')
         option.setAttribute('value',name)
+        option.setAttribute('id',`namedSelectionOption_${name}`)
         option.text = name
         let dropdown = document.getElementById('named_selection')
         dropdown.appendChild(option)
@@ -109,6 +110,27 @@ function storeNamedSelection(name) {
     }
 
     named_selection[name] = selection
+    
+    setCookie('tcNamedSelection',JSON.stringify(named_selection),365)
+
+}
+
+// Remove 'named project selection'.
+function removeNamedSelection(name) {
+
+    if (name == 'none') {
+        return
+    }
+
+    let dropdown = document.getElementById('named_selection')
+    let option = dropdown.namedItem(`namedSelectionOption_${name}`)
+    dropdown.removeChild(option)
+
+    if (dropdown.length < 2)
+        dropdown.disabled = true
+
+    delete named_selection[`'${name}'`]
+    console.log(JSON.stringify(named_selection, undefined, 2))
     
     setCookie('tcNamedSelection',JSON.stringify(named_selection),365)
 
