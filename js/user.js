@@ -96,6 +96,24 @@ function updateSelectionForm() {
     selectionDiv.innerText = JSON.stringify(selection, undefined, 2)
 }
 
+// Named selections, to switch between 'workspaces'.
+function storeNamedSelection(name) {
+
+    if (!named_selection[name]) {
+        let option = document.createElement('option')
+        option.setAttribute('value',name)
+        option.text = name
+        let dropdown = document.getElementById('named_selection')
+        dropdown.appendChild(option)
+        dropdown.disabled = false
+    }
+
+    named_selection[name] = selection
+    
+    setCookie('tcNamedSelection',JSON.stringify(named_selection),365)
+
+}
+
 function setCookie(cname, cvalue, exdays) {
     const d = new Date()
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
