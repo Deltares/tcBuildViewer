@@ -129,7 +129,8 @@ function removeNamedSelection(name) {
     if (dropdown.length < 2)
         dropdown.disabled = true
 
-    delete named_selection[`'${name}'`]
+    delete named_selection[`${name}`]
+
     console.log(JSON.stringify(named_selection, undefined, 2))
     
     setCookie('tcNamedSelection',JSON.stringify(named_selection),365)
