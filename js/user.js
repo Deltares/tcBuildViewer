@@ -45,8 +45,8 @@ async function userLoggedIn() {
             credentials: 'include',
         })
 
-        if (await promise?.ok) {
-            user = promise.json()
+        if (promise?.ok) {
+            user = await promise.json()
             return true
         } else {
             return false
