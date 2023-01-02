@@ -171,7 +171,8 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
 // Display test results of buildId to the build type and (parent)projects.
 async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds) {
-    fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:FAILURE,currentlyInvestigated:false`, {
+    //fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:FAILURE,currentlyInvestigated:false`, {
+    fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId})`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -180,11 +181,10 @@ async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds)
     },this)
     .then((result) => result.json())
     .then((output) => {
-
-        if (output.testOccurrences) {
+        if (output.testOccurrence) {
             let buildStats = Object();
             buildStats.buildId = buildId
-            buildStats.testOccurrences = output.testOccurrences
+            buildStats.testOccurrences = output
             renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds)
         }
 

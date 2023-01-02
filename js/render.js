@@ -251,13 +251,14 @@ async function renderBuild(build) {
 }
 
 async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds) {
-    let newFailed = buildStats.testOccurrences?.newFailed?buildStats.testOccurrences.newFailed:0
-    let failedInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && testOccurrence.currentlyInvestigated}).length
-    let failedNotInvestigated = buildStats.testOccurrences?.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated}).length
-    let ignored = buildStats.testOccurrences?.ignored?buildStats.testOccurrences.ignored:0
-    let muted = buildStats.testOccurrences?.muted?buildStats.testOccurrences.muted:0
-    let passed = buildStats.testOccurrences?.passed?buildStats.testOccurrences.passed:0
-    let count = buildStats.testOccurrences?.count?buildStats.testOccurrences.count:0
+
+    let newFailed = buildStats.testOccurrences.newFailed?buildStats.newFailed:0
+    let failedInvestigated = buildStats.testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && testOccurrence.currentlyInvestigated}).length
+    let failedNotInvestigated = buildStats.testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && !testOccurrence.currentlyInvestigated}).length
+    let ignored = buildStats.testOccurrences.ignored?buildStats.testOccurrences.ignored:0
+    let muted = buildStats.testOccurrences.muted?buildStats.testOccurrences.muted:0
+    let passed = buildStats.testOccurrences.passed?buildStats.testOccurrences.passed:0
+    let count = buildStats.testOccurrences.count?buildStats.testOccurrences.count:0
     let percentage = Number((passed/count)*100).toFixed(2)
 
     
