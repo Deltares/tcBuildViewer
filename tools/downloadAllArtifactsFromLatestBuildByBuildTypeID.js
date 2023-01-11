@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 // Constants
-const baseUrl = 'https://dpcbuild.deltares.nl';
+const baseUrl = 'https://<your-teamcity-domain>';
 
 // Get the buildType ID, API token, and branch name from the command-line arguments
 const buildTypeId = process.argv[2];
