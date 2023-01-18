@@ -98,6 +98,17 @@
         <div id="time" class="hidden">
             <div class="wide" style="text-align: center; display: flex; flex-direction: column">
                 <div class="header" style="margin-bottom: 1em">
+                    <button class="filter_button" style="margin-top:1em"
+                        onclick="
+                            document.getElementById('build_count').value = 14
+                            build_count      = 14
+                            build_cutoff_days= document.getElementById('build_cutoff_days').value = 14
+                            build_cutoff_days= 14
+                            document.getElementById('end_time').value = ''
+                            delete end_time
+                            fetchProjects()
+                        ">Reset to default
+                    </button>
                     <div class="header">Number of days</div>
                     <input type="number" id="build_cutoff_days" value="14" min="0" max="60" style="width: 3em"/>
                     <div class="header">Number of builds</div>
