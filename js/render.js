@@ -480,7 +480,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
         //let filesDiv = document.createElement('div')
         versionDiv.innerHTML = `#${change.version}`
         let fileList = change.files.file.map(file => file['relative-file']).join('\n')
-        linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}'>#${change.comment}</a>`
+        linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}' target='_blank'>#${change.comment}</a>`
         userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:'🤖'}</span>`
         timeDiv.innerHTML = `<span class='build_time smaller'>${new Date(tcTimeToUnix(change.date)).toLocaleString()}</span>`
         changesDiv.appendChild(versionDiv)
