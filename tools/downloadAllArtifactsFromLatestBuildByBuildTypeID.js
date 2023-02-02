@@ -70,5 +70,5 @@ axios.get(buildsUrl, {
     }));
   })
   .catch(error => {
-    console.error(error);
+    console.error(`HTTP error: ${error.response.status}`);
   });
