@@ -184,7 +184,11 @@ a {
 }
 
 .build.running.SUCCESS > a {
-    color: grey;
+    color: grey !important;
+}
+
+.build.running.FAILURE > a {
+    color: black !important;
 }
 
 
