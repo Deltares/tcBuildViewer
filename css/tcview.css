@@ -183,6 +183,10 @@ a {
     color: red;
 }
 
+.build.running.SUCCESS > a {
+    color: grey;
+}
+
 
 /* Overrule link color when hovered */
 a:hover {
