@@ -70,13 +70,6 @@
 
         </div>
 
-        <div id="firefox" class="hidden">
-            <div class="header">Firefox</div>
-            <p>Firefox does not fully support the used CSS specifications and will not display this page properly.</p>
-            <a target="_blank" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2">https://bugzilla.mozilla.org/show_bug.cgi?id=1774588#c2 ⧉</a>
-            <p>Use Microsoft Edge, Google Chrome or any other Chromium-based browser.</p>
-        </div>
-
         <div id="login" class="hidden">
             <div class="header">Login</div>
             <button onclick="window.open('https://build.avi.directory.intra/login.html','login','toolbar=no,menubar=no,width=600,height=600')">Click here to log in to TeamCity ⧉</button><br />
@@ -235,10 +228,6 @@
         <div id="_projects" class="project"></div>
 
         <script>
-
-            // On firefox, show the info panel showing lack of CSS compatibility.
-            if (navigator.userAgent.search("Firefox") > -1)
-                document.getElementById('firefox').classList.toggle('hidden')
 
             // TeamCity user data.
             let user
