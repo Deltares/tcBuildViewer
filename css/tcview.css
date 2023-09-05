@@ -183,6 +183,13 @@ a {
     color: red;
 }
 
+.build.running > a, .build.queued > a {
+    color: white !important;
+    animation-duration: 0.5s;
+    animation-name: pulsate;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
 
 /* Overrule link color when hovered */
 a:hover {
@@ -505,10 +512,7 @@ a:hover > div.linkIcon {
 }
 
 .branch_selected {
-    animation-duration: 0.5s;
-    animation-name: pulsate;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+
 }
 
 .project_header_wrapper {

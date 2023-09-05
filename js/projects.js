@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields       = 'fields=build(id,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
+const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
 const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
@@ -111,7 +111,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
         time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
     }
 
-    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:<default>,state:(finished:true),buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:<default>,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -155,6 +155,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 }
 
                 // Add Unix timestamp for future functions.
+                console.log(build[i].finishOnAgentDate)
                 if (build[i].finishOnAgentDate) {
                     build[i].unixTime = tcTimeToUnix(build[i].finishOnAgentDate)
                 }
