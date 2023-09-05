@@ -183,14 +183,13 @@ a {
     color: red;
 }
 
-.build.running.SUCCESS > a {
+.build.running > a {
     color: grey !important;
 }
 
-.build.running.FAILURE > a {
-    color: black !important;
+.build.queued > a {
+    color: white !important;
 }
-
 
 /* Overrule link color when hovered */
 a:hover {
