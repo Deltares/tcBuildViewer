@@ -237,7 +237,8 @@ async function renderBuild(build) {
     let buildLink = document.createElement("a")
     buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
     buildLink.setAttribute('target', '_blank')
-    buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\nFinished ${new Date(build.unixTime).toLocaleString()}\n${build.statusText}`)
+    let time = build.unixTime ? 'Finished ' + new Date(build.unixTime).toLocaleString() : build.state
+    buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\n${time}\n${build.statusText}`)
     if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`)
         buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})')
