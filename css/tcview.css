@@ -183,14 +183,8 @@ a {
     color: red;
 }
 
-.build.running > a {
-    animation-duration: 0.5s;
-    animation-name: pulsate;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-.build.queued > a {
+.build.running > a, .build.queued > a {
+    color: white !important;
     animation-duration: 0.5s;
     animation-name: pulsate;
     animation-iteration-count: infinite;
