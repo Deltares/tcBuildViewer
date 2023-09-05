@@ -512,10 +512,7 @@ a:hover > div.linkIcon {
 }
 
 .branch_selected {
-    animation-duration: 0.5s;
-    animation-name: pulsate;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+
 }
 
 .project_header_wrapper {
