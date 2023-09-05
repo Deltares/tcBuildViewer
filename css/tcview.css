@@ -191,6 +191,14 @@ a {
     animation-direction: alternate;
 }
 
+a:hover .buildType {
+    text-decoration: underline;
+}
+
+a:hover .project_title {
+    text-decoration: underline;
+}
+
 /* Overrule link color when hovered */
 a:hover {
     color: black !important;
