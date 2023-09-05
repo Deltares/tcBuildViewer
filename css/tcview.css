@@ -191,11 +191,11 @@ a {
     animation-direction: alternate;
 }
 
-a:hover .buildType {
+a:hover.buildType {
     text-decoration: underline;
 }
 
-a:hover .project_title {
+a:hover.project_title {
     text-decoration: underline;
 }
 
