@@ -46,6 +46,10 @@
     transition: width 500ms;
 }
 
+#legend > div {
+    text-wrap: nowrap;
+}
+
 @media (max-width: 110em) {
     #legend {
         width: 2ch;
