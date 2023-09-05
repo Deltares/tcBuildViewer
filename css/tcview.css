@@ -184,11 +184,17 @@ a {
 }
 
 .build.running > a {
-    color: grey !important;
+    animation-duration: 0.5s;
+    animation-name: pulsate;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .build.queued > a {
-    color: white !important;
+    animation-duration: 0.5s;
+    animation-name: pulsate;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 /* Overrule link color when hovered */
