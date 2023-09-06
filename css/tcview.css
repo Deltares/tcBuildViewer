@@ -47,7 +47,7 @@
 }
 
 #legend > div {
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 @media (max-width: 110em) {
@@ -455,7 +455,7 @@ a:hover > div.linkIcon {
 
 .message.warning {
     font-weight: bold;
-    color: goldenrod;
+    color: black;
 }
 
 .message.unknown {
@@ -467,11 +467,15 @@ a:hover > div.linkIcon {
     color:black;
     font-weight: normal;
 }
+.message span:empty::before{
+    content: "";
+    display: inline-block;
+}
 
 .message, .change {
     grid-column: 1;
-    margin: 0.5em;
-    padding: 0.5em;
+    margin: 0.2em;
+    padding: 0.2em;
     display: block;
 }
 

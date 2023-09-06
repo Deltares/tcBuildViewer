@@ -320,7 +320,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
         this.parentElement.parentElement.getElementsByClassName('messages')[0].classList.remove('hidden')
         this.parentElement.parentElement.getElementsByClassName('tests')[0].classList.add('hidden')
         this.parentElement.parentElement.getElementsByClassName('changes')[0].classList.add('hidden')`)
-    buildMessagesButton.appendChild(document.createTextNode('Logs'))
+    buildMessagesButton.appendChild(document.createTextNode('Important logs'))
     buildButtonBar.appendChild(buildMessagesButton)
 
     // Show tests

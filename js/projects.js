@@ -155,7 +155,6 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 }
 
                 // Add Unix timestamp for future functions.
-                console.log(build[i].finishOnAgentDate)
                 if (build[i].finishOnAgentDate) {
                     build[i].unixTime = tcTimeToUnix(build[i].finishOnAgentDate)
                 }
@@ -197,7 +196,7 @@ async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds)
 async function get_build_details(buildId) {
 
     // MESSAGES
-    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&${message_fields}`, {
+    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&filter=important&${message_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -269,7 +268,7 @@ async function get_build_details(buildId) {
 // RECURSIVE BUILD MESSAGES
 async function get_more_messages(buildId,messageId) {
 
-    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&messageId=${messageId}&view=flowAware&_focus=${messageId}%23_state%3D0%2C${messageId}`, {
+    let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&filter=important&messageId=${messageId}&view=flowAware&_focus=${messageId}%23_state%3D0%2C${messageId}`, {
         headers: {
             'Accept': 'application/json',
         },
