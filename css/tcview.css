@@ -474,8 +474,8 @@ a:hover > div.linkIcon {
 
 .message, .change {
     grid-column: 1;
-    margin: 0.5em;
-    padding: 0.5em;
+    margin: 0.2em;
+    padding: 0.2em;
     display: block;
 }
 
