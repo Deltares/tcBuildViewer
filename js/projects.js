@@ -4,6 +4,7 @@ const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchN
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
 const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
+const progressinfo_fields    = 'fields=estimatedTotalSeconds'
 
 // Keep track of pending downloads.
 let download_queue_length = 0
@@ -106,9 +107,9 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
     let time_boundries
     if (end_time) {
-        time_boundries = `startDate:(date:${cutoffTcString(htmlDateTimeToDate(end_time))},condition:after),startDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
+        time_boundries = `queuedDate:(date:${cutoffTcString(htmlDateTimeToDate(end_time))},condition:after),queuedDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
     } else {
-        time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
+        time_boundries = `queuedDate:(date:${cutoffTcString()},condition:after)`
     }
 
     fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:<default>,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
@@ -191,6 +192,15 @@ async function add_tests_to_build(buildId, parentProjectStats, parentProjectIds)
     })
     .catch(err => { console.log(err) })
 }
+
+/*async function get_progressinfo_pending(buildId) {
+    let progresinfoRequest = await fetch(`${teamcity_base_url}/app/rest/`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+    })
+}*/
 
 // On-demand information when a build is clicked.
 async function get_build_details(buildId) {
