@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
+const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,finishEstimate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
 const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
@@ -158,6 +158,9 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 // Add Unix timestamp for future functions.
                 if (build[i].finishOnAgentDate) {
                     build[i].unixTime = tcTimeToUnix(build[i].finishOnAgentDate)
+                }
+                else if (build[i].finishEstimate) {
+                    build[i].unixTime = tcTimeToUnix(build[i].finishEstimate)
                 }
 
                 renderBuild(build[i])
