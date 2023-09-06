@@ -467,6 +467,9 @@ a:hover > div.linkIcon {
     color:black;
     font-weight: normal;
 }
+.message span:empty::before{
+    content: "";
+}
 
 .message, .change {
     grid-column: 1;
