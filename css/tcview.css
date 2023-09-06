@@ -469,6 +469,7 @@ a:hover > div.linkIcon {
 }
 .message span:empty::before{
     content: "";
+    display: inline-block;
 }
 
 .message, .change {
