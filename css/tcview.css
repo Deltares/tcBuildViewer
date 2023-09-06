@@ -455,7 +455,7 @@ a:hover > div.linkIcon {
 
 .message.warning {
     font-weight: bold;
-    color: goldenrod;
+    color: black;
 }
 
 .message.unknown {
