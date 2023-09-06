@@ -47,7 +47,7 @@
 }
 
 #legend > div {
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 @media (max-width: 110em) {
