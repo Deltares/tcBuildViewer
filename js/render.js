@@ -237,7 +237,7 @@ async function renderBuild(build) {
     let buildLink = document.createElement("a")
     buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
     buildLink.setAttribute('target', '_blank')
-    let buildFinishTime = build.state + " " + new Date(build.unixTime).toLocaleString()
+    let buildFinishTime = (build.state=='finished' ? 'Finished ' : 'finishEstimate') + new Date(build.unixTime).toLocaleString()
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nStatus: ${build.status}\nID ${build.id}\n# ${build.number}\n${buildFinishTime}\n${build.statusText}`)
     if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`)
