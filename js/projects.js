@@ -155,14 +155,10 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                     build[i].statusChanged = true
                 }
 
-                let a = 0
                 // Add Unix timestamp for future functions.
                 if (build[i].finishOnAgentDate) {
                     build[i].unixTime = tcTimeToUnix(build[i].finishOnAgentDate)
-                    if(a = 0){
-                        console.log(build[i].unixTime)
-                        a=a+1
-                    }
+                    console.log(build[i].unixTime)
                 }
                 else if (build[i].finishEstimate) {
                     build[i].unixTime = tcTimeToUnix(build[i].finishEstimate)
