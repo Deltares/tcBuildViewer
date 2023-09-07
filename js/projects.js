@@ -163,7 +163,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                     build[i].unixTime = tcTimeToUnix(build[i].finishEstimate)
                 }
                 else if (build[i].progress-info) {
-                    build[i].unixTime = build[i].progress-info.leftSeconds
+                    build[i].unixTime = (Date.now() + build[i].progress-info.leftSeconds * 1000)
                 }
 
                 renderBuild(build[i])
