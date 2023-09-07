@@ -166,7 +166,6 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                     build[i].unixTime = (Date.now() + build[i]['running-info'].leftSeconds * 1000)
                     console.log(build[i].unixTime)
                 }
-                console.log(Date.now() + build[i]['running-info'].leftSeconds*1000)
 
                 renderBuild(build[i])
 
