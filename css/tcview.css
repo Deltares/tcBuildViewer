@@ -323,6 +323,7 @@ a:hover > div.linkIcon {
 .buildTypePart.statusChanged {
     border-top: 3px solid gold;
     border-bottom: 3px solid gold;
+    padding: 5px 2px;
 }
 
 .buildTypePart.buildTypeLink.statusChanged {
