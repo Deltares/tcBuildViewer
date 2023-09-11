@@ -177,16 +177,6 @@ a {
     text-decoration: none;
 }
 
-/* Special link color */
-.build.SUCCESS > a {
-    color: green;
-}
-
-/* Special link color */
-.build.FAILURE > a, .build.UNKNOWN > a {
-    color: red;
-}
-
 .build.running > a, .build.queued > a {
     color: white !important;
     animation-duration: 0.5s;
@@ -333,6 +323,7 @@ a:hover > div.linkIcon {
 .buildTypePart.statusChanged {
     border-top: 3px solid gold;
     border-bottom: 3px solid gold;
+    padding: 5px 2px;
 }
 
 .buildTypePart.buildTypeLink.statusChanged {
@@ -366,14 +357,21 @@ a:hover > div.linkIcon {
 
 .build.FAILURE > a {
     color: #F0C0B3;
+    -webkit-text-stroke: 4px #F0C0B3;
 }
 
 .build.SUCCESS > a {
     color: #B5DBB6;
+    -webkit-text-stroke: 4px #B5DBB6;
 }
 
 .build.UNKNOWN > a {
     color: #666;
+    -webkit-text-stroke: 4px #666;
+}
+
+.build.NORESULT > a{
+    -webkit-text-stroke: 4px black;
 }
 
 .build.newFailed.FAILURE > a {
@@ -390,14 +388,17 @@ a:hover > div.linkIcon {
 
 .build.FAILURE:last-child > a {
     color: red;
+    -webkit-text-stroke: 4px red;
 }
 
 .build.SUCCESS:last-child > a {
     color: green;
+    -webkit-text-stroke: 4px green;
 }
 
 .build.UNKNOWN:last-child > a {
     color: black;
+    -webkit-text-stroke: 4px black;
 }
 
 .build.newFailed.FAILURE:last-child > a {

@@ -1,9 +1,10 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
+const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
 const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
+const progressinfo_fields    = 'fields=estimatedTotalSeconds'
 
 // Keep track of pending downloads.
 let download_queue_length = 0
@@ -106,9 +107,9 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
     let time_boundries
     if (end_time) {
-        time_boundries = `startDate:(date:${cutoffTcString(htmlDateTimeToDate(end_time))},condition:after),startDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
+        time_boundries = `queuedDate:(date:${cutoffTcString(htmlDateTimeToDate(end_time))},condition:after),queuedDate:(date:${htmlDateTimeToTcTime(end_time)},condition:before)`
     } else {
-        time_boundries = `startDate:(date:${cutoffTcString()},condition:after)`
+        time_boundries = `queuedDate:(date:${cutoffTcString()},condition:after)`
     }
 
     fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:<default>,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
@@ -157,6 +158,13 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 // Add Unix timestamp for future functions.
                 if (build[i].finishOnAgentDate) {
                     build[i].unixTime = tcTimeToUnix(build[i].finishOnAgentDate)
+                }
+                else if (build[i].finishEstimate) {
+                    build[i].unixTime = tcTimeToUnix(build[i].finishEstimate)
+                }
+                else if (build[i]['running-info']) {
+                    build[i].unixTime = (Date.now() + build[i]['running-info'].leftSeconds * 1000)
+                    console.log(build[i].unixTime)
                 }
 
                 renderBuild(build[i])
