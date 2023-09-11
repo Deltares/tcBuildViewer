@@ -188,7 +188,7 @@ a {
 }
 
 .build.NORESULT > a{
-    color: black;
+    -webkit-text-stroke: 4px black;
 }
 
 .build.running > a, .build.queued > a {
