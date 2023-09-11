@@ -387,14 +387,17 @@ a:hover > div.linkIcon {
 
 .build.FAILURE:last-child > a {
     color: red;
+    -webkit-text-stroke: 4px red;
 }
 
 .build.SUCCESS:last-child > a {
     color: green;
+    -webkit-text-stroke: 4px green;
 }
 
 .build.UNKNOWN:last-child > a {
     color: black;
+    -webkit-text-stroke: 4px black;
 }
 
 .build.newFailed.FAILURE:last-child > a {
