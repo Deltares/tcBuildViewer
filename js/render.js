@@ -155,6 +155,7 @@ async function renderBuildType(buildType) {
 
     let testStatisticsDiv = document.createElement('div')
     testStatisticsDiv.classList.add('test_statistics_text')
+    testStatisticsDiv.setAttribute('id', buildTypeId + '_test_statistics')
     testStatisticsDiv.classList.add('buildTypePart')
     testStatisticsDiv.style.gridRow = buildType.order*2+1
     parentElement.appendChild(testStatisticsDiv)
@@ -290,7 +291,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
     }, this)
     renderProjectStats(parentProjectStats, parentProjectIds)
 
-    let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
+    let element = document.getElementById(buildStats.buildTypeId + '_test_statistics')
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
 }
