@@ -187,6 +187,10 @@ a {
     color: red;
 }
 
+.build.NORESULT > a{
+    color: black;
+}
+
 .build.running > a, .build.queued > a {
     color: white !important;
     animation-duration: 0.5s;

@@ -228,7 +228,12 @@ async function renderBuild(build) {
     buildDiv.classList.add('build')
     buildDiv.classList.add(build.buildTypeId)
     buildDiv.classList.add(build.state)
-    buildDiv.classList.add(build.status)
+    if (build.status){
+        buildDiv.classList.add(build.status)
+    }
+    else{
+        buildDiv.classList.add('NORESULT')
+    }
     if (build.statusChanged || (build.problemOccurrences && build.problemOccurrences.newFailed > 0)) {
         buildDiv.classList.add('newFailed')
     }
