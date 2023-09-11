@@ -149,6 +149,8 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
             build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, parentProjectStats, parentProjectIds)
 
+            renderFinishTime(buildType.builds.build?.[0])
+
             for (i=0; i<build.length; i++) {
 
                 if (build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {

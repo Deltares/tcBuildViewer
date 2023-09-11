@@ -158,6 +158,13 @@ async function renderBuildType(buildType) {
     testStatisticsDiv.classList.add('buildTypePart')
     testStatisticsDiv.style.gridRow = buildType.order*2+1
     parentElement.appendChild(testStatisticsDiv)
+
+    let finishTimeDiv = document.createElement('div')
+    finishTimeDiv.setAttribute('id', 'finish'+buildType.id) 
+    finishTimeDiv.classList.add('finish_time_text')
+    finishTimeDiv.classList.add('buildTypePart')
+    finishTimeDiv.style.gridRow = buildType.order*2+1
+    parentElement.appendChild(finishTimeDiv)
 /*
     // Test statistics
     if (buildType.builds.build[0].testOccurrences) {
@@ -284,6 +291,12 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
     let element = document.getElementById(buildStats.buildId).parentElement.previousSibling
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
+}
+
+async function renderFinishTime(build) {
+    let element = document.getElementById('finish'+build.buildId)
+    let finishTimeText = document.createTextNode(`${build.unixTime.toLocaleTimeString()}`)
+    element.appendChild(finishTimeText)
 }
 
 async function renderProjectStats(parentProjectStats, parentProjectIds) {
