@@ -294,7 +294,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
 }
 
 async function renderFinishTime(build) {
-    let element = document.getElementById(build.id + '_finish')
+    let element = document.getElementById(build.buildTypeId + '_finish')
     let finishTimeText = document.createTextNode(`${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
 }

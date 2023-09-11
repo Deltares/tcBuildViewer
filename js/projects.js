@@ -149,7 +149,6 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
             build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, parentProjectStats, parentProjectIds)
 
-            renderFinishTime(buildType.builds.build?.[0])
 
             for (i=0; i<build.length; i++) {
 
@@ -172,6 +171,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 renderBuild(build[i])
 
             };
+            renderFinishTime(buildType.builds.build?.[0])
 
         }
     })
