@@ -160,7 +160,7 @@ async function renderBuildType(buildType) {
     parentElement.appendChild(testStatisticsDiv)
 
     let finishTimeDiv = document.createElement('div')
-    finishTimeDiv.setAttribute('id', 'finish'+buildType.id) 
+    finishTimeDiv.setAttribute('id', buildType.id + '_finish') 
     finishTimeDiv.classList.add('finish_time_text')
     finishTimeDiv.classList.add('buildTypePart')
     finishTimeDiv.style.gridRow = buildType.order*2+1
@@ -294,8 +294,8 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
 }
 
 async function renderFinishTime(build) {
-    let element = document.getElementById('finish'+build.buildId)
-    let finishTimeText = document.createTextNode(`${build.unixTime.toLocaleTimeString()}`)
+    let element = document.getElementById(build.buildId + '_finish')
+    let finishTimeText = document.createTextNode(`${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
 }
 
