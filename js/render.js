@@ -212,12 +212,14 @@ async function renderBuildType(buildType) {
         buildTypeLink.classList.add('statusChanged')
         testStatisticsDiv.classList.add('statusChanged')
         buildListDiv.classList.add('statusChanged')
+        finishTimeDiv.classList.add('statusChanged')
     }
 
     if (buildType.status) {
         buildTypeLink.classList.add(buildType.status)
         testStatisticsDiv.classList.add(buildType.status)
         buildListDiv.classList.add(buildType.status)
+        finishTimeDiv.classList.add(buildType.status)
     }
 
 }
@@ -294,6 +296,9 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
 }
 
 async function renderFinishTime(build) {
+    if (build.status == 'FINISHED') {
+        return
+    }
     let element = document.getElementById(build.buildTypeId + '_finish')
     let finishTimeText = document.createTextNode(`${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
