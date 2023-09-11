@@ -297,7 +297,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
 }
 
 async function renderFinishTime(build) {
-    if (build.state == 'FINISHED') {
+    if (build.state == 'finished') {
         return
     }
     let element = document.getElementById(build.buildTypeId + '_finish')
