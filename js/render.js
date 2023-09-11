@@ -291,13 +291,13 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
     }, this)
     renderProjectStats(parentProjectStats, parentProjectIds)
 
-    let element = document.getElementById(testOccurence.buildTypeId + '_test_statistics')
+    let element = document.getElementById(buildStats.buildTypeId + '_test_statistics')
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
 }
 
 async function renderFinishTime(build) {
-    if (build.status == 'FINISHED') {
+    if (build.state == 'FINISHED') {
         return
     }
     let element = document.getElementById(build.buildTypeId + '_finish')
