@@ -1,5 +1,6 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const important_fields       = 'fields=id,name,webUrl'
 const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
@@ -86,6 +87,29 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
             }, this)
         }
 
+    })
+    .catch(err => { console.log(err) })
+    .finally(() => {checkFilterButtons(--download_queue_length)})
+}
+
+async function append_important_recursively(buildTypeId, parentProjectStats, parentProjectIds) {
+    let buildType
+
+    if (!parentProjectStats) {
+        parentProjectStats = []
+        parentProjectIds = []
+    }
+
+    fetch(`${teamcity_base_url}/app/rest/buildType/id:${buildTypeId}?`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+        priority: 'high',
+    },this)
+    .then((result) => result.json())
+    .then((output) => {
+        add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
     })
     .catch(err => { console.log(err) })
     .finally(() => {checkFilterButtons(--download_queue_length)})

@@ -298,8 +298,8 @@
 
                     initiateImportantElements(selection.important_buildtypes)
 
-                    selection.important_buildtypes.forEach(projectId => {
-                        add_builds_to_buildtype(projectId, null) // projects.js
+                    selection.important_buildtypes.forEach(buildTypeId => {
+                        append_important_recursively(buildTypeId, null) // projects.js
                     });
 
                     // Fetched projects will be immediately rendered.
