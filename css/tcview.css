@@ -48,6 +48,7 @@
 
 #legend > div {
     white-space: nowrap;
+    line-height: 1.5em;
 }
 
 @media (max-width: 110em) {
