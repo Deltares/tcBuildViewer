@@ -310,12 +310,11 @@
 
             });
 
-        </script>
-
-        <script>
+            // When the page is loaded, pre-fill the 'Time Selection' form.
             window.onload = function(){
                 document.getElementById('end_time').value = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
             }
+
         </script>
     </div>
 </body>
