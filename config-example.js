@@ -24,6 +24,11 @@ const teamcity_base_url = ''
 // no favorite ("starred") projects in TeamCity.
 const default_selection = {
 
+    important_buildtypes: [
+        "buildType1",
+        "buildType2",
+    ],
+
     include_projects: [
         "MyProject1",
         "MyProject2",

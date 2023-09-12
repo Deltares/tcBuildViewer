@@ -28,7 +28,26 @@ function initiateProjectElements(include_projects) {
         projectWrapper.classList.add('project_wrapper')
         document.getElementById('_projects').appendChild(projectWrapper)
     };
+}
 
+/*  Input: array of Important buildType IDs to render. */
+function initiateImportantElements(include_important_buildtypes) {
+
+    document.getElementById('_important').innerHTML = '' // Clean slate.
+
+    let importantWrapper = document.createElement("div")
+    importantWrapper.setAttribute('id', `important_wrapper`)
+    importantWrapper.classList.add('project_wrapper')
+    document.getElementById('_important').appendChild(importantWrapper)
+
+    // Prepare wrapper elements for your included important buildtypes.
+    // This is necessary for consistent ordering.
+    /*for (buildType of include_important_buildtypes) {
+        let importantWrapper = document.createElement("div")
+        importantWrapper.setAttribute('id', `${project}_wrapper`)
+        importantWrapper.classList.add('project_wrapper')
+        document.getElementById('_important').appendChild(importantWrapper)
+    };*/
 }
 
 async function renderProject(project) {

@@ -295,6 +295,8 @@
                     // Empty div#_projects and create elements for projects.
                     initiateProjectElements(selection.include_projects) // render.js
 
+                    initiateProjectElements(selection.important_buildtypes)
+
                     // Fetched projects will be immediately rendered.
                     selection.include_projects.forEach(projectId => {
                         append_projects_recursively(projectId, null) // projects.js
