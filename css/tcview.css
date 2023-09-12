@@ -541,7 +541,7 @@ a:hover > div.linkIcon {
 
 .projectBuildTypesDiv {
     display: grid;
-    grid-template-columns: auto fit-content(100%) fit-content(100%);
+    grid-template-columns: auto fit-content(100%) fit-content(100%) fit-content(100%);
     row-gap: 0px;
 }
 
