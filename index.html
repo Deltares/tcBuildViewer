@@ -102,7 +102,7 @@
                             build_count      = 14
                             build_cutoff_days= document.getElementById('build_cutoff_days').value = 14
                             build_cutoff_days= 14
-                            document.getElementById('end_time').value = ''
+                            document.getElementById('end_time').value = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
                             delete end_time
                             fetchProjects()
                         ">Reset to default
@@ -310,6 +310,12 @@
 
             });
 
+        </script>
+
+        <script>
+            window.onload = function(){
+                document.getElementById('end_time').value = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
+            }
         </script>
     </div>
 </body>
