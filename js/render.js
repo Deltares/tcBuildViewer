@@ -33,15 +33,15 @@ function initiateProjectElements(include_projects) {
 /*  Input: array of Important buildType IDs to render. */
 function initiateImportantElements(include_important_buildtypes) {
 
-    let importantparent = document.getElementById('_important').innerHTML = '' // Clean slate.
+    document.getElementById('_important').innerHTML = '' // Clean slate.
 
     if (!include_important_buildtypes)
-        importantparent.hidden = true
+        document.getElementById('_important').hidden = true
 
     let importantWrapper = document.createElement("div")
     importantWrapper.setAttribute('id', `important_wrapper`)
     importantWrapper.classList.add('project_wrapper')
-    importantparent.appendChild(importantWrapper)
+    document.getElementById('_important').appendChild(importantWrapper)
 
     // Prepare wrapper elements for your included important buildtypes.
     // This is necessary for consistent ordering.
