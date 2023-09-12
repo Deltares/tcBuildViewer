@@ -305,7 +305,7 @@ async function renderFinishTime(build) {
         return
     }
     let element = document.getElementById(build.buildTypeId + '_finish')
-    let finishTimeText = document.createTextNode(`${new Date(build.unixTime).toLocaleTimeString()}`)
+    let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
 }
 
