@@ -1,6 +1,6 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const important_fields       = 'fields=id,name,webUrl'
+const important_fields       = 'fields=id,name,webUrl,projectId'
 const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
@@ -93,7 +93,6 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
 }
 
 async function append_important_recursively(buildTypeId, parentProjectStats, parentProjectIds) {
-    let buildType
 
     if (!parentProjectStats) {
         parentProjectStats = []
@@ -108,7 +107,7 @@ async function append_important_recursively(buildTypeId, parentProjectStats, par
         priority: 'high',
     },this)
     .then((result) => result.json())
-    .then((output) => {
+    .then((buildType) => {
         add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
     })
     .catch(err => { console.log(err) })
