@@ -152,7 +152,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
             for (i=0; i<build.length; i++) {
 
-                if (build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
+                if (i + 1 < build.length && build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
                     build[i].statusChanged = true
                 }
 
