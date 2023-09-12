@@ -100,7 +100,7 @@ async function append_important_recursively(buildTypeId, parentProjectStats, par
         parentProjectIds = []
     }
 
-    fetch(`${teamcity_base_url}/app/rest/buildtypes/id:${buildTypeId}?`, {
+    fetch(`${teamcity_base_url}/app/rest/buildTypes/id:${buildTypeId}?`, {
         headers: {
             'Accept': 'application/json',
         },
