@@ -92,7 +92,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
     .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
-async function append_important_recursively(buildTypeId, parentProjectStats, parentProjectIds) {
+async function append_important_recursively(buildTypeId, buildTypeOrder, parentProjectStats, parentProjectIds) {
 
     if (!parentProjectStats) {
         parentProjectStats = []
@@ -113,7 +113,7 @@ async function append_important_recursively(buildTypeId, parentProjectStats, par
         project.id = 'important'
         buildType.parentProjectId = 'important'
         renderProject(project)
-        add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
+        add_builds_to_buildtype(buildType, buildTypeOrder, parentProjectStats, parentProjectIds)
     })
     .catch(err => { console.log(err) })
     .finally(() => {checkFilterButtons(--download_queue_length)})
