@@ -258,7 +258,7 @@ a:hover > div.linkIcon {
 
 /* First level of projects. */
 #_projects > div.project_wrapper > div.project, 
-#_important .project > div.project_wrapper > div.project {
+#_important > div.project_wrapper > div.project {
     margin-left: 0px;
     margin-bottom: 2em;
     font-weight: bold;
