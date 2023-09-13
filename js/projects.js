@@ -191,7 +191,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 }
 
                 if (buildType.locationSuffix){
-                    build[i].locationSuffix=buildType.locationSuffix
+                    build[i].locationSuffix = buildType.locationSuffix
                 }
 
                 // Add Unix timestamp for future functions.

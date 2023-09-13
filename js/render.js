@@ -265,6 +265,7 @@ async function renderBuild(build) {
     // Add build to buildList.
     let buildDiv = document.createElement("div")
     let parentElement = document.getElementById(`${build.buildTypeId}_buildList${build.locationSuffix?build.locationSuffix:''}`)
+    parentElement.prepend(buildDiv)
 
     // Create buildDiv.
     buildDiv.setAttribute('id', build.id)
@@ -287,11 +288,11 @@ async function renderBuild(build) {
     buildLink.setAttribute('target', '_blank')
     let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + new Date(build.unixTime).toLocaleString()
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
-    if(build.branchName) {
+    /*if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`)
         buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})')
         buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})')
-    }
+    }*/
     buildDiv.appendChild(buildLink)
 
     // Text for TeamCity build link.
