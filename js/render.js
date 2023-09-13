@@ -157,7 +157,7 @@ async function renderBuildType(buildType) {
     let buildTypeLink = document.createElement("a")
 
     // Create buildTextDiv.
-    buildTypeLink.setAttribute('id', buildType.id)
+    buildTypeLink.setAttribute('id', buildType.id + buildType.locationAffix?buildType.locationAffix:'')
     buildTypeLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
     buildTypeLink.classList.add('buildType')
     buildTypeLink.classList.add('buildTypePart')
@@ -171,7 +171,7 @@ async function renderBuildType(buildType) {
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.classList.add('buildTypeLink');
-    buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}`)
+    buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}${buildType.locationAffix?buildType.locationAffix:''}`)
     buildTypeLink.setAttribute('target', '_blank')
 
     // Text for the buildType.
@@ -187,14 +187,14 @@ async function renderBuildType(buildType) {
 
     let testStatisticsDiv = document.createElement('div')
     testStatisticsDiv.classList.add('test_statistics_text')
-    testStatisticsDiv.setAttribute('id', buildType.id + '_test_statistics')
+    testStatisticsDiv.setAttribute('id', buildType.id + '_test_statistics' + buildType.locationAffix?buildType.locationAffix:'')
     testStatisticsDiv.classList.add('buildTypePart')
     testStatisticsDiv.style.gridRow = buildType.order*2+1
     testStatisticsDiv.style.gridColumn = 2
     parentElement.appendChild(testStatisticsDiv)
 
     let finishTimeDiv = document.createElement('div')
-    finishTimeDiv.setAttribute('id', buildType.id + '_finish') 
+    finishTimeDiv.setAttribute('id', buildType.id + '_finish' + buildType.locationAffix?buildType.locationAffix:'') 
     finishTimeDiv.classList.add('finish_time_text')
     finishTimeDiv.classList.add('buildTypePart')
     finishTimeDiv.style.gridRow = buildType.order*2+1
@@ -228,7 +228,7 @@ async function renderBuildType(buildType) {
 
     // Element to hold the list of builds.
     let buildListDiv = document.createElement("div")
-    buildListDiv.setAttribute('id', buildType.id + '_buildList')
+    buildListDiv.setAttribute('id', buildType.id + '_buildList' + buildType.locationAffix?buildType.locationAffix:'')
     buildListDiv.classList.add('buildList')
     buildListDiv.classList.add('buildTypePart')
     buildListDiv.style.gridRow = buildType.order*2+1
@@ -262,11 +262,9 @@ async function renderBuildType(buildType) {
 
 // Add build to buildList.
 async function renderBuild(build) {
-
     // Add build to buildList.
     let buildDiv = document.createElement("div")
-    let parentElement = document.getElementById(build.buildTypeId + '_buildList')
-    parentElement.prepend(buildDiv)
+    let parentElement = document.getElementById(build.buildTypeId + '_buildList' + build.locationAffix?build.locationAffix:'')
 
     // Create buildDiv.
     buildDiv.setAttribute('id', build.id)
@@ -326,7 +324,7 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
     }, this)
     renderProjectStats(parentProjectStats, parentProjectIds)
 
-    let element = document.getElementById(buildStats.buildTypeId + '_test_statistics')
+    let element = document.getElementById(buildStats.buildTypeId + '_test_statistics' + build.locationAffix?build.locationAffix:'')
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
 }
@@ -335,7 +333,7 @@ async function renderFinishTime(build) {
     if (build.state == 'finished') {
         return
     }
-    let element = document.getElementById(build.buildTypeId + '_finish')
+    let element = document.getElementById(build.buildTypeId + '_finish' + build.locationAffix?build.locationAffix:'')
     let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
 }
@@ -343,7 +341,7 @@ async function renderFinishTime(build) {
 async function renderProjectStats(parentProjectStats, parentProjectIds) {
     Object.entries(parentProjectIds).forEach(([key,projectId]) => {
         //console.log(projectStats)
-        let element = document.getElementById(`${projectId}_stats`)
+        let element = document.getElementById(`${projectId}_stats` + build.locationAffix?build.locationAffix:'')
         //let testStatisticsText = document.createTextNode(` ${parentProjectStats[projectId].newFailed?'('+parentProjectStats[projectId].newFailed+'×🚩) ':''}${parentProjectStats[projectId].failedInvestigated?'('+parentProjectStats[projectId].failedInvestigated+'×🕵) ':''}${parentProjectStats[projectId].failedNotInvestigated?'('+parentProjectStats[projectId].failedNotInvestigated+'×🙈) ':''}${parentProjectStats[projectId].ignored?'('+parentProjectStats[projectId].ignored+'×🙉) ':''}${parentProjectStats[projectId].muted?'('+parentProjectStats[projectId].muted+'×🙊) ':''}[${parentProjectStats[projectId].passed?parentProjectStats[projectId].passed:0}/${parentProjectStats[projectId].count}] = ${parentProjectStats[projectId].percentage}%`)
         let testStatisticsText = document.createTextNode(` [${parentProjectStats[projectId].passed?parentProjectStats[projectId].passed:0}/${parentProjectStats[projectId].count}] = ${parentProjectStats[projectId].percentage}%`)
         element.replaceChildren(testStatisticsText)    

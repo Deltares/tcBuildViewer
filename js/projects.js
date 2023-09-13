@@ -114,6 +114,7 @@ async function append_important(buildTypeId, buildTypeOrder, parentProjectStats,
         project.id = 'important_buildtypes'
         project.name = 'Important build types'
         buildType.projectId = 'important_buildtypes'
+        buildType.locationAffix = '_important'
         //buildType.parentProjectId = 'important'
         buildType.order = buildTypeOrder
         if (buildTypeOrder < 1)
@@ -187,6 +188,10 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
                 if (i + 1 < build.length && build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
                     build[i].statusChanged = true
+                }
+
+                if (buildType.locationAffix){
+                    build[i].locationAffix=buildType.locationAffix
                 }
 
                 // Add Unix timestamp for future functions.
