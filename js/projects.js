@@ -108,6 +108,7 @@ async function append_important_recursively(buildTypeId, buildTypeOrder, parentP
     },this)
     .then((result) => result.json())
     .then((buildType) => {
+        checkFilterButtons(++download_queue_length)
         let project = []
         project.parentProjectId = 'important'
         project.id = 'important'

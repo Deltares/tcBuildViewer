@@ -93,23 +93,33 @@ async function renderProject(project) {
     let collapseDivText = document.createTextNode('▼')
     collapseDiv.appendChild(collapseDivText)
 
-    // Link to TeamCity project page.
-    let projectLink = document.createElement("a")
-    projectLink.classList.add('project_title')
-    projectLink.setAttribute('href', project.webUrl)
-    projectLink.setAttribute('target', '_blank')
-    projectHeaderWrapperDiv.appendChild(projectLink)
+    if (project.webUrl) {
+        // Link to TeamCity project page.
+        let projectLink = document.createElement("a")
+        projectLink.classList.add('project_title')
+        projectLink.setAttribute('href', project.webUrl)
+        projectLink.setAttribute('target', '_blank')
+        projectHeaderWrapperDiv.appendChild(projectLink)
 
-    // Text for TeamCity project link.
-    let projectText = document.createTextNode(`${project.name}`)
-    projectLink.appendChild(projectText)
+        // Text for TeamCity project link.
+        let projectText = document.createTextNode(`${project.name}`)
+        projectLink.appendChild(projectText)
 
-    // Icon ⧉ for the TeamCity project link.
-    let projectLinkIconText = document.createTextNode('⧉')
-    let projectLinkIcon = document.createElement("div")
-    projectLinkIcon.appendChild(projectLinkIconText)
-    projectLinkIcon.classList.add('linkIcon')
-    projectLink.appendChild(projectLinkIcon)
+        // Icon ⧉ for the TeamCity project link.
+        let projectLinkIconText = document.createTextNode('⧉')
+        let projectLinkIcon = document.createElement("div")
+        projectLinkIcon.appendChild(projectLinkIconText)
+        projectLinkIcon.classList.add('linkIcon')
+        projectLink.appendChild(projectLinkIcon)
+    }
+    else {
+        let projectTitle = document.createElement("p")
+        projectTitle.classList.add('project_title')
+        projectHeaderWrapperDiv.appendChild(projectTitle)
+
+        let projectText = document.createTextNode(`${project.name}`)
+        projectTitle.appendChild(projectText)
+    }
 
     let projectStats = document.createElement("div")
     projectStats.setAttribute('id',`${project.id}_stats`)
