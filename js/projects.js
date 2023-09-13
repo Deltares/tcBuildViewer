@@ -111,10 +111,12 @@ async function append_important_recursively(buildTypeId, buildTypeOrder, parentP
         let project = []
         project.parentProjectId = 'important'
         project.id = 'important'
+        project.name = 'important'
         buildType.projectId = 'important'
         //buildType.parentProjectId = 'important'
         buildType.order = buildTypeOrder
-        renderProject(project)
+        if (buildTypeOrder < 1)
+            renderProject(project)
         add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
     })
     .catch(err => { console.log(err) })
