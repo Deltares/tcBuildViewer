@@ -38,7 +38,7 @@ function initiateImportantElements(include_important_buildtypes) {
     document.getElementById('_important').hidden = !include_important_buildtypes
 
     let importantWrapper = document.createElement("div")
-    importantWrapper.setAttribute('id', `important_wrapper`)
+    importantWrapper.setAttribute('id', `important_buildtypes_wrapper`)
     importantWrapper.classList.add('project_wrapper')
     document.getElementById('_important').appendChild(importantWrapper)
 
