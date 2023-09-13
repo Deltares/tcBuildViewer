@@ -145,7 +145,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
         time_boundries = `queuedDate:(date:${cutoffTcString()},condition:after)`
     }
 
-    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:<default>,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:default:true,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
