@@ -259,18 +259,17 @@
                     } else if (getCookie('tcSelection')!= "") {
                     
                         edit_selection = selection = JSON.parse(getCookie('tcSelection'))
-                        console.log(`Project selection loaded from cookie:\n\n${JSON.stringify(selection, undefined, 2)}`)
+                        //console.log(`Project selection loaded from cookie:\n\n${JSON.stringify(selection, undefined, 2)}`)
 
                     } else if (api_selection.include_projects?.length == 0) {
 
                         edit_selection = selection = default_selection
-                        console.log(`Project selection loaded from config.js:\n\n${JSON.stringify(selection, undefined, 2)}`)
+                        //console.log(`Project selection loaded from config.js:\n\n${JSON.stringify(selection, undefined, 2)}`)
 
                     } else {
 
                         edit_selection = selection = api_selection
-                        
-                        console.log(`Project selection loaded from TeamCity API:\n\n${JSON.stringify(selection, undefined, 2)}`)
+                        //console.log(`Project selection loaded from TeamCity API:\n\n${JSON.stringify(selection, undefined, 2)}`)
 
                     }
 
@@ -286,7 +285,7 @@
                             optionElement.text = name
                             dropdown.appendChild(optionElement)
                         }
-                        console.log(`Named project selections loaded from cookie:\n\n${JSON.stringify(named_selection, undefined, 2)}`)
+                        //console.log(`Named project selections loaded from cookie:\n\n${JSON.stringify(named_selection, undefined, 2)}`)
 
                     }
 
