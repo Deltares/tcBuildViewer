@@ -187,7 +187,7 @@ async function renderBuildType(buildType) {
 
     let testStatisticsDiv = document.createElement('div')
     testStatisticsDiv.classList.add('test_statistics_text')
-    testStatisticsDiv.setAttribute('id', buildType.id + '_test_statistics' + buildType.locationSuffix?buildType.locationSuffix:'')
+    testStatisticsDiv.setAttribute('id', `${buildType.id}_test_statistics${buildType.locationSuffix?buildType.locationSuffix:''}`)
     testStatisticsDiv.classList.add('buildTypePart')
     testStatisticsDiv.style.gridRow = buildType.order*2+1
     testStatisticsDiv.style.gridColumn = 2
