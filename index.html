@@ -296,9 +296,9 @@
                     // Empty div#_projects and create elements for projects.
                     initiateProjectElements(selection.include_projects) // render.js
 
-                    if(selection.important_buildtypes){
-                        initiateImportantElements(selection.important_buildtypes)
+                    initiateImportantElements(selection.important_buildtypes)
 
+                    if(selection.important_buildtypes){
                         let buildTypeOrder = 0
                         selection.important_buildtypes.forEach(buildTypeId => {
                             append_important_recursively(buildTypeId, buildTypeOrder, null, null) // projects.js
