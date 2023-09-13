@@ -1,10 +1,11 @@
 // API field selectors for optimization.
-const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
-const important_fields       = 'fields=id,name,webUrl,projectId'
-const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
+const project_fields         = 'fields=id,name,parentProjectId,projects(project(id)),buildTypes(buildType(id,name,projectId))'
+const important_fields       = 'fields=id,name'
+const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
-const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
-const change_fields          = 'fields=change:(date,version,user,comment,webUrl,files:(file:(file,relative-file)))'
+const buildDetails_fields    = 'fields=count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
+const change_fields          = 'fields=change(id,date,version,user,comment,files(file(file,relative-file)))'
+const testOccurrences_fields = 'fields=newFailed,testOccurrence(status,currentlyInvestigated),ignored,muted,passed,count'
 const progressinfo_fields    = 'fields=estimatedTotalSeconds'
 
 // Keep track of pending downloads.
@@ -99,7 +100,7 @@ async function append_important(buildTypeId, buildTypeOrder, parentProjectStats,
         parentProjectIds = []
     }
 
-    fetch(`${teamcity_base_url}/app/rest/buildTypes/id:${buildTypeId}?`, {
+    fetch(`${teamcity_base_url}/app/rest/buildTypes/id:${buildTypeId}?${important_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -113,6 +114,7 @@ async function append_important(buildTypeId, buildTypeOrder, parentProjectStats,
         project.parentProjectId = 'important'
         project.id = 'important_buildtypes'
         project.name = 'Important build types'
+        project.important_buildtype = true
         buildType.projectId = 'important_buildtypes'
         buildType.locationSuffix = '_important'
         //buildType.parentProjectId = 'important'
@@ -218,8 +220,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
 // Display test results of buildId to the build type and (parent)projects.
 async function add_tests_to_build(buildId, buildTypeId, locationSuffix, parentProjectStats, parentProjectIds) {
-    //fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:FAILURE,currentlyInvestigated:false`, {
-    fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),count:1000`, {
+    fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),count:-1&${testOccurrences_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -228,7 +229,8 @@ async function add_tests_to_build(buildId, buildTypeId, locationSuffix, parentPr
     },this)
     .then((result) => result.json())
     .then((output) => {
-        if (output.testOccurrence) {
+
+        if (output.testOccurrence[0]) {
             let buildStats = Object();
             buildStats.buildId = buildId
             buildStats.buildTypeId = buildTypeId
