@@ -35,8 +35,7 @@ function initiateImportantElements(include_important_buildtypes) {
 
     document.getElementById('_important').innerHTML = '' // Clean slate.
 
-    if (!include_important_buildtypes)
-        document.getElementById('_important').hidden = true
+    document.getElementById('_important').hidden = !include_important_buildtypes
 
     let importantWrapper = document.createElement("div")
     importantWrapper.setAttribute('id', `important_wrapper`)
