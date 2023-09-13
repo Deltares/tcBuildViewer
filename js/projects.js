@@ -108,6 +108,11 @@ async function append_important_recursively(buildTypeId, parentProjectStats, par
     },this)
     .then((result) => result.json())
     .then((buildType) => {
+        let project = []
+        project.parentProjectId = ''
+        project.id = 'important'
+        buildType.projectId = 'important'
+        renderProject(project)
         add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
     })
     .catch(err => { console.log(err) })
