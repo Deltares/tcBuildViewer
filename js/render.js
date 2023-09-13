@@ -28,7 +28,28 @@ function initiateProjectElements(include_projects) {
         projectWrapper.classList.add('project_wrapper')
         document.getElementById('_projects').appendChild(projectWrapper)
     };
+}
 
+/*  Input: array of Important buildType IDs to render. */
+function initiateImportantElements(include_important_buildtypes) {
+
+    document.getElementById('_important').innerHTML = '' // Clean slate.
+
+    document.getElementById('_important').hidden = !include_important_buildtypes
+
+    let importantWrapper = document.createElement("div")
+    importantWrapper.setAttribute('id', `important_buildtypes_wrapper`)
+    importantWrapper.classList.add('project_wrapper')
+    document.getElementById('_important').appendChild(importantWrapper)
+
+    // Prepare wrapper elements for your included important buildtypes.
+    // This is necessary for consistent ordering.
+    /*for (buildType of include_important_buildtypes) {
+        let importantWrapper = document.createElement("div")
+        importantWrapper.setAttribute('id', `${project}_wrapper`)
+        importantWrapper.classList.add('project_wrapper')
+        document.getElementById('_important').appendChild(importantWrapper)
+    };*/
 }
 
 async function renderProject(project) {
@@ -71,23 +92,33 @@ async function renderProject(project) {
     let collapseDivText = document.createTextNode('▼')
     collapseDiv.appendChild(collapseDivText)
 
-    // Link to TeamCity project page.
-    let projectLink = document.createElement("a")
-    projectLink.classList.add('project_title')
-    projectLink.setAttribute('href', project.webUrl)
-    projectLink.setAttribute('target', '_blank')
-    projectHeaderWrapperDiv.appendChild(projectLink)
+    if (project.webUrl) {
+        // Link to TeamCity project page.
+        let projectLink = document.createElement("a")
+        projectLink.classList.add('project_title')
+        projectLink.setAttribute('href', project.webUrl)
+        projectLink.setAttribute('target', '_blank')
+        projectHeaderWrapperDiv.appendChild(projectLink)
 
-    // Text for TeamCity project link.
-    let projectText = document.createTextNode(`${project.name}`)
-    projectLink.appendChild(projectText)
+        // Text for TeamCity project link.
+        let projectText = document.createTextNode(`${project.name}`)
+        projectLink.appendChild(projectText)
 
-    // Icon ⧉ for the TeamCity project link.
-    let projectLinkIconText = document.createTextNode('⧉')
-    let projectLinkIcon = document.createElement("div")
-    projectLinkIcon.appendChild(projectLinkIconText)
-    projectLinkIcon.classList.add('linkIcon')
-    projectLink.appendChild(projectLinkIcon)
+        // Icon ⧉ for the TeamCity project link.
+        let projectLinkIconText = document.createTextNode('⧉')
+        let projectLinkIcon = document.createElement("div")
+        projectLinkIcon.appendChild(projectLinkIconText)
+        projectLinkIcon.classList.add('linkIcon')
+        projectLink.appendChild(projectLinkIcon)
+    }
+    else {
+        let projectTitle = document.createElement("p")
+        projectTitle.classList.add('project_title')
+        projectHeaderWrapperDiv.appendChild(projectTitle)
+
+        let projectText = document.createTextNode(`${project.name}`)
+        projectTitle.appendChild(projectText)
+    }
 
     let projectStats = document.createElement("div")
     projectStats.setAttribute('id',`${project.id}_stats`)
@@ -126,7 +157,7 @@ async function renderBuildType(buildType) {
     let buildTypeLink = document.createElement("a")
 
     // Create buildTextDiv.
-    buildTypeLink.setAttribute('id', buildType.id)
+    buildTypeLink.setAttribute('id', buildType.id + buildType.locationSuffix?buildType.locationSuffix:'')
     buildTypeLink.setAttribute('title',`BuildType ID: ${buildType.id}`)
     buildTypeLink.classList.add('buildType')
     buildTypeLink.classList.add('buildTypePart')
@@ -140,7 +171,7 @@ async function renderBuildType(buildType) {
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', buildType.webUrl)
     buildTypeLink.classList.add('buildTypeLink');
-    buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}`)
+    buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}${buildType.locationSuffix?buildType.locationSuffix:''}`)
     buildTypeLink.setAttribute('target', '_blank')
 
     // Text for the buildType.
@@ -156,14 +187,14 @@ async function renderBuildType(buildType) {
 
     let testStatisticsDiv = document.createElement('div')
     testStatisticsDiv.classList.add('test_statistics_text')
-    testStatisticsDiv.setAttribute('id', buildType.id + '_test_statistics')
+    testStatisticsDiv.setAttribute('id', `${buildType.id}_test_statistics${buildType.locationSuffix?buildType.locationSuffix:''}`)
     testStatisticsDiv.classList.add('buildTypePart')
     testStatisticsDiv.style.gridRow = buildType.order*2+1
     testStatisticsDiv.style.gridColumn = 2
     parentElement.appendChild(testStatisticsDiv)
 
     let finishTimeDiv = document.createElement('div')
-    finishTimeDiv.setAttribute('id', buildType.id + '_finish') 
+    finishTimeDiv.setAttribute('id', `${buildType.id}_finish${buildType.locationSuffix?buildType.locationSuffix:''}`) 
     finishTimeDiv.classList.add('finish_time_text')
     finishTimeDiv.classList.add('buildTypePart')
     finishTimeDiv.style.gridRow = buildType.order*2+1
@@ -197,7 +228,7 @@ async function renderBuildType(buildType) {
 
     // Element to hold the list of builds.
     let buildListDiv = document.createElement("div")
-    buildListDiv.setAttribute('id', buildType.id + '_buildList')
+    buildListDiv.setAttribute('id', `${buildType.id}_buildList${buildType.locationSuffix?buildType.locationSuffix:''}`)
     buildListDiv.classList.add('buildList')
     buildListDiv.classList.add('buildTypePart')
     buildListDiv.style.gridRow = buildType.order*2+1
@@ -231,10 +262,9 @@ async function renderBuildType(buildType) {
 
 // Add build to buildList.
 async function renderBuild(build) {
-
     // Add build to buildList.
     let buildDiv = document.createElement("div")
-    let parentElement = document.getElementById(build.buildTypeId + '_buildList')
+    let parentElement = document.getElementById(`${build.buildTypeId}_buildList${build.locationSuffix?build.locationSuffix:''}`)
     parentElement.prepend(buildDiv)
 
     // Create buildDiv.
@@ -258,11 +288,11 @@ async function renderBuild(build) {
     buildLink.setAttribute('target', '_blank')
     let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + new Date(build.unixTime).toLocaleString()
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
-    if(build.branchName) {
+    /*if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`)
         buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})')
         buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})')
-    }
+    }*/
     buildDiv.appendChild(buildLink)
 
     // Text for TeamCity build link.
@@ -271,7 +301,7 @@ async function renderBuild(build) {
 
 }
 
-async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds) {
+async function renderBuildTypeStats(buildStats, locationSuffix, parentProjectStats, parentProjectIds) {
 
     let newFailed = buildStats.testOccurrences.newFailed?buildStats.testOccurrences.newFailed:0
     let failedInvestigated = buildStats.testOccurrences.testOccurrence.filter((testOccurrence) => {return testOccurrence.status!='SUCCESS' && testOccurrence.currentlyInvestigated}).length
@@ -293,9 +323,9 @@ async function renderBuildTypeStats(buildStats, parentProjectStats, parentProjec
         parentProjectStats[projectId].count += count
         parentProjectStats[projectId].percentage = Number((parentProjectStats[projectId].passed/parentProjectStats[projectId].count)*100).toFixed(2)
     }, this)
-    renderProjectStats(parentProjectStats, parentProjectIds)
+    renderProjectStats(locationSuffix, parentProjectStats, parentProjectIds)
 
-    let element = document.getElementById(buildStats.buildTypeId + '_test_statistics')
+    let element = document.getElementById(`${buildStats.buildTypeId}_test_statistics${locationSuffix?locationSuffix:''}`)
     let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+'×🚩) ':''}${failedInvestigated?'('+failedInvestigated+'×🕵) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
     element.appendChild(testStatisticsText)
 }
@@ -304,15 +334,15 @@ async function renderFinishTime(build) {
     if (build.state == 'finished') {
         return
     }
-    let element = document.getElementById(build.buildTypeId + '_finish')
+    let element = document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`)
     let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
 }
 
-async function renderProjectStats(parentProjectStats, parentProjectIds) {
+async function renderProjectStats(locationSuffix, parentProjectStats, parentProjectIds) {
     Object.entries(parentProjectIds).forEach(([key,projectId]) => {
         //console.log(projectStats)
-        let element = document.getElementById(`${projectId}_stats`)
+        let element = document.getElementById(`${projectId}_stats${locationSuffix?locationSuffix:''}`)
         //let testStatisticsText = document.createTextNode(` ${parentProjectStats[projectId].newFailed?'('+parentProjectStats[projectId].newFailed+'×🚩) ':''}${parentProjectStats[projectId].failedInvestigated?'('+parentProjectStats[projectId].failedInvestigated+'×🕵) ':''}${parentProjectStats[projectId].failedNotInvestigated?'('+parentProjectStats[projectId].failedNotInvestigated+'×🙈) ':''}${parentProjectStats[projectId].ignored?'('+parentProjectStats[projectId].ignored+'×🙉) ':''}${parentProjectStats[projectId].muted?'('+parentProjectStats[projectId].muted+'×🙊) ':''}[${parentProjectStats[projectId].passed?parentProjectStats[projectId].passed:0}/${parentProjectStats[projectId].count}] = ${parentProjectStats[projectId].percentage}%`)
         let testStatisticsText = document.createTextNode(` [${parentProjectStats[projectId].passed?parentProjectStats[projectId].passed:0}/${parentProjectStats[projectId].count}] = ${parentProjectStats[projectId].percentage}%`)
         element.replaceChildren(testStatisticsText)    

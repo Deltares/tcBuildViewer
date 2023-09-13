@@ -1,5 +1,6 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,webUrl,parentProjectId,projects(project),buildTypes(buildType(id,name,projectId,webUrl,builds))'
+const important_fields       = 'fields=id,name,webUrl,projectId'
 const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,webUrl,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=webUrl,count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,href,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
@@ -91,6 +92,39 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
     .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
+async function append_important(buildTypeId, buildTypeOrder, parentProjectStats, parentProjectIds) {
+
+    if (!parentProjectStats) {
+        parentProjectStats = []
+        parentProjectIds = []
+    }
+
+    fetch(`${teamcity_base_url}/app/rest/buildTypes/id:${buildTypeId}?`, {
+        headers: {
+            'Accept': 'application/json',
+        },
+        credentials: 'include',
+        priority: 'high',
+    },this)
+    .then((result) => result.json())
+    .then((buildType) => {
+        checkFilterButtons(++download_queue_length)
+        let project = []
+        project.parentProjectId = 'important'
+        project.id = 'important_buildtypes'
+        project.name = 'Important build types'
+        buildType.projectId = 'important_buildtypes'
+        buildType.locationSuffix = '_important'
+        //buildType.parentProjectId = 'important'
+        buildType.order = buildTypeOrder
+        if (buildTypeOrder < 1)
+            renderProject(project)
+        add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
+    })
+    .catch(err => { console.log(err) })
+    .finally(() => {checkFilterButtons(--download_queue_length)})
+}
+
 /* BUILDTYPES & BUILDS
 /
 /  projects[]: Array to append projects to
@@ -112,7 +146,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
         time_boundries = `queuedDate:(date:${cutoffTcString()},condition:after)`
     }
 
-    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:<default>,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
+    fetch(`${teamcity_base_url}/app/rest/builds?locator=defaultFilter:false,branch:default:true,state:any,buildType:(id:${buildType.id}),${time_boundries},count:${build_count}&${buildType_fields}`, {
         headers: {
             'Accept': 'application/json',
         },
@@ -147,13 +181,17 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
             let build = buildType.builds.build
 
-            build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, buildType.id, parentProjectStats, parentProjectIds)
+            build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, buildType.id, buildType.locationSuffix, parentProjectStats, parentProjectIds)
 
 
             for (i=0; i<build.length; i++) {
 
                 if (i + 1 < build.length && build[i].testOccurrences?.passed != build[i+1]?.testOccurrences?.passed) {
                     build[i].statusChanged = true
+                }
+
+                if (buildType.locationSuffix){
+                    build[i].locationSuffix = buildType.locationSuffix
                 }
 
                 // Add Unix timestamp for future functions.
@@ -165,7 +203,6 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                 }
                 else if (build[i]['running-info']) {
                     build[i].unixTime = (Date.now() + build[i]['running-info'].leftSeconds * 1000)
-                    console.log(build[i].unixTime)
                 }
 
                 renderBuild(build[i])
@@ -180,7 +217,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 }
 
 // Display test results of buildId to the build type and (parent)projects.
-async function add_tests_to_build(buildId, buildTypeId, parentProjectStats, parentProjectIds) {
+async function add_tests_to_build(buildId, buildTypeId, locationSuffix, parentProjectStats, parentProjectIds) {
     //fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:FAILURE,currentlyInvestigated:false`, {
     fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),count:1000`, {
         headers: {
@@ -196,7 +233,7 @@ async function add_tests_to_build(buildId, buildTypeId, parentProjectStats, pare
             buildStats.buildId = buildId
             buildStats.buildTypeId = buildTypeId
             buildStats.testOccurrences = output
-            renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds)
+            renderBuildTypeStats(buildStats, locationSuffix, parentProjectStats, parentProjectIds)
         }
 
     })

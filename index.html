@@ -6,13 +6,13 @@
     <meta charset="utf-8">
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
-    <link rel="stylesheet" href="css/tcview.css?v1.0.1.9" type="text/css" media="all">
+    <link rel="stylesheet" href="css/tcview.css?v1.0.1.13" type="text/css" media="all">
     <link rel="manifest" href="img/manifest.json">
-    <script src="config.js?v1.0.1.5"></script>
-    <script src="js/time.js?v1.0.1.5"></script>
-    <script src="js/user.js?v1.0.1.5"></script>
-    <script src="js/projects.js?v1.0.1.11"></script>
-    <script src="js/render.js?v1.0.1.9"></script>
+    <script src="config.js?v1.0.1.13"></script>
+    <script src="js/time.js?v1.0.1.13"></script>
+    <script src="js/user.js?v1.0.1.13"></script>
+    <script src="js/projects.js?v1.0.1.13"></script>
+    <script src="js/render.js?v1.0.1.13"></script>
 </head>
 
 <body>
@@ -229,6 +229,7 @@
 
             </div>
         </div>
+        <div id="_important" class="project"></div>
 
         <div id="_projects" class="project"></div>
 
@@ -293,6 +294,16 @@
 
                     // Empty div#_projects and create elements for projects.
                     initiateProjectElements(selection.include_projects) // render.js
+
+                    initiateImportantElements(selection.important_buildtypes)
+
+                    if(selection.important_buildtypes){
+                        let buildTypeOrder = 0
+                        selection.important_buildtypes.forEach(buildTypeId => {
+                            append_important(buildTypeId, buildTypeOrder, null, null) // projects.js
+                            buildTypeOrder += 1
+                        });
+                    }
 
                     // Fetched projects will be immediately rendered.
                     selection.include_projects.forEach(projectId => {

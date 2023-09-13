@@ -246,7 +246,7 @@ a:hover > div.linkIcon {
 }
 
 /* Any project */
-#_projects .project {
+#_projects .project, #_important .project {
     margin-left: 20px;
     border-left: 2px dashed lightgray;
     border-top: 2px dashed lightgray;
@@ -257,7 +257,8 @@ a:hover > div.linkIcon {
 }
 
 /* First level of projects. */
-#_projects > div.project_wrapper > div.project {
+#_projects > div.project_wrapper > div.project, 
+#_important > div.project_wrapper > div.project {
     margin-left: 0px;
     margin-bottom: 2em;
     font-weight: bold;
@@ -266,8 +267,14 @@ a:hover > div.linkIcon {
 
 /* Title/link of first level of projects. */
 #_projects > div.project_wrapper > div.project > div > a.project_title,
-#_projects > div.project_wrapper > div.project > div > div.collapse_button {
+#_projects > div.project_wrapper > div.project > div > div.collapse_button,
+#_important > div.project_wrapper > div.project > div > p.project_title,
+#_important > div.project_wrapper > div.project > div > div.collapse_button {
     font-size: 150%;
+}
+
+#_important > div.project_wrapper > div.project > div > p.project_title{
+    margin: 0px;
 }
 
 /* All other levels of projects. */
