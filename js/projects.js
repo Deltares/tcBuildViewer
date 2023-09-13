@@ -114,7 +114,7 @@ async function append_important(buildTypeId, buildTypeOrder, parentProjectStats,
         project.id = 'important_buildtypes'
         project.name = 'Important build types'
         buildType.projectId = 'important_buildtypes'
-        buildType.locationAffix = '_important'
+        buildType.locationSuffix = '_important'
         //buildType.parentProjectId = 'important'
         buildType.order = buildTypeOrder
         if (buildTypeOrder < 1)
@@ -181,7 +181,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
             let build = buildType.builds.build
 
-            build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, buildType.id, parentProjectStats, parentProjectIds)
+            build.stats = add_tests_to_build(buildType.builds.build?.[0]?.id, buildType.id, buildType.locationSuffix, parentProjectStats, parentProjectIds)
 
 
             for (i=0; i<build.length; i++) {
@@ -190,8 +190,8 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
                     build[i].statusChanged = true
                 }
 
-                if (buildType.locationAffix){
-                    build[i].locationAffix=buildType.locationAffix
+                if (buildType.locationSuffix){
+                    build[i].locationSuffix=buildType.locationSuffix
                 }
 
                 // Add Unix timestamp for future functions.
@@ -218,7 +218,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 }
 
 // Display test results of buildId to the build type and (parent)projects.
-async function add_tests_to_build(buildId, buildTypeId, parentProjectStats, parentProjectIds) {
+async function add_tests_to_build(buildId, buildTypeId, locationSuffix, parentProjectStats, parentProjectIds) {
     //fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),status:FAILURE,currentlyInvestigated:false`, {
     fetch(`${teamcity_base_url}/app/rest/testOccurrences?locator=build:(id:${buildId}),count:1000`, {
         headers: {
@@ -234,7 +234,7 @@ async function add_tests_to_build(buildId, buildTypeId, parentProjectStats, pare
             buildStats.buildId = buildId
             buildStats.buildTypeId = buildTypeId
             buildStats.testOccurrences = output
-            renderBuildTypeStats(buildStats, parentProjectStats, parentProjectIds)
+            renderBuildTypeStats(buildStats, locationSuffix, parentProjectStats, parentProjectIds)
         }
 
     })
