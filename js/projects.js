@@ -92,7 +92,7 @@ async function append_projects_recursively(projectId, order, parentProjectStats,
     .finally(() => {checkFilterButtons(--download_queue_length)})
 }
 
-async function append_important_recursively(buildTypeId, buildTypeOrder, parentProjectStats, parentProjectIds) {
+async function append_important(buildTypeId, buildTypeOrder, parentProjectStats, parentProjectIds) {
 
     if (!parentProjectStats) {
         parentProjectStats = []

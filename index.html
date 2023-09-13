@@ -301,7 +301,7 @@
                     if(selection.important_buildtypes){
                         let buildTypeOrder = 0
                         selection.important_buildtypes.forEach(buildTypeId => {
-                            append_important_recursively(buildTypeId, buildTypeOrder, null, null) // projects.js
+                            append_important(buildTypeId, buildTypeOrder, null, null) // projects.js
                             buildTypeOrder += 1
                         });
                     }
