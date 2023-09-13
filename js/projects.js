@@ -111,7 +111,7 @@ async function append_important_recursively(buildTypeId, parentProjectStats, par
         let project = []
         project.parentProjectId = ''
         project.id = 'important'
-        buildType.projectId = 'important'
+        buildType.parentProjectId = 'important'
         renderProject(project)
         add_builds_to_buildtype(buildType, parentProjectStats, parentProjectIds)
     })
