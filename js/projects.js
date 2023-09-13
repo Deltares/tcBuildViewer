@@ -112,7 +112,7 @@ async function append_important_recursively(buildTypeId, buildTypeOrder, parentP
         let project = []
         project.parentProjectId = 'important'
         project.id = 'important'
-        project.name = 'important'
+        project.name = 'Important build types'
         buildType.projectId = 'important'
         //buildType.parentProjectId = 'important'
         buildType.order = buildTypeOrder
