@@ -298,7 +298,7 @@
 
                     initiateImportantElements(selection.important_buildtypes)
 
-                    let buildTypeOrder = 0
+                    let buildTypeOrder = 1
                     selection.important_buildtypes.forEach(buildTypeId => {
                         append_important_recursively(buildTypeId, buildTypeOrder, null, null) // projects.js
                         buildTypeOrder += 1
