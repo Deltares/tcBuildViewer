@@ -111,9 +111,9 @@ async function append_important(buildTypeId, buildTypeOrder, parentProjectStats,
         checkFilterButtons(++download_queue_length)
         let project = []
         project.parentProjectId = 'important'
-        project.id = 'important'
+        project.id = 'important_buildtypes'
         project.name = 'Important build types'
-        buildType.projectId = 'important'
+        buildType.projectId = 'important_buildtypes'
         //buildType.parentProjectId = 'important'
         buildType.order = buildTypeOrder
         if (buildTypeOrder < 1)
