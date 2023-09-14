@@ -122,8 +122,8 @@
                         ">Apply
                     </button>
                     <button class="filter_button" style="margin-top:1em"
-                        onclick="
-                            document.getElementById('time').hidden = true
+                        onclick=
+                            "document.getElementById('time').classList.toggle('hidden');this.classList.toggle('active')
                         ">close
                     </button>
                 </div>
@@ -235,7 +235,7 @@
             </div>
             <button class="filter_button" style="margin-top:1em"
                 onclick="
-                    document.getElementById('selection').hidden = true
+                    document.getElementById('selection').classList.toggle('hidden');this.classList.toggle('active')
                 ">close
             </button>
         </div>
