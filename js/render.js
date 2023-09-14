@@ -92,11 +92,22 @@ async function renderProject(project) {
     let collapseDivText = document.createTextNode('▼')
     collapseDiv.appendChild(collapseDivText)
 
-    if (project.webUrl) {
+    // The 'important buildtype' uses the same code as projects, except for this:
+    if (project.important_buildtype) {
+
+        let projectTitle = document.createElement("p")
+        projectTitle.classList.add('project_title')
+        projectHeaderWrapperDiv.appendChild(projectTitle)
+
+        let projectText = document.createTextNode(`${project.name}`)
+        projectTitle.appendChild(projectText)
+
+    } else {
+
         // Link to TeamCity project page.
         let projectLink = document.createElement("a")
         projectLink.classList.add('project_title')
-        projectLink.setAttribute('href', project.webUrl)
+        projectLink.setAttribute('href', `${teamcity_base_url}/project.html?projectId=${project.id}`)
         projectLink.setAttribute('target', '_blank')
         projectHeaderWrapperDiv.appendChild(projectLink)
 
@@ -110,14 +121,6 @@ async function renderProject(project) {
         projectLinkIcon.appendChild(projectLinkIconText)
         projectLinkIcon.classList.add('linkIcon')
         projectLink.appendChild(projectLinkIcon)
-    }
-    else {
-        let projectTitle = document.createElement("p")
-        projectTitle.classList.add('project_title')
-        projectHeaderWrapperDiv.appendChild(projectTitle)
-
-        let projectText = document.createTextNode(`${project.name}`)
-        projectTitle.appendChild(projectText)
     }
 
     let projectStats = document.createElement("div")
@@ -169,7 +172,7 @@ async function renderBuildType(buildType) {
     buildTypeLink.classList.add(buildType.builds.build[0].status)
 
     // Link to TeamCity build type page.
-    buildTypeLink.setAttribute('href', buildType.webUrl)
+    buildTypeLink.setAttribute('href', `${teamcity_base_url}/viewType.html?buildTypeId=${buildType.id}`)
     buildTypeLink.classList.add('buildTypeLink');
     buildTypeLink.setAttribute('id', `buildTypeLink_${buildType.id}${buildType.locationSuffix?buildType.locationSuffix:''}`)
     buildTypeLink.setAttribute('target', '_blank')
@@ -200,31 +203,6 @@ async function renderBuildType(buildType) {
     finishTimeDiv.style.gridRow = buildType.order*2+1
     finishTimeDiv.style.gridColumn = 3
     parentElement.appendChild(finishTimeDiv)
-/*
-    // Test statistics
-    if (buildType.builds.build[0].testOccurrences) {
-        let testOccurrences = buildType.builds.build[0].testOccurrences
-        let newFailed = testOccurrences.newFailed?testOccurrences.newFailed:0
-        let muted = testOccurrences.muted?testOccurrences.muted:0
-        let ignored = testOccurrences.ignored?testOccurrences.ignored:0
-        let passed = testOccurrences.passed?testOccurrences.passed:0
-        let count = testOccurrences.count
-        let percentage = Number((passed/count)*100).toFixed(2)
-        let failedNotInvestigated = buildType.failedNotInvestigated
-
-        let testStatisticsText = document.createTextNode(` ${newFailed?'('+newFailed+' new failed) ':''}${failedNotInvestigated?'('+failedNotInvestigated+'×🙈) ':''}${ignored?'('+ignored+'×🙉) ':''}${muted?'('+muted+'×🙊) ':''}[${passed?passed:0}/${count}] = ${percentage}%`)
-        testStatisticsDiv.appendChild(testStatisticsText)
-    }
-*/
-    // Investigations
-    /*
-    if (buildType.investigations?.investigation?.length > 0) {
-        for (investigation in buildType.investigations.investigation) {
-            console.log(buildType.investigations.investigation[investigation].assignee.name)
-            testStatisticsDiv.prepend(document.createTextNode(buildType.investigations.investigation[investigation].assignee.name))
-        }
-    }
-    */
 
     // Element to hold the list of builds.
     let buildListDiv = document.createElement("div")
@@ -540,7 +518,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
         //let filesDiv = document.createElement('div')
         versionDiv.innerHTML = `#${change.version}`
         let fileList = change.files.file.map(file => file['relative-file']).join('\n')
-        linkDiv.innerHTML = `<a href='${change.webUrl}' title='${fileList}' target='_blank'>#${change.comment}</a>`
+        linkDiv.innerHTML = `<a href='${teamcity_base_url}/viewModification.html?modId=${change.id}&personal=false' title='${fileList}' target='_blank'>#${change.comment}</a>`
         userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:'🤖'}</span>`
         timeDiv.innerHTML = `<span class='build_time smaller'>${new Date(tcTimeToUnix(change.date)).toLocaleString()}</span>`
         changesDiv.appendChild(versionDiv)
