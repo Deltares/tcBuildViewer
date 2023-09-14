@@ -92,8 +92,9 @@
             <a target="_blank" href="https://github.com/Deltares/tcBuildViewer/issues">https://github.com/Deltares/tcBuildViewer/issues ⧉</a>
             <br />
             <button class="filter_button" style="margin:1em auto 0 auto;"
-                onclick=
-                    "document.getElementById('info').classList.toggle('hidden');this.classList.toggle('active')
+                onclick="
+                    document.getElementById('info').classList.add('hidden')
+                    document.getElementById('toggle_info').classList.remove('active')
                 ">close
             </button>
         </div>
@@ -127,8 +128,9 @@
                         ">Apply
                     </button>
                     <button class="filter_button" style="margin-top:1em"
-                        onclick=
-                            "document.getElementById('time').classList.toggle('hidden');this.classList.toggle('active')
+                        onclick="
+                            document.getElementById('time').classList.add('hidden')
+                            document.getElementById('toggle_time').classList.remove('active')
                         ">close
                     </button>
                 </div>
@@ -240,7 +242,8 @@
             </div>
             <button class="filter_button" style="margin-top:1em;grid-column:3"
                 onclick="
-                    document.getElementById('selection').classList.toggle('hidden');this.classList.toggle('active')
+                    document.getElementById('selection').classList.add('hidden')
+                    document.getElementById('selection_time').classList.remove('active')
                 ">close
             </button>
         </div>
