@@ -172,7 +172,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
         }
 
         // The last build determines the buildtype status.
-        if (buildType.builds.build?.[0]?.status) {
+        if (buildType.builds.build?.[0]?.status && (buildType.builds.build?.[0]?.state=='finished' || buildType.builds.build?.[0]?.status=='FAILURE')) {
             buildType.status = buildType.builds.build?.[0]?.status
         }
 

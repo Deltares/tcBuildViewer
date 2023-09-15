@@ -169,7 +169,7 @@ async function renderBuildType(buildType) {
     buildTypeLink.style.gridColumn = 1
     parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
-    buildTypeLink.classList.add(buildType.builds.build[0].status)
+    buildTypeLink.classList.add(buildType.status)
 
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', `${teamcity_base_url}/viewType.html?buildTypeId=${buildType.id}`)
