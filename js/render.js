@@ -317,6 +317,16 @@ async function renderFinishTime(build) {
     element.appendChild(finishTimeText)
 }
 
+async function renderTags(build) {
+    if (build.tags)
+    {
+        let tagsContainer = document.createElement("div")
+        tagsContainer.setAttribute('title', `${build.tags.forEach(tag => tag + '\n')}`)
+        let tagsText = document.createTextNode('📌')
+        tagsContainer.appendChild(tagsText)
+    }
+}
+
 async function renderProjectStats(locationSuffix, parentProjectStats, parentProjectIds) {
     Object.entries(parentProjectIds).forEach(([key,projectId]) => {
         //console.log(projectStats)

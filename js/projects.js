@@ -211,6 +211,7 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
             };
             renderFinishTime(buildType.builds.build?.[0])
+            renderTags(buildType.builds.build?.[0])
 
         }
     })
