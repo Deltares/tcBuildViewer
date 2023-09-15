@@ -519,7 +519,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
         versionDiv.innerHTML = `#${change.version}`
         let fileList = change.files.file.map(file => file['relative-file']).join('\n')
         linkDiv.innerHTML = `<a href='${teamcity_base_url}/viewModification.html?modId=${change.id}&personal=false' title='${fileList}' target='_blank'>#${change.comment}</a>`
-        userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:'🤖'}</span>`
+        userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:change.username}</span>`//'🤖'
         timeDiv.innerHTML = `<span class='build_time smaller'>${new Date(tcTimeToUnix(change.date)).toLocaleString()}</span>`
         changesDiv.appendChild(versionDiv)
         changesDiv.appendChild(linkDiv)
