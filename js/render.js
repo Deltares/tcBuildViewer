@@ -264,7 +264,8 @@ async function renderBuild(build) {
     let buildLink = document.createElement("a")
     buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
     buildLink.setAttribute('target', '_blank')
-    let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + new Date(build.unixTime).toLocaleString()
+    let buildDate = new Date(build.unixTime).toLocaleString()
+    let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + buildDate=='Invalid Date'?'calculating':buildDate
     buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
     /*if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`)
@@ -313,7 +314,8 @@ async function renderFinishTime(build) {
         return
     }
     let element = document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`)
-    let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${new Date(build.unixTime).toLocaleTimeString()}`)
+    let buildDate = new Date(build.unixTime).toLocaleTimeString()
+    let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${buildDate=='Invalid Date'?'calculating':buildDate}`)
     element.appendChild(finishTimeText)
 }
 
