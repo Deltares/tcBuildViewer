@@ -1,7 +1,7 @@
 // API field selectors for optimization.
 const project_fields         = 'fields=id,name,parentProjectId,projects(project(id)),buildTypes(buildType(id,name,projectId))'
 const important_fields       = 'fields=id,name'
-const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
+const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,tags(tag),finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
 const change_fields          = 'fields=change(id,date,version,user,comment,files(file(file,relative-file)))'
@@ -209,8 +209,9 @@ async function add_builds_to_buildtype(buildType, parentProjectStats, parentProj
 
                 renderBuild(build[i])
 
-            };
-            renderFinishTime(buildType.builds.build?.[0])
+            }
+            renderFinishTime(build[0])
+            renderTags(build[0])
 
         }
     })

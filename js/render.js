@@ -264,8 +264,16 @@ async function renderBuild(build) {
     let buildLink = document.createElement("a")
     buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
     buildLink.setAttribute('target', '_blank')
+    let tags = ''
+    if(build.tags.tag.length > 0){
+        tags = 'Tags: '
+        for (let element of build.tags.tag) {
+            tags+=(element.name+' | ')
+        }
+        tags = tags.substring(0, tags.length - 3);
+    }
     let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + new Date(build.unixTime).toLocaleString()
-    buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
+    buildLink.setAttribute('title', `${tags}\nBranch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
     /*if(build.branchName) {
         buildLink.classList.add(`branch_${build.branchName}`)
         buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})')
@@ -315,6 +323,22 @@ async function renderFinishTime(build) {
     let element = document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`)
     let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${new Date(build.unixTime).toLocaleTimeString()}`)
     element.appendChild(finishTimeText)
+}
+
+async function renderTags(build) {
+    if (build.tags.tag.length > 0)
+    {
+        console.log('running tags')
+        let tagsContainer = document.createElement("div")
+        let tagsTitle = ''
+        for (let element of build.tags.tag) {
+            tagsTitle+=(element.name+'\n')
+        }
+        tagsContainer.setAttribute('title', `${tagsTitle}`)
+        let tagsText = document.createTextNode('📌')
+        tagsContainer.appendChild(tagsText)
+        document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`).appendChild(tagsContainer)
+    }
 }
 
 async function renderProjectStats(locationSuffix, parentProjectStats, parentProjectIds) {
