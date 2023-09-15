@@ -4,7 +4,7 @@ const important_fields       = 'fields=id,name'
 const buildType_fields       = 'fields=build(id,state,buildTypeId,number,branchName,status,tags(tag),finishOnAgentDate,finishEstimate,running-info(leftSeconds),statusText,failedToStart,problemOccurrences,testOccurrences(count,muted,ignored,passed,failed,newFailed))'
 const message_fields         = 'fields=messages'
 const buildDetails_fields    = 'fields=count,passed,failed,muted,ignored,newFailed,testOccurrence(id,name,status,details,newFailure,muted,failed,ignored,test(id,name,parsedTestName,investigations(investigation(assignee))),build(id,buildTypeId),logAnchor)'
-const change_fields          = 'fields=change(id,date,version,user,comment,files(file(file,relative-file)))'
+const change_fields          = 'fields=change(id,date,version,user,username,comment,files(file(file,relative-file)))'
 const testOccurrences_fields = 'fields=newFailed,testOccurrence(status,currentlyInvestigated),ignored,muted,passed,count'
 const progressinfo_fields    = 'fields=estimatedTotalSeconds'
 
