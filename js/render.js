@@ -318,12 +318,20 @@ async function renderFinishTime(build) {
 }
 
 async function renderTags(build) {
-    if (build.tags)
+    if (build.tags.tag.length > 0)
     {
+        console.log('running tags')
         let tagsContainer = document.createElement("div")
-        tagsContainer.setAttribute('title', `${build.tags.forEach(tag => tag + '\n')}`)
+        let tagsTitle
+        for(let element of build.tags.tag) {
+            if (element.name) {
+                tagsTitle+=element.name+'\n'
+            }
+        }
+        tagsContainer.setAttribute('title', `${tagsTitle}`)
         let tagsText = document.createTextNode('📌')
         tagsContainer.appendChild(tagsText)
+        document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`).appendChild(tagsContainer)
     }
 }
 
