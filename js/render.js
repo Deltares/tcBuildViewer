@@ -322,11 +322,9 @@ async function renderTags(build) {
     {
         console.log('running tags')
         let tagsContainer = document.createElement("div")
-        let tagsTitle
-        for(let element of build.tags.tag) {
-            if (element.name) {
-                tagsTitle+=element.name+'\n'
-            }
+        let tagsTitle = ''
+        for (let element of build.tags.tag) {
+            tagsTitle+=(element.name+'\n')
         }
         tagsContainer.setAttribute('title', `${tagsTitle}`)
         let tagsText = document.createTextNode('📌')
