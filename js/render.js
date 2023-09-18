@@ -359,9 +359,9 @@ async function renderProjectStats(locationSuffix, parentProjectStats, parentProj
 */
 }
 
-async function renderBuildDetails(buildId, locationSuffix, messages, tests, changes) {
+async function renderBuildDetails(buildId, buildStepsDivId, messages, tests, changes) {
     //let parentElementId = document.getElementById(buildId).parentElement.id
-    let buildDetails = document.getElementById(`${locationSuffix}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
+    let buildDetails = document.getElementById(`${buildStepsDivId}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     let parentElementId = buildDetails.parentElement.id
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
