@@ -244,7 +244,7 @@ async function add_tests_to_build(buildId, buildTypeId, locationSuffix, parentPr
 }
 
 // On-demand information when a build is clicked.
-async function get_build_details(buildId) {
+async function get_build_details(buildId, buildStepsDivId) {
 
     // MESSAGES
     let messagesRequest = await fetch(`${teamcity_base_url}/app/messages?buildId=${buildId}&filter=important&${message_fields}`, {
@@ -313,7 +313,7 @@ async function get_build_details(buildId) {
 
     let changes = changesJSON.change
 
-    renderBuildDetails(buildId, messages, tests, changes)
+    renderBuildDetails(buildId, buildStepsDivId, messages, tests, changes)
 }
 
 // RECURSIVE BUILD MESSAGES
