@@ -417,7 +417,7 @@ async function renderBuildDetails(buildId, locationSuffix, messages, tests, chan
 
     // Close build details
     let buildCloseButton = document.createElement('button')
-    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId}')[0].nextSibling.classList.add('hidden')`)
+    buildCloseButton.setAttribute('onclick',`this.parentElement.parentElement.classList.add('hidden')`)
     buildCloseButton.appendChild(document.createTextNode('Close'))
     buildButtonBar.appendChild(buildCloseButton)
 
