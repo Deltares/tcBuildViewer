@@ -215,6 +215,7 @@ async function renderBuildType(buildType) {
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
     let buildSteps = document.createElement("div")
+    buildSteps.setAttribute('id', `${buildType.id}_build_details${buildType.locationSuffix?buildType.locationSuffix:''}`) 
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
@@ -262,7 +263,7 @@ async function renderBuild(build) {
 
     // Link to TeamCity build page.
     let buildLink = document.createElement("a")
-    buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
+    buildLink.setAttribute('onclick', `get_build_details(${build.id},${build.locationSuffix})`)
     buildLink.setAttribute('target', '_blank')
     let tags = ''
     if(build.tags.tag.length > 0){
@@ -358,9 +359,9 @@ async function renderProjectStats(locationSuffix, parentProjectStats, parentProj
 */
 }
 
-async function renderBuildDetails(buildId,messages,tests,changes) {
-    let parentElementId = document.getElementById(buildId).parentElement.id
-    let buildDetails = document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
+async function renderBuildDetails(buildId, locationSuffix, messages, tests, changes) {
+    //let parentElementId = document.getElementById(buildId).parentElement.id
+    let buildDetails = document.getElementById('id', `${buildId}_build_details${locationSuffix?locationSuffix:''}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
 
