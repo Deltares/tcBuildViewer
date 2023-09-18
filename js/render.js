@@ -263,7 +263,7 @@ async function renderBuild(build) {
 
     // Link to TeamCity build page.
     let buildLink = document.createElement("a")
-    buildLink.setAttribute('onclick', `get_build_details(${build.id},${build.locationSuffix})`)
+    buildLink.setAttribute('onclick', `get_build_details(${build.id},${build.locationSuffix?'"'+build.buildTypeId+'_buildsteps'+build.locationSuffix+'"':'"'+build.buildTypeId+'_buildsteps'+'"'})`)
     buildLink.setAttribute('target', '_blank')
     let tags = ''
     if(build.tags.tag.length > 0){
@@ -361,7 +361,7 @@ async function renderProjectStats(locationSuffix, parentProjectStats, parentProj
 
 async function renderBuildDetails(buildId, locationSuffix, messages, tests, changes) {
     //let parentElementId = document.getElementById(buildId).parentElement.id
-    let buildDetails = document.getElementById('id', `${buildId}_buildsteps${locationSuffix?locationSuffix:''}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
+    let buildDetails = document.getElementById('id', `${locationSuffix}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
 
