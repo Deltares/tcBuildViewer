@@ -215,7 +215,7 @@ async function renderBuildType(buildType) {
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
     let buildSteps = document.createElement("div")
-    buildSteps.setAttribute('id', `${buildType.id}_build_details${buildType.locationSuffix?buildType.locationSuffix:''}`) 
+    buildSteps.setAttribute('id', `${buildType.id}_buildsteps${buildType.locationSuffix?buildType.locationSuffix:''}`) 
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
@@ -361,7 +361,7 @@ async function renderProjectStats(locationSuffix, parentProjectStats, parentProj
 
 async function renderBuildDetails(buildId, locationSuffix, messages, tests, changes) {
     //let parentElementId = document.getElementById(buildId).parentElement.id
-    let buildDetails = document.getElementById('id', `${buildId}_build_details${locationSuffix?locationSuffix:''}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
+    let buildDetails = document.getElementById('id', `${buildId}_buildsteps${locationSuffix?locationSuffix:''}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
 
