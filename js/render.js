@@ -169,7 +169,7 @@ async function renderBuildType(buildType) {
     buildTypeLink.style.gridColumn = 1
     parentElement.appendChild(buildTypeLink)
     // Add status of last build as class.
-    buildTypeLink.classList.add(buildType.builds.build[0].status)
+    buildTypeLink.classList.add(buildType.status)
 
     // Link to TeamCity build type page.
     buildTypeLink.setAttribute('href', `${teamcity_base_url}/viewType.html?buildTypeId=${buildType.id}`)
@@ -215,6 +215,7 @@ async function renderBuildType(buildType) {
 
     let buildStepsText = document.createTextNode('🚧 Will fetch and display the (status of) individual build steps.')
     let buildSteps = document.createElement("div")
+    buildSteps.setAttribute('id', `${buildType.id}_buildsteps${buildType.locationSuffix?buildType.locationSuffix:''}`) 
     buildSteps.appendChild(buildStepsText)
     buildSteps.classList.add('buildSteps')
     buildSteps.classList.add('hidden')
@@ -262,16 +263,22 @@ async function renderBuild(build) {
 
     // Link to TeamCity build page.
     let buildLink = document.createElement("a")
-    buildLink.setAttribute('onclick', `get_build_details(${build.id})`)
+    buildLink.setAttribute('onclick', `get_build_details(${build.id},${build.locationSuffix?'"'+build.buildTypeId+'_buildsteps'+build.locationSuffix+'"':'"'+build.buildTypeId+'_buildsteps'+'"'})`)
     buildLink.setAttribute('target', '_blank')
+
+    let tags = ''
+    if(build.tags.tag.length > 0){
+        tags = 'Tags: '
+        for (let element of build.tags.tag) {
+            tags+=(element.name+' | ')
+        }
+        tags = tags.substring(0, tags.length - 3);
+    }
+
     let buildDate = new Date(build.unixTime).toLocaleString()
     let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + buildDate=='Invalid Date'?'calculating':buildDate
-    buildLink.setAttribute('title', `Branch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
-    /*if(build.branchName) {
-        buildLink.classList.add(`branch_${build.branchName}`)
-        buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})')
-        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})')
-    }*/
+    buildLink.setAttribute('title', `${tags}\nBranch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
+
     buildDiv.appendChild(buildLink)
 
     // Text for TeamCity build link.
@@ -319,6 +326,22 @@ async function renderFinishTime(build) {
     element.appendChild(finishTimeText)
 }
 
+async function renderTags(build) {
+    if (build.tags.tag.length > 0)
+    {
+        console.log('running tags')
+        let tagsContainer = document.createElement("div")
+        let tagsTitle = ''
+        for (let element of build.tags.tag) {
+            tagsTitle+=(element.name+'\n')
+        }
+        tagsContainer.setAttribute('title', `${tagsTitle}`)
+        let tagsText = document.createTextNode('📌')
+        tagsContainer.appendChild(tagsText)
+        document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`).appendChild(tagsContainer)
+    }
+}
+
 async function renderProjectStats(locationSuffix, parentProjectStats, parentProjectIds) {
     Object.entries(parentProjectIds).forEach(([key,projectId]) => {
         //console.log(projectStats)
@@ -336,9 +359,10 @@ async function renderProjectStats(locationSuffix, parentProjectStats, parentProj
 */
 }
 
-async function renderBuildDetails(buildId,messages,tests,changes) {
-    let parentElementId = document.getElementById(buildId).parentElement.id
-    let buildDetails = document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
+async function renderBuildDetails(buildId, buildStepsDivId, messages, tests, changes) {
+    //let parentElementId = document.getElementById(buildId).parentElement.id
+    let buildDetails = document.getElementById(`${buildStepsDivId}`) //document.querySelectorAll(`#${parentElementId}`)[0].nextSibling
+    let parentElementId = buildDetails.parentElement.id
     buildDetails.innerHTML = ""
     buildDetails.classList.remove('hidden')
 
@@ -393,7 +417,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
 
     // Close build details
     let buildCloseButton = document.createElement('button')
-    buildCloseButton.setAttribute('onclick',`document.querySelectorAll('#${parentElementId}')[0].nextSibling.classList.add('hidden')`)
+    buildCloseButton.setAttribute('onclick',`this.parentElement.parentElement.classList.add('hidden')`)
     buildCloseButton.appendChild(document.createTextNode('Close'))
     buildButtonBar.appendChild(buildCloseButton)
 
@@ -521,7 +545,7 @@ async function renderBuildDetails(buildId,messages,tests,changes) {
         versionDiv.innerHTML = `#${change.version}`
         let fileList = change.files.file.map(file => file['relative-file']).join('\n')
         linkDiv.innerHTML = `<a href='${teamcity_base_url}/viewModification.html?modId=${change.id}&personal=false' title='${fileList}' target='_blank'>#${change.comment}</a>`
-        userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:'🤖'}</span>`
+        userDiv.innerHTML = `<span class='build_user_name'>${change.user?change.user.name:change.username}</span>`//'🤖'
         timeDiv.innerHTML = `<span class='build_time smaller'>${new Date(tcTimeToUnix(change.date)).toLocaleString()}</span>`
         changesDiv.appendChild(versionDiv)
         changesDiv.appendChild(linkDiv)

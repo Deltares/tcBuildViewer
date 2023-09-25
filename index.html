@@ -6,13 +6,13 @@
     <meta charset="utf-8">
     <meta name="author" content="Robin van Westrenen">
     <meta http-equiv="Cache-control" content="no-cache">
-    <link rel="stylesheet" href="css/tcview.css?v1.0.1.13" type="text/css" media="all">
+    <link rel="stylesheet" href="css/tcview.css?v1.0.1.14" type="text/css" media="all">
     <link rel="manifest" href="img/manifest.json">
-    <script src="config.js?v1.0.1.13"></script>
-    <script src="js/time.js?v1.0.1.13"></script>
-    <script src="js/user.js?v1.0.1.13"></script>
-    <script src="js/projects.js?v1.0.1.13"></script>
-    <script src="js/render.js?v1.0.1.13"></script>
+    <script src="config.js?v1.0.1.14"></script>
+    <script src="js/time.js?v1.0.1.14"></script>
+    <script src="js/user.js?v1.0.1.14"></script>
+    <script src="js/projects.js?v1.0.1.14"></script>
+    <script src="js/render.js?v1.0.1.14"></script>
 </head>
 
 <body>
@@ -34,6 +34,7 @@
         <div>🙊</div><div>muted</div>
         <div style="grid-column: span 2; font-weight: bold; margin-top: 1em">Other:</div>
         <div>⏰</div><div>Est. finish time</div>
+        <div>📌</div><div>Tags</div>
     </div>
     <div id="body_wrap">
 
@@ -240,7 +241,7 @@
                 </button>
 
             </div>
-            <button class="filter_button" style="margin-top:1em;grid-column:3"
+            <button class="filter_button" style="grid-column: 1 / span 3; margin: 1em auto 0 auto;"
                 onclick="
                     document.getElementById('selection').classList.add('hidden')
                     document.getElementById('toggle_selection').classList.remove('active')
