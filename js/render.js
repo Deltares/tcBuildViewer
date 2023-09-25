@@ -329,7 +329,6 @@ async function renderFinishTime(build) {
 async function renderTags(build) {
     if (build.tags.tag.length > 0)
     {
-        console.log('running tags')
         let tagsContainer = document.createElement("div")
         let tagsTitle = ''
         for (let element of build.tags.tag) {
