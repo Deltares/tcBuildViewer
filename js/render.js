@@ -265,6 +265,7 @@ async function renderBuild(build) {
     let buildLink = document.createElement("a")
     buildLink.setAttribute('onclick', `get_build_details(${build.id},${build.locationSuffix?'"'+build.buildTypeId+'_buildsteps'+build.locationSuffix+'"':'"'+build.buildTypeId+'_buildsteps'+'"'})`)
     buildLink.setAttribute('target', '_blank')
+
     let tags = ''
     if(build.tags.tag.length > 0){
         tags = 'Tags: '
@@ -273,13 +274,11 @@ async function renderBuild(build) {
         }
         tags = tags.substring(0, tags.length - 3);
     }
-    let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + new Date(build.unixTime).toLocaleString()
+
+    let buildDate = new Date(build.unixTime).toLocaleString()
+    let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + buildDate=='Invalid Date'?'calculating':buildDate
     buildLink.setAttribute('title', `${tags}\nBranch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
-    /*if(build.branchName) {
-        buildLink.classList.add(`branch_${build.branchName}`)
-        buildLink.setAttribute('onmouseenter','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.add(\'branch_selected\')})')
-        buildLink.setAttribute('onmouseout','Array.from(this.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(this.className)).forEach(element => {element.classList.remove(\'branch_selected\')})')
-    }*/
+
     buildDiv.appendChild(buildLink)
 
     // Text for TeamCity build link.
@@ -322,7 +321,8 @@ async function renderFinishTime(build) {
         return
     }
     let element = document.getElementById(`${build.buildTypeId}_finish${build.locationSuffix?build.locationSuffix:''}`)
-    let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${new Date(build.unixTime).toLocaleTimeString()}`)
+    let buildDate = new Date(build.unixTime).toLocaleTimeString()
+    let finishTimeText = document.createTextNode(`${build.unixTime ? '⏰' : ''}${buildDate=='Invalid Date'?'⏰calculating':buildDate}`)
     element.appendChild(finishTimeText)
 }
 
