@@ -277,7 +277,7 @@ async function renderBuild(build) {
 
     let buildDate = new Date(build.unixTime).toLocaleString()
     let buildFinishTime = (build.state=='finished' ? 'Finished: ' : 'Estimated finish: ') + buildDate=='Invalid Date'?'calculating':buildDate
-    buildLink.setAttribute('title', `${tags}\nBranch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nStatus message: ${build.statusText}`)
+    buildLink.setAttribute('title', `${tags}\nBranch: ${build.branchName?build.branchName:'unknown'}\nState: ${build.state}\nStatus: ${build.status}\nID: ${build.id}\nBuild Number: # ${build.number}\n${buildFinishTime}\nAgent: ${build.agent ? build.agent.name : 'pending'}\nStatus message: ${build.statusText}`)
 
     buildDiv.appendChild(buildLink)
 
