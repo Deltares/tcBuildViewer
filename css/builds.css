@@ -1,0 +1,153 @@
+.build {
+    line-height: 1.5em;
+    float: right;
+}
+
+/* Define all possible test visible */
+.testIconchanged::after {
+    content: '⬤';
+    font-size: 12px;
+    color: #FFE8B3;
+    margin: 0 4.2px;
+    position: relative;
+    z-index: 1;
+    top: -2px;
+}
+
+.testIconSUCCESS::after {
+    content: '⬤';
+    font-size: 12px;
+    color: #B5DBB6;
+    margin: 0 4.2px;
+    position: relative;
+    z-index: 1;
+    top: -2px;
+}
+
+.testIconFAILURE::after {
+    content: '⬤';
+    font-size: 12px;
+    color: #F0C0B3;
+    margin: 0 4.2px;
+    position: relative;
+    z-index: 1;
+    top: -2px;
+}
+
+.testIconrunning::after {
+    content: '⬤';
+    font-size: 12px;
+    color: white;
+    margin: 0 4.2px;
+    position: relative;
+    z-index: 1;
+    top: -2px;
+}
+
+.testIconqueued::after {
+    content: '⬤';
+    font-size: 12px;
+    color: white;
+    margin: 0 4.2px;
+    position: relative;
+    z-index: 1;
+    top: -2px;
+}
+
+.testIconUNKNOWN::after {
+    content: '⬤';
+    font-size: 12px;
+    color: #666;
+    margin: 0 4.2px;
+    position: relative;
+    z-index: 1;
+    top: -2px;
+}
+
+.testBorderSUCCESS{
+    position: absolute;
+}
+
+.testBorderSUCCESS::after {
+    content: '⬤';
+    color: #B5DBB6;
+    font-size: 22px;
+}
+
+.testBorderFAILURE {
+    position: absolute;
+}
+
+.testBorderFAILURE::after {
+    content: '⬤';
+    color: #F0C0B3;
+    font-size: 22px;
+}
+
+.testBorderqueued {
+    position: absolute;
+}
+
+
+.testBorderqueued::after {
+    content: '⬤';
+    color: #666;
+    font-size: 22px;
+}
+
+.testBorderrunning {
+    position: absolute;
+}
+
+
+.testBorderrunning::after {
+    content: '⬤';
+    color: #666;
+    font-size: 22px;
+}
+
+.testBorderUNKNOWN {
+    position: absolute;
+}
+
+.testBorderUNKNOWN::after {
+    content: '⬤';
+    color: #666;
+    font-size: 22px;
+}
+
+.build:first-child > .testIconchanged::after,
+.buildLegend > .testIconchanged::after {
+    color: gold;
+}
+
+.build:first-child  > .testBorderqueued::after,
+.build:first-child  > .testBorderrunning::after,
+.buildLegend > .testBorderqueued::after {
+    color: black;
+}
+
+.build:first-child > .testBorderSUCCESS::after,
+.build:first-child > .testIconSUCCESS::after,
+.buildLegend > .testBorderSUCCESS::after,
+.buildLegend > .testIconSUCCESS::after {
+    color: green;
+}
+
+.build:first-child > .testBorderFAILURE::after,
+.build:first-child > .testIconFAILURE:after,
+.buildLegend > .testBorderFAILURE::after,
+.buildLegend > .testIconFAILURE:after {
+    color: red;
+}
+
+.build:first-child > .testBorderUNKNOWN::after,
+.build:first-child > .testIconUNKNOWN::after,
+.buildLegend > .testBorderUNKNOWN::after,
+.buildLegend > .testIconUNKNOWN::after {
+    color: black;
+}
+
+.build:hover > div:nth-child(2)::after {
+    color: black !important;
+}

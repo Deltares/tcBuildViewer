@@ -1,0 +1,269 @@
+
+/* Setup Project wrapper styles */
+.projectTitleWrapper {
+    display: grid;
+    margin: 0 0.4em 5px 0;
+    grid-template-columns: auto auto 1fr;
+}
+
+.projectTitle {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+    margin: 0;
+}
+
+a.projectTitle:hover {
+    text-decoration: underline;
+}
+
+a.projectTitle:hover > .linkIcon {
+    color: black;
+}
+
+.projectStats {
+    text-align: right;
+    color: black;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.linkIcon {
+    font-weight: normal;
+    color: #ddd;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.collapseButton {
+    display: inline-block;
+    margin: 0 0.2em;
+    width: 1em;
+    background: none;
+    transition: transform 0.4s;
+}
+
+.collapseButton.collapsed {
+    transform: rotate(-90deg);
+    background: none;
+}
+
+#_projects > .projectWrapper > .project > .projectTitleWrapper, 
+#_important > .importantWrapper > .project > .projectTitleWrapper {
+    font-size: 150%;
+    border: none;
+}
+
+.project {
+    border-left: 2px dashed lightgray;
+    border-top: 2px dashed lightgray;
+    display: grid;
+}
+
+.project > .project {
+    margin-left: 20px;
+}
+
+.project:not(:has(.build)) {
+    display: none !important;
+}
+
+.project:not(:has(.buildTypeTitle:not(.hideGreen,.hideNotChanged))) {
+    display:none !important;
+}
+
+.hideGreen {
+    display: none !important;
+}
+
+.hideNotChanged {
+    display: none !important;
+}
+
+.projectWrapper, .importantWrapper {
+    margin-bottom: 2em;
+    border-bottom: 2px dashed lightgray;
+}
+
+/* Handle collapsed elements */
+.collapsed {
+    background: #eee;
+}
+
+.collapsed > .project,
+.collapsed > .buildTypesContainer {
+    display: none !important;
+}
+
+/* Setup BuildType wrapper styles */
+.buildTypesContainer {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    row-gap: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: initial;
+    margin-left: 20px;
+}
+
+.buildTypeTitle {
+    text-decoration: none;
+    color: black;
+    grid-column: 1;
+}
+
+.buildTypeTitle:hover {
+    text-decoration: underline;
+}
+
+.buildTypeTitle:hover > .linkIcon {
+    color: black;
+}
+
+.testStatisticsText {
+    grid-column: 2;
+    text-align: right;
+}
+
+.miscellaneous {
+    grid-column: 3;
+}
+
+.buildList {
+    grid-column: 4;
+    text-align: end;
+}
+
+.buildTypePart {
+    background-color: #eee;
+    padding: 5px;
+    margin-bottom: 8px;
+}
+
+.buildTypePart.SUCCESS {
+    background-color: #efe !important;
+}
+
+.buildTypePart.FAILURE {
+    background-color: #fee !important;
+}
+
+.buildTypePart.statusChanged {
+    border-top: 3px solid gold;
+    border-bottom: 3px solid gold;
+}
+
+.buildTypePart.buildTypeTitle.statusChanged {
+    border-left: 3px solid gold;
+    padding-left: 2px;
+}
+
+.buildTypePart.buildList.statusChanged {
+    border-right: 3px solid gold;
+    padding-right: 2px;
+}
+
+.buildSteps {
+    grid-column: 1 / -1;
+    background-color: #eee;
+    border: black solid 1px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.buildButtonBar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 1em;
+}
+
+.tests, .messages, .changes {
+    background-color: white;
+    padding: 0.5em;
+    line-break: anywhere;
+}
+
+a.message:hover {
+    text-decoration: underline;
+}
+
+.messageSub {
+    border-left: 2px solid black;
+    padding-left: 0.4em;
+    margin-left: 0.4em;
+}
+
+.message {
+    padding: 0.2em 0;
+    text-decoration: none;
+}
+
+.message.error {
+    font-weight: bold;
+    color: rgb(207, 69, 69);
+}
+
+.message:nth-child(odd) {
+    background-color: #eee;
+}
+
+.message:nth-child(even) {
+    background-color: #fff;
+}
+
+.message .collapseButton {
+    width: auto;
+}
+
+.tests {
+    display: grid;
+}
+
+.tests .testInvestigated {
+    color: var(--deltares-blue);
+}
+
+.testsText {
+    display: inline;
+}
+
+.changes {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 0.5em;
+}
+
+.emptyChanges {
+    grid-column: 1 / -1;
+}
+
+.changes .changeVersion {
+    grid-column: 1;
+    padding: 0.5em;
+    background: #eee;
+    border-radius: 10px;
+}
+
+.changes .changeLink {
+    grid-column: 2;
+    padding: 0.5em;
+    background: #eee;
+    border-radius: 10px;
+}
+
+.changes .changeUser {
+    grid-column: 3;
+    padding: 0.5em;
+    background: #eee;
+    border-radius: 10px;
+    font-weight: bolder;
+}
+
+.changes .changeTime {
+    grid-column: 4;
+    padding: 0.5em;
+    background: #eee;
+    border-radius: 10px;
+    font-size: 0.8em;
+}

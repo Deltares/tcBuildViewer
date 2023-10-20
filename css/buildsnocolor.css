@@ -1,0 +1,177 @@
+/* 
+SUCCESS 🗸
+FAILURE X
+PENDING -
+changed ⬤ (bg)
+PENDING ▋ (bg)
+*/
+
+.nocolor .build {
+    line-height: 1.5em;
+    width: 18px;
+    overflow: hidden;
+    float: right;
+}
+
+.nocolor .build:first-child {
+    transform: scale(1.2);
+    margin-left: 10px;
+    margin-right: 2px;
+}
+
+/* Define all possible test visible */
+.nocolor .testIconchanged::after {
+    content: '⬤';
+    font-size: 22px;
+    color: black;
+    position: relative;
+    z-index: 0;
+    margin: 0;
+    top: 0;
+}
+
+.nocolor .testIconSUCCESS::after {
+    content: '✓';
+    font-weight: bold;
+    font-size: 22px;
+    color: black;
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    top: 0;
+}
+
+.nocolor .testIconFAILURE::after {
+    content: '✗';
+    font-weight: bold;
+    font-size: 22px;
+    color: black;
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    top: 0;
+}
+
+.nocolor .testIconrunning::after {
+    content: '▋';
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    position: relative;
+    z-index: 1;
+    margin: 0 0 0 3px;
+    top: 0;
+}
+
+.nocolor .testIconqueued::after {
+    content: '▋';
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    position: relative;
+    z-index: 1;
+    margin: 0 0 0 3px;
+    top: 0;
+}
+
+.nocolor .testIconUNKNOWN::after {
+    content: '-';
+    font-weight: bold;
+    font-size: 30px;
+    color: black;
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    top: 0;
+}
+
+.nocolor .testBorderSUCCESS{
+    position: absolute;
+}
+
+.nocolor .testBorderSUCCESS::after {
+    content: '✓';
+    font-weight: bold;
+    color: white;
+    font-size: 22px;
+    position:relative;
+    z-index: 2;
+}
+
+.nocolor .testBorderFAILURE {
+    position: absolute;
+}
+
+.nocolor .testBorderFAILURE::after {
+    content: '✗';
+    font-weight: bold;
+    color: white;
+    font-size: 22px;
+    position:relative;
+    z-index: 2;
+}
+
+.nocolor .testBorderqueued {
+    position: absolute;
+}
+
+
+.nocolor .testBorderqueued::after {
+    content: '-';
+    font-weight: bold;
+    color: white;
+    font-size: 30px;
+    position:relative;
+    z-index: 2;
+}
+
+.nocolor .testBorderrunning {
+    position: absolute;
+}
+
+
+.nocolor .testBorderrunning::after {
+    content: '-';
+    font-weight: bold;
+    color: white;
+    font-size: 30px;
+    position:relative;
+    z-index: 2;
+}
+
+.nocolor .testBorderUNKNOWN {
+    position: absolute;
+}
+
+.nocolor .testBorderUNKNOWN::after {
+    content: '-';
+    font-weight: bold;
+    color: white;
+    font-size: 30px;
+    position:relative;
+    z-index: 2;
+}
+
+/* override first child color */
+.nocolor .build:first-child > .testIconchanged::after,
+.nocolor .build:first-child > .testIconSUCCESS::after,
+.nocolor .build:first-child > .testIconFAILURE:after,
+.nocolor .build:first-child > .testIconUNKNOWN::after {
+    color: black;
+}
+
+.nocolor .build:first-child  > .testBorderqueued::after,
+.nocolor .build:first-child  > .testBorderrunning::after,
+.nocolor .build:first-child > .testBorderSUCCESS::after,
+.nocolor .build:first-child > .testBorderFAILURE::after,
+.nocolor .build:first-child > .testBorderUNKNOWN::after {
+    color: white;
+}
+
+.nocolor .build:hover > div:nth-child(2)::after {
+    content: '✪';
+    font-size: 22px;
+    color: black !important;
+    z-index: 4;
+    margin: 0;
+}
