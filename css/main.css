@@ -176,5 +176,9 @@ form {
 }
 
 .loading {
-    cursor: wait;
+    cursor: wait !important;
+}
+
+.loading a {
+    cursor: wait !important;
 }
