@@ -6,22 +6,22 @@
 /  Handle cookies and favorite projects
 */
 
-class user {
+class UserHandler {
 
     async getCurrentUser() {
 
-        if (!await Query.userLoggedIn()) {
+        if (!await query.userLoggedIn()) {
 
             // Show login button if the user is not logged in.
-            Render.loginElement('waiting for login.', false)
+            render.loginElement('waiting for login.', false)
 
             do {
                 debug("waiting for TeamCity login ...", false)
                 await new Promise(resolve => setTimeout(resolve, 1000))
-            } while (! await Query.userLoggedIn())
+            } while (! await query.userLoggedIn())
 
         }
-        Render.loginElement(Query.tcUser.username, true)
+        render.loginElement(query.tcUser.username, true)
         
     }
 
@@ -29,7 +29,7 @@ class user {
     async getFavoriteProjects() {
 
         // Assume that things work, now that the user is logged in.
-        const projects = await Query.getFavoriteTcProjects()
+        const projects = await query.getFavoriteTcProjects()
 
         const all_project_ids = projects.project.map(x => x.id) // Only need IDs to (array-)filter on.
 
@@ -52,7 +52,7 @@ class user {
     storeNamedSelection(name) {
 
         if (!named_selection[name]) {
-            Render.addNameDropdown(name)
+            render.addNameDropdown(name)
         }
 
         named_selection[name] = selection
@@ -68,7 +68,7 @@ class user {
             return
         }
 
-        Render.removeNameDropdown(name)
+        render.removeNameDropdown(name)
 
         delete named_selection[`${name}`]
 
@@ -85,18 +85,17 @@ class user {
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;SameSite=None;Secure"
     }
     
-    getCookie(cname) {
-        const name = cname + '='
-        const ca = document.cookie.split(';')
-        for(let i = 0; i < ca.length; i++) {
-            let c = ca[i]
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1)
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length)
-            }
-        }
-        return ''
-    }
+    getCookie(cname) { 
+        const name = cname + '=' 
+        const ca = document.cookie.split(';') 
+        for(let element of ca) { 
+          while (element.startsWith(' ')) { 
+            element = element.substring(1) 
+          } 
+          if (element.startsWith(name)) { 
+            return element.substring(name.length, element.length) 
+          } 
+        } 
+        return '' 
+      }
 }

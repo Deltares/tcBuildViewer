@@ -5,7 +5,7 @@
 /  Send api requests and pass data to function in main to data.js
 */
 
-class query {
+class QueryHelper {
 
     //Fetch data from teamcity rest api with specified locater_url
     apiQuery(locaterUrl)
@@ -30,7 +30,7 @@ class query {
         .then((output) => {
             return output
         })
-        .catch(error => debug(error, true))
+        .catch(error => main.debug(error, true))
 
         return result
 
@@ -56,14 +56,14 @@ class query {
             }
             
         } catch (err) {
-            debug(err, true)
+            main.debug(err, true)
             return false
         }
 
     }
 
     async getImportantBuildType(buildTypeId) {
-        let locatorUrl = `rest/buildTypes/id:${buildTypeId}?${importantFields}`
+        let locatorUrl = `rest/buildTypes/id:${buildTypeId}?${main.importantFields}`
         let output     = await this.apiQuery(locatorUrl)
         return output
     }
@@ -71,7 +71,7 @@ class query {
     //Setup url to get projects with specified fields and return fetched data
     async getProject(projectId)
     {
-        let locatorUrl = `rest/projects/id:${projectId}?${projectFields}`
+        let locatorUrl = `rest/projects/id:${projectId}?${main.projectFields}`
         let output     = await this.apiQuery(locatorUrl)
         return output
     }
@@ -79,14 +79,14 @@ class query {
     //Setup url to get builds with specified fields and return fetched data
     async getBuilds(buildTypeId) {
         let queuedBoundries  = ''
-        if (end_time){
-            queuedBoundries += `queuedDate:(date:${Time.cutoffTcString(Time.htmlDateTimeToDate(end_time))},condition:after),`
-            queuedBoundries += `queuedDate:(date:${Time.htmlDateTimeToTcTime(end_time)},condition:before)`
+        if (main.end_time){
+            queuedBoundries += `queuedDate:(date:${TimeUtilities.cutoffTcString(TimeUtilities.htmlDateTimeToDate(main.end_time))},condition:after),`
+            queuedBoundries += `queuedDate:(date:${TimeUtilities.htmlDateTimeToTcTime(main.end_time)},condition:before)`
         } else {
-            queuedBoundries += `queuedDate:(date:${Time.cutoffTcString()},condition:after)`
+            queuedBoundries += `queuedDate:(date:${TimeUtilities.cutoffTcString()},condition:after)`
         }
         let constantvars     = 'locator=defaultFilter:false,branch:default:true,state:any,'
-        let flexiblevars     = `buildType:(id:${buildTypeId}),${queuedBoundries},count:${build_count}&${buildTypeFields}`
+        let flexiblevars     = `buildType:(id:${buildTypeId}),${queuedBoundries},count:${main.build_count}&${main.buildTypeFields}`
         let locatorUrl       = `rest/builds?${constantvars}${flexiblevars}`
         let output           = await this.apiQuery(locatorUrl)
         return output
@@ -95,7 +95,7 @@ class query {
     //Get all test results with only result.
     async getTestOccurrences(buildId) {
         
-        let locatorUrl = `rest/testOccurrences?locator=build:(id:${buildId}),count:-1&${testOccurrencesFields}`
+        let locatorUrl = `rest/testOccurrences?locator=build:(id:${buildId}),count:-1&${main.testOccurrencesFields}`
         let output     = await this.apiQuery(locatorUrl)
         return output
     }
@@ -103,7 +103,7 @@ class query {
     //Get test results with specified status in more detail.
     async getTestOccurrencesDetailed(buildId, testStatus) {
 
-        let locatorUrl = `rest/testOccurrences?locator=build:(id:${buildId}),count:-1,status:(${testStatus})&${buildDetailsFields}`
+        let locatorUrl = `rest/testOccurrences?locator=build:(id:${buildId}),count:-1,status:(${testStatus})&${main.buildDetailsFields}`
         let output     = await this.apiQuery(locatorUrl)
         return output
     }
@@ -111,7 +111,7 @@ class query {
     //Get messages of a build by the build id
     async getMessages(buildId) {
 
-        let locatorUrl = `messages?buildId=${buildId}&filter=important&${messageFields}`
+        let locatorUrl = `messages?buildId=${buildId}&filter=important&${main.messageFields}`
         let output     = await this.apiQuery(locatorUrl)
         return output
     }
@@ -127,7 +127,7 @@ class query {
     //Get changes made if newfailed is true
     async getChanges(buildId) {
 
-        let locatorUrl = `rest/changes?locator=build:(id:${buildId})&${changeFields}`
+        let locatorUrl = `rest/changes?locator=build:(id:${buildId})&${main.changeFields}`
         let output     = await this.apiQuery(locatorUrl)
         return output
     }

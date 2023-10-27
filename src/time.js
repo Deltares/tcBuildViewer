@@ -1,7 +1,7 @@
-class time {
+class TimeUtilities {
 
     // Convert TeamCity's weird time notation to Unix timestamp.
-    tcTimeToUnix(tcTime) {
+    static tcTimeToUnix(tcTime) {
         let split    = tcTime.split('')
         let year     = split.slice(0, 4).join('')
         let month    = split.slice(4, 6).join('')
@@ -16,7 +16,7 @@ class time {
     }
 
     // Convert Date to TeamCity's weird time notation.
-    DateToTcTime(date) {
+    static DateToTcTime(date) {
         let year     = date.toISOString().substr(0, 4)
         let month    = date.toISOString().substr(5, 2)
         let day      = date.toISOString().substr(8, 2)
@@ -29,7 +29,7 @@ class time {
     }
 
     // Convert HTML input datetime-local to TeamCity's weird time notation.
-    htmlDateTimeToTcTime(htmlDateTime) {
+    static htmlDateTimeToTcTime(htmlDateTime) {
         let split    = htmlDateTime.split('') // 2022-12-22T23:15
         let year     = split.slice(0, 4).join('')
         let month    = split.slice(5, 7).join('')
@@ -44,7 +44,7 @@ class time {
     }
 
     // Convert TeamCity's weird time notation to Unix timestamp.
-    htmlDateTimeToUnix(htmlDateTime) {
+    static htmlDateTimeToUnix(htmlDateTime) {
         let split    = htmlDateTime.split('') // 2022-12-22T23:15
         let year     = split.slice(0, 4).join('')
         let month    = split.slice(5, 7).join('')
@@ -57,7 +57,7 @@ class time {
     }
 
     // Convert TeamCity's weird time notation to Unix timestamp.
-    htmlDateTimeToDate(htmlDateTime) {
+    static htmlDateTimeToDate(htmlDateTime) {
         let split    = htmlDateTime.split('') // 2022-12-22T23:15
         let year     = split.slice(0, 4).join('')
         let month    = split.slice(5, 7).join('')
@@ -68,18 +68,18 @@ class time {
         return date = new Date(`${year}-${month}-${day}T${hour}:${minute}`)
     }
 
-    // Cut-off date in TeamCity's weird time notation, used for API calls.
-    cutoffTcString = function (d) {
-        if (!d)
-            d = new Date()
-        d.setDate(d.getDate()-build_cutoff_days)
-        return this.DateToTcTime(d)
+    // subtract build cutoff days from teamcity for api requests.
+    static cutoffTcString(date) {
+        if (!date)
+            date = new Date()
+        date.setDate(date.getDate()-build_cutoff_days)
+        return this.DateToTcTime(date)
     }
 
-    // Ol' reliable Unix-time.
-    cutoffUnixTime = function () {
-        let d = new Date()
-        d.setDate(d.getDate()-build_cutoff_days)
-        return d.getTime()
+    // subtract build cutoff days from unix time for rendering as display html.
+    static cutoffUnixTime() {
+        let date = new Date()
+        date.setDate(date.getDate()-build_cutoff_days)
+        return date.getTime()
     };
 }

@@ -7,7 +7,7 @@
 */
 
 //Create a new element with given vars and return the created element
-class render {
+class HtmlRender {
 
     createElement(ElementType, ElementClasses, ElementAttributes, textNode, parentElement, order){
         
@@ -124,7 +124,7 @@ class render {
             let elementClass = ['projectWrapper']
             let attributes   = {'id':`${project}_wrapper`}
             let element      = document.getElementById('_projects')
-            Render.createElement('div', elementClass, attributes, null, element, null)
+            this.createElement('div', elementClass, attributes, null, element, null)
         }
     }
 
@@ -208,15 +208,15 @@ class render {
 
         // Add or remove the specified number to queuecount
         if (addition) {
-            queueCount += number
+            main.queueCount += number
         } else {
-            queueCount -= number
+            main.queueCount -= number
         }
 
-        queueContainer.innerHTML = queueCount
+        queueContainer.innerHTML = main.queueCount
 
         // Add a load icon as cursor when data is still loading
-        if (queueCount < 1) {
+        if (main.queueCount < 1) {
             document.body.classList.remove('loading')
         } else {
             document.body.classList.add('loading')

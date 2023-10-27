@@ -6,7 +6,8 @@
 */
 
 // Interprete and render project using parentProjectId, id and name
-class data {
+class ApiDataInterpreter {
+
     async interpretProject(project) {
 
         // Create main element
@@ -21,32 +22,32 @@ class data {
         } else {
             element = document.getElementById(`${project.id}_wrapper`)
         }
-        let parentElement = Render.createElement('div', elementClass, attributes, null, element, order)
+        let parentElement = render.createElement('div', elementClass, attributes, null, element, order)
 
         // Create BuildTypes container
-        Render.createElement('div',['buildTypesContainer'], null, null, parentElement, 2)
+        render.createElement('div',['buildTypesContainer'], null, null, parentElement, 2)
 
         // Create title Wrapper
-        let titleWrapper = Render.createElement('div', ['projectTitleWrapper'], null, null, parentElement, 1)
+        let titleWrapper = render.createElement('div', ['projectTitleWrapper'], null, null, parentElement, 1)
 
         // Create collapse option for project
         attributes = {'title':'collapse',
             'onclick':`this.parentElement.parentElement.classList.toggle('collapsed');this.classList.toggle('collapsed')`}
-        let collapseDiv = Render.createElement('div', ['collapseButton'], attributes, '▼', titleWrapper, null)
+        render.createElement('div', ['collapseButton'], attributes, '▼', titleWrapper, null)
 
         // Add the title and create a link except for important container don't add a link
         if (project.important) {
-            Render.createElement('p', ['projectTitle'], null, project.name, titleWrapper, null)
+            render.createElement('p', ['projectTitle'], null, project.name, titleWrapper, null)
         } else {
             attributes = {'href':`${teamcity_base_url}/project.html?projectId=${project.id}`,'target':'_blank'}
-            let projectLink = Render.createElement('a', ['projectTitle'], attributes, project.name, titleWrapper, null)
-            Render.createElement('div', ['linkIcon'], null, '⧉', projectLink, null)
+            let projectLink = render.createElement('a', ['projectTitle'], attributes, project.name, titleWrapper, null)
+            render.createElement('div', ['linkIcon'], null, '⧉', projectLink, null)
         }
 
-        Render.createElement('div', ['projectStats'], {'id':`${project.id}_stats`}, null, titleWrapper, null)
+        render.createElement('div', ['projectStats'], {'id':`${project.id}_stats`}, null, titleWrapper, null)
 
         // Remove finished project interpretation from queue
-        Render.updateQueue(false, 1)
+        render.updateQueue(false, 1)
     }
 
     async interpretBuildType(buildType) {
@@ -67,34 +68,34 @@ class data {
                                 'href':`${teamcity_base_url}/viewType.html?buildTypeId=${buildType.id}`,
                                 'target':'_blank'
                             }
-        let buildTypeLink = Render.createElement('a', elementClass, attributes, buildType.name, parentElement, (buildType.order * 2 + 1))
-        Render.createElement('div', ['linkIcon'], null, '⧉', buildTypeLink, null)
+        let buildTypeLink = render.createElement('a', elementClass, attributes, buildType.name, parentElement, (buildType.order * 2 + 1))
+        render.createElement('div', ['linkIcon'], null, '⧉', buildTypeLink, null)
 
         // Create test statistics box for buildType
         attributes   = {'id': `${buildType.id}_test_statistics${buildType.suffix}`}
         elementClass = ['testStatisticsText', 'buildTypePart', buildType.status]
         if (buildType.statusChanged)
             elementClass.push('statusChanged')
-        Render.createElement('div', elementClass, attributes, null, parentElement, (buildType.order * 2 + 1))
+        render.createElement('div', elementClass, attributes, null, parentElement, (buildType.order * 2 + 1))
 
         // Create Miscellaneous box for tags, time for the buildType
         attributes      = {'id': `${buildType.id}_misc${buildType.suffix}`}
         elementClass[0] = 'miscellaneous'
-        Render.createElement('div', elementClass, attributes, null, parentElement, (buildType.order * 2 + 1))
+        render.createElement('div', elementClass, attributes, null, parentElement, (buildType.order * 2 + 1))
 
         // Create builds container for buildType
         attributes   = {'id': `${buildType.id}_buildList${buildType.suffix}`}
         elementClass[0] = 'buildList'
-        Render.createElement('div', elementClass, attributes, null, parentElement, (buildType.order * 2 + 1))
+        render.createElement('div', elementClass, attributes, null, parentElement, (buildType.order * 2 + 1))
 
         // Create buildSteps container for buildType
         attributes   = {'id': `${buildType.id}_buildSteps${buildType.suffix}`}
         elementClass = ['buildSteps','hidden']
         let text = '🚧 Will display build details like important logs, blame and test!'
-        Render.createElement('div', elementClass, attributes, text, parentElement, (buildType.order * 2 + 2))
+        render.createElement('div', elementClass, attributes, text, parentElement, (buildType.order * 2 + 2))
 
         // Remove finished buildType interpretation from queue
-        Render.updateQueue(false, 1)
+        render.updateQueue(false, 1)
     }
 
     prepBuildType(buildType) {
@@ -135,42 +136,42 @@ class data {
             for (let element of build.tags.tag) {
                 tags += element.name + ' | '
             }
-            tags.substring(0, tags.length - 3)
+            tags = tags.substring(0, tags.length - 3)
         }
         let agent = build.agent ? build.agent?.name : `${build.plannedAgent?.name} (planned)`;
         let buildTitle = `${tags}\nBranch: ${branch}\nID: ${build.id}\nBuild Number: ${build.number}\nState: ${build.state}\nStatus: ${build.status}\nAgent: ${agent}\n${buildFinishTime}\nStatus Message: ${build.statusText}`
         let attributes = {  
                         'id': build.id,
-                        'onclick': `getBuildDetails('${build.id}','${build.buildTypeId}','${build.suffix}')`,
+                        'onclick': `main.getBuildDetails('${build.id}','${build.buildTypeId}','${build.suffix}')`,
                         'target': '_blank',
                         'title': `${buildTitle}`
                     }
-        let buildDiv = Render.createElement('div', elementClass, attributes, null, parentElement, null)
+        let buildDiv = render.createElement('div', elementClass, attributes, null, parentElement, null)
 
         // add icon border
         let buildClass = [`testBorder${build.state!='queued' ? build.status : build.state}`]
-        Render.createElement('div', buildClass, null, null, buildDiv, null)
+        render.createElement('div', buildClass, null, null, buildDiv, null)
 
         // add test icon
         buildClass = [`testIcon${build.state=='finished' ? build.status : build.state}`]
         if (build.state=='finished' && (build.statusChanged || (build.problemOccurrences && build.problemOccurrences.newFailed > 0))) {
             buildClass = ['testIconchanged']
         }
-        Render.createElement('div', buildClass, null, null, buildDiv, null)
+        render.createElement('div', buildClass, null, null, buildDiv, null)
 
-        Render.addClearElement(buildDiv)
+        render.addClearElement(buildDiv)
 
         // Remove finished build interpretation from queue
-        Render.updateQueue(false, 1)
+        render.updateQueue(false, 1)
     }
 
     getBuildDate(build){
 
         // Get time to display for build and add it to the object.
         if (build.finishOnAgentDate) {
-            build.unixTime = Time.tcTimeToUnix(build.finishOnAgentDate)
+            build.unixTime = TimeUtilities.tcTimeToUnix(build.finishOnAgentDate)
         } else if (build.finishEstimate) {
-            build.unixTime = Time.tcTimeToUnix(build.finishEstimate)
+            build.unixTime = TimeUtilities.tcTimeToUnix(build.finishEstimate)
         } else if (build.runningInfo) {
             build.unixTime = (Date.now() + build.runningInfo.leftSeconds * 1000)
         }
@@ -188,7 +189,7 @@ class data {
 
             let buildDate    = build.unixTime ? new Date(build.unixTime).toLocaleString() : 'calculating'
             let finishOnText = `⏰ ${buildDate}`
-            Render.createElement('div', null, null, finishOnText, parentElement, null)
+            render.createElement('div', null, null, finishOnText, parentElement, null)
 
         }
 
@@ -199,7 +200,7 @@ class data {
             for (let tag of build.tags.tag) {
                 tagsTitle += tag.name + '\n'
             }
-            Render.createElement('div', null, {'title': tagsTitle}, '📌', parentElement, null)
+            render.createElement('div', null, {'title': tagsTitle}, '📌', parentElement, null)
         }
     }
 
@@ -209,7 +210,7 @@ class data {
 
         // Loop through testcases to find investigated failed tests
         let investigation = 0
-        for (i = 0; i < testOccurrences.testOccurrence.length; i++) {
+        for (let i = 0; i < testOccurrences.testOccurrence.length; i++) {
             if (testOccurrences.testOccurrence[i].currentlyInvestigated){
                 investigation++
             }
@@ -227,23 +228,23 @@ class data {
         let text           = `${newFailed} ${investigated} ${unInvestigated} ${ignored} ${muted} ${percentData}`
 
         // Add test text to element
-        Render.createElement('div', null, null, text, parentElement, null)
+        render.createElement('div', null, null, text, parentElement, null)
 
         // If testOccurrences changed update all parentProjects with the new statistics totals
         if (testOccurrences.count > 0 ) {
-            for (i = 0; i < parentProjectData.length; i++) {
+            for (let i = 0; i < parentProjectData.length; i++) {
 
                 parentProjectData[i].testSuccess += testOccurrences.passed
                 parentProjectData[i].testTotal   += testOccurrences.count
                 let percentage  = Number((parentProjectData[i].testSuccess/parentProjectData[i].testTotal)*100).toFixed(2)
                 let text        = `[${parentProjectData[i].testSuccess}/${parentProjectData[i].testTotal}] = ${percentage}%`
 
-                Render.updateProjectStats(parentProjectData[i].id, suffix, text)
+                render.updateProjectStats(parentProjectData[i].id, suffix, text)
             }
         }
 
         // Remove finished build statistics interpretation from queue
-        Render.updateQueue(false, 1)
+        render.updateQueue(false, 1)
     }
 
     async interpretChanges(changes, changesDiv) {
@@ -251,30 +252,30 @@ class data {
         // Iterate over all changes and add data to the element from changes: Version, Link, User, Time
         Object.entries(changes.change).forEach(([key, change]) => {
 
-            Render.createElement('div', ['changeVersion'], null, `#${change.version}`, changesDiv, null)
+            render.createElement('div', ['changeVersion'], null, `#${change.version}`, changesDiv, null)
 
             // Create a link to view the change made and build the url for it
             let fileList = change.files.file.map(file => file['relative-file']).join('\n')
             let linkText = `#${change.comment}`
             let attributes = {'href': `'${teamcity_base_url}/viewModification.html?modId=${change.id}&personal=false' title='${fileList}'`,
                         'target': '_blank'}
-            Render.createElement('div', ['changeLink'], attributes, linkText, changesDiv, null)
+            render.createElement('div', ['changeLink'], attributes, linkText, changesDiv, null)
 
             // Add a username to the change use the email if this is a svn repo
             let userText = `${change.user?change.user.name:change.username}`
-            Render.createElement('div', ['changeUser'], null, userText, changesDiv, null)
+            render.createElement('div', ['changeUser'], null, userText, changesDiv, null)
 
             // Get the date this change was made and add it to the fields with a locale time
-            let timeText = `${new Date(Time.tcTimeToUnix(change.date)).toLocaleString()}`
-            Render.createElement('div', ['changeTime'], null, timeText, changesDiv, null)
+            let timeText = `${new Date(TimeUtilities.tcTimeToUnix(change.date)).toLocaleString()}`
+            render.createElement('div', ['changeTime'], null, timeText, changesDiv, null)
         })
 
         if (!changes.change || changes.change.length == 0) {
-            Render.createElement('p', ['emptyChanges'], null, 'Nobody to blame... 😭', changesDiv, null)
+            render.createElement('p', ['emptyChanges'], null, 'Nobody to blame... 😭', changesDiv, null)
         }
 
         // Remove finished changes interpretation from queue
-        Render.updateQueue(false, 1)
+        render.updateQueue(false, 1)
     }
 
     async interpretTests(testOccurrences, buildTypeId, buildId, testsDiv) {
@@ -323,21 +324,21 @@ class data {
 
             // Create text for tests to display and add a hyperlink to the teamcity tests page
             let text = `${tags} ${investigationNames?'('+investigationNames+')': ''} ${test.test.parsedTestName.testShortName}\n → ${test.details}`
-            let testsLink = Render.createElement('a', elementClass, attributes, null, testsDiv, null)
-            Render.createElement('p', ['testsText'], null, text, testsLink, null)
+            let testsLink = render.createElement('a', elementClass, attributes, null, testsDiv, null)
+            render.createElement('p', ['testsText'], null, text, testsLink, null)
 
             // If a failed test is investigated move it to the top of the container
             if (investigationNames) {
-                Render.moveElementToTop(testsLink, testsDiv)
+                render.moveElementToTop(testsLink, testsDiv)
             }
         })
 
         if (testsData.length == 0) (
-            Render.createElement('p', ['testsText'], null, 'No failed tests!', testsDiv, null)
+            render.createElement('p', ['testsText'], null, 'No failed tests!', testsDiv, null)
         )
 
         // Remove finished tests interpretation from queue
-        Render.updateQueue(false, 4)
+        render.updateQueue(false, 4)
     }
 
     interpretMessage(message, messageDiv) {
@@ -353,7 +354,7 @@ class data {
         }
 
         // Create a container for the message
-        let messageParent = Render.createElement('div', elementClasses, null, null, messageDiv, null)
+        let messageParent = render.createElement('div', elementClasses, null, null, messageDiv, null)
         let subMessageDiv
 
         if (message.containsMessages && message.id != 0) {
@@ -361,21 +362,21 @@ class data {
             // Create a collapse button for submessages of message.
             let attributes  = {'onclick':`this.parentElement.getElementsByTagName('div')[0].classList.toggle('hidden');
             this.parentElement.getElementsByTagName('span')[0].classList.toggle('collapsed')`}
-            let collapseDiv = Render.createElement('span', ['collapseButton', 'collapsed'], attributes, '▼', messageParent, null)
+            render.createElement('span', ['collapseButton', 'collapsed'], attributes, '▼', messageParent, null)
 
             // Create a span to show the text of the message
-            Render.createElement('span', ['messageText'], attributes, message.text, messageParent, null)
+            render.createElement('span', ['messageText'], attributes, message.text, messageParent, null)
 
             // Create a container for submessages to be placed under
-            subMessageDiv   = Render.createElement('div', ['messageSub', 'hidden'], null, null, messageParent, null)
+            subMessageDiv   = render.createElement('div', ['messageSub', 'hidden'], null, null, messageParent, null)
         } else {
 
             // Create a span to show the text of the message if it doesn't have submessages.
-            Render.createElement('span', ['messageText'], null, message.text, messageParent, null)
+            render.createElement('span', ['messageText'], null, message.text, messageParent, null)
         }
 
         // Remove finished message interpretation from queue
-        Render.updateQueue(false, 1)
+        render.updateQueue(false, 1)
         
         return subMessageDiv
     }
