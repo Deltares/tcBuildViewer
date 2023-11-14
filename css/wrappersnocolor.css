@@ -1,0 +1,33 @@
+.nocolor .buildTypePart {
+    background-color: #eee;
+    padding: 5px;
+    margin-bottom: 8px;
+}
+
+.nocolor .buildTypePart.SUCCESS {
+    background-color: #eee !important;
+}
+
+.nocolor .buildTypePart.FAILURE {
+    background-color: #eee;
+    opacity: 0.8;
+    background-image:  linear-gradient(135deg, #ccc 25%, transparent 25%), linear-gradient(225deg, #ccc 25%, transparent 25%), linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(315deg, #ccc 25%, #eee 25%);
+    background-position:  20px 0, 20px 0, 0 0, 0 0;
+    background-size: 20px 20px;
+    background-repeat: repeat;
+}
+
+.nocolor .buildTypePart.statusChanged {
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
+}
+
+.nocolor .buildTypePart.buildTypeTitle.statusChanged {
+    border-left: 3px solid black;
+    padding-left: 2px;
+}
+
+.nocolor .buildTypePart.buildList.statusChanged {
+    border-right: 3px solid black;
+    padding-right: 2px;
+}
