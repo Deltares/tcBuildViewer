@@ -16,7 +16,7 @@ class UserHandler {
             render.loginElement('waiting for login.', false)
 
             do {
-                debug("waiting for TeamCity login ...", false)
+                main.debug("waiting for TeamCity login ...", false)
                 await new Promise(resolve => setTimeout(resolve, 1000))
             } while (! await query.userLoggedIn())
 

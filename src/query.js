@@ -56,7 +56,7 @@ class QueryHelper {
             }
             
         } catch (err) {
-            main.debug(err, true)
+            main.debug(err, false)
             return false
         }
 
