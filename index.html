@@ -14,11 +14,11 @@
     <script src="config/config.js?v1.1.0.0"></script>
     <script src="config/fields.js?v1.1.0.0"></script>
     <script src="src/data.js?v1.1.0.0"></script>
-    <script src="src/main.js?v1.1.0.0"></script>
     <script src="src/query.js?v1.1.0.0"></script>
     <script src="src/render.js?v1.1.0.0"></script>
     <script src="src/time.js?v1.1.0.0"></script>
     <script src="src/user.js?v1.1.0.0"></script>
+    <script src="src/main.js?v1.1.0.0"></script>
 </head>
 
 <body>
@@ -97,10 +97,10 @@
         <div id="buttonList" class="buttonList">
 
             <button id="toggle_green" class="toggle green filter_button"
-                onclick="Render.toggleGreen();this.classList.toggle('active')">Hide green</button>
+                onclick="render.toggleGreen();this.classList.toggle('active')">Hide green</button>
 
             <button id="toggle_unchanged" class="toggle statusChanged filter_button"
-                onclick="Render.toggleUnchangedBuildTypes();this.classList.toggle('active')">Hide unchanged</button>
+                onclick="render.toggleUnchangedBuildTypes();this.classList.toggle('active')">Hide unchanged</button>
 
             <button id="toggle_selection" class="toggle"
                 onclick="document.getElementById('selection').classList.toggle('hidden');this.classList.toggle('active')">Project Selection</button>
@@ -154,8 +154,8 @@
             </div>
 
             <button class="filter_button"
-                onclick="edit_selection = JSON.parse(document.getElementById('selection_textarea').value)
-                run()" style="grid-column: 2">
+                onclick="main.edit_selection = JSON.parse(document.getElementById('selection_textarea').value)
+                main.run()" style="grid-column: 2">
                 Apply<br /><span style="font-size: 3em">⇒</span>
             </button>
 
@@ -167,13 +167,13 @@
             <div style="grid-column: 1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em">
 
                 <button
-                    onclick="selectFavorite()">
+                    onclick="main.selectFavorite()">
                     TeamCity API
                 </button>
 
 
                 <div style="display: grid; grid-template-columns: auto fit-content(25%);">
-                    <select style="height: 100%" name="named_selection" id="named_selection" onchange="if (this.value == 'none') {return} edit_selection = named_selection[this.value]; Render.updateSelectionForm(null, edit_selection)" disabled>
+                    <select style="height: 100%" name="named_selection" id="named_selection" onchange="if (this.value == 'none') {return} edit_selection = named_selection[this.value]; render.updateSelectionForm(null, edit_selection)" disabled>
                         <option value="none">Named selection:</option>
                     </select>
                     <button
@@ -183,7 +183,7 @@
                 </div>
 
                 <button
-                    onclick='selectRunFile()'>
+                    onclick='main.selectRunFile()'>
                     File
                 </button>
 
@@ -191,7 +191,7 @@
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em">
 
                 <button
-                    onclick="setCookie('tcSelection',JSON.stringify(selection),365)
+                    onclick="main.setCookie('tcSelection',JSON.stringify(selection),365)
                     alert('Selection saved to cookie!')">
                     Cookie
                 </button>
@@ -221,7 +221,7 @@
             <div class="wide" style="text-align: center; display: flex; flex-direction: column">
                 <div class="topBox" style="margin-bottom: 1em">
                     <button class="filter_button" style="margin-top:1em"
-                        onclick="timeSelectReset(true)">Reset to default
+                        onclick="main.timeSelectReset(true)">Reset to default
                     </button>
                     <div class="topBox">Number of days</div>
                     <input type="number" id="build_cutoff_days" value="14" min="0" max="60" style="width: 3em"/>
@@ -230,7 +230,7 @@
                     <div class="topBox">Before</div>
                     <input type="datetime-local" id="end_time" value=""/><br />
                     <button class="filter_button" style="margin-top:1em"
-                        onclick="applyTimeSelect()">Apply
+                        onclick="main.applyTimeSelect()">Apply
                     </button>
                     <button class="filter_button" style="margin-top:1em"
                         onclick="
@@ -272,6 +272,7 @@
 
 <script>
     // On page load initialize classes, and parameters
-    initialize()
-    run()
+    const main = new Main()
+    main.initialize()
+    main.run()
 </script>
