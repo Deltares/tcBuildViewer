@@ -51,13 +51,15 @@ class UserHandler {
     // Create 'named project selection' to switch between.
     storeNamedSelection(name) {
 
-        if (!named_selection[name]) {
+        if (!main.named_selection[name]) {
             render.addNameDropdown(name)
         }
 
-        named_selection[name] = selection
+        main.named_selection[name] = main.selection
+
+        main.debug(main.named_selection, false)
         
-        setCookie('tcNamedSelection',JSON.stringify(named_selection),365)
+        this.setCookie('tcNamedSelection',JSON.stringify(main.named_selection),365)
 
     }
 
@@ -70,11 +72,11 @@ class UserHandler {
 
         render.removeNameDropdown(name)
 
-        delete named_selection[`${name}`]
+        delete main.named_selection[`${name}`]
 
-        debug(JSON.stringify(named_selection, undefined, 2), false)
+        main.debug(JSON.stringify(main.named_selection, undefined, 2), false)
         
-        setCookie('tcNamedSelection',JSON.stringify(named_selection),365)
+        this.setCookie('tcNamedSelection',JSON.stringify(main.named_selection),365)
 
     }
 

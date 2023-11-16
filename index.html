@@ -149,7 +149,7 @@
 
             <div style="grid-column: 1;">
                 <form spellcheck="false">
-                    <textarea id="selection_textarea" class="code" oninput="document.getElementById('named_selection').selectedIndex = 0"></textarea>
+                    <textarea id="selection_textarea" class="code" oninput="document.getElementById('namedSelection').selectedIndex = 0"></textarea>
                 </form>
             </div>
 
@@ -173,11 +173,11 @@
 
 
                 <div style="display: grid; grid-template-columns: auto fit-content(25%);">
-                    <select style="height: 100%" name="named_selection" id="named_selection" onchange="if (this.value == 'none') {return} edit_selection = named_selection[this.value]; render.updateSelectionForm(null, edit_selection)" disabled>
+                    <select style="height: 100%" name="namedSelection" id="namedSelection" onchange="if (this.value == 'none') {return} main.edit_selection = main.named_selection[this.value]; render.updateSelectionForm(null, main.edit_selection)" disabled>
                         <option value="none">Named selection:</option>
                     </select>
                     <button
-                        onclick="User.removeNamedSelection(document.getElementById('named_selection').value)">
+                        onclick="user.removeNamedSelection(document.getElementById('namedSelection').value)">
                         ❌
                     </button>
                 </div>
@@ -191,13 +191,13 @@
             <div style="grid-column: 3; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1em">
 
                 <button
-                    onclick="main.setCookie('tcSelection',JSON.stringify(selection),365)
+                    onclick="user.setCookie('tcSelection',JSON.stringify(main.selection),365)
                     alert('Selection saved to cookie!')">
                     Cookie
                 </button>
 
                 <button
-                    onclick="let name = prompt('Name for this selection:',''); User.storeNamedSelection(name)">
+                    onclick="let name = prompt('Name for this selection:',''); user.storeNamedSelection(name)">
                     Named selection
                 </button>
 
@@ -272,6 +272,7 @@
 
 <script>
     // On page load initialize classes, and parameters
+    //const Main = 
     const main = new Main()
     main.initialize()
     main.run()
