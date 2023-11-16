@@ -66,6 +66,7 @@
 .code {
     padding: 1em;
     font-family: 'Courier New', Courier, monospace;
+    text-align: left;
     white-space: pre;
     background-color: #666;
     color: white;

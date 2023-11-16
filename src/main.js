@@ -19,11 +19,11 @@ class Main {
         this.build_count      
         this.build_cutoff_days
 
-        this.queueCount     = 0
-        this.edit_selection = null
-        this.api_selection  = null
+        this.queueCount      = 0
+        this.edit_selection  = null
+        this.api_selection   = null
         this.selection
-        this.named_selection
+        this.named_selection = []
 
         this.projectFields
         this.importantFields
@@ -62,7 +62,7 @@ class Main {
         //Fill dropdown with named selections from Cookie
         if (this.named_selection && user.getCookie('tcNamedSelection')!= "") {
             this.named_selection = JSON.parse(user.getCookie('tcNamedSelection'))
-            for (let name in named_selection) {
+            for (let name in this.named_selection) {
                 render.addNameDropdown(name)
             }
         }

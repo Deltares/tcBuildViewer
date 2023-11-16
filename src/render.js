@@ -91,7 +91,7 @@ class HtmlRender {
     addNameDropdown(name) {
 
         let attributes = {'id':`namedSelectionOption_${name}`,'value':name}
-        let dropdown   = document.getElementById('named_selection')
+        let dropdown   = document.getElementById('namedSelection')
         let option     = this.createElement('option', null, attributes, name, dropdown, null)
         dropdown.disabled = false
     }
@@ -99,7 +99,7 @@ class HtmlRender {
     // Remove a named selection option to the dropdown in JSON selection element
     removeNameDropdown(name) {
 
-        let dropdown = document.getElementById('named_selection')
+        let dropdown = document.getElementById('namedSelection')
         let option = dropdown.namedItem(`namedSelectionOption_${name}`)
         dropdown.removeChild(option)
 
