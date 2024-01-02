@@ -222,4 +222,11 @@ class HtmlRender {
             document.body.classList.add('loading')
         }
     }
+
+    resetFilterToggle() {
+        let unchangedToggle = document.getElementById('toggle_unchanged')
+        let greenToggle = document.getElementById('toggle_green')
+        unchangedToggle.classList.remove('active')
+        greenToggle.classList.remove('active')
+    }
 }
