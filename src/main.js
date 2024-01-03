@@ -79,6 +79,9 @@ class Main {
                 //Clean up elements to append data to.
                 render.cleanDataWrapper(selection.important_buildtypes)
 
+                //Reset activate class on filters, because new run won't filter directly
+                render.resetFilterToggle()
+
                 //Add the include projects wrapper elements
                 render.addParentProjectElements(selection.include_projects)
 
