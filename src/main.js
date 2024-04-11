@@ -400,7 +400,7 @@ class Main {
     }
 
     //Reset the time for the build selection to now
-    timeSelectReset(run) {
+    timeSelectReset(doRun) {
 
         this.build_count       = 14
         this.build_cutoff_days = 14
@@ -409,8 +409,8 @@ class Main {
         render.timeElementSet({'build_count':build_count, 'build_cutoff_days':build_cutoff_days, 'end_time':end_time})
         this.end_time = null
 
-        if(run) {
-            run()
+        if(doRun) {
+            this.run()
         }
     }
 
@@ -421,6 +421,6 @@ class Main {
         this.build_cutoff_days = document.getElementById('build_cutoff_days').value
         this.end_time          = document.getElementById('end_time').value
         
-        run()
+        this.run()
     }
 }
