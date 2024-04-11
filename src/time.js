@@ -65,7 +65,8 @@ class TimeUtilities {
         let t        = split.slice(10, 11).join('')
         let hour     = split.slice(11, 13).join('')
         let minute   = split.slice(14, 16).join('')
-        return date = new Date(`${year}-${month}-${day}T${hour}:${minute}`)
+        let date = new Date(`${year}-${month}-${day}T${hour}:${minute}`)
+        return date
     }
 
     // subtract build cutoff days from teamcity for api requests.
