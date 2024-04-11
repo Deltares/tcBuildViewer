@@ -82,8 +82,8 @@ class HtmlRender {
     // Update values for the time selection element
     timeElementSet(data) {
 
-        document.getElementById('build_count').value = data.count
-        document.getElementById('build_cutoff_days').value = data.cutoff_days
+        document.getElementById('build_count').value = data.build_count
+        document.getElementById('build_cutoff_days').value = data.build_cutoff_days
         document.getElementById('end_time').value = data.end_time
     }
 

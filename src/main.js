@@ -406,7 +406,7 @@ class Main {
         this.build_cutoff_days = 14
         this.end_time          = new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]
         
-        render.timeElementSet({'build_count':build_count, 'build_cutoff_days':build_cutoff_days, 'end_time':end_time})
+        render.timeElementSet({'build_count':this.build_count, 'build_cutoff_days':this.build_cutoff_days, 'end_time':this.end_time})
         this.end_time = null
 
         if(doRun) {
