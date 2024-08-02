@@ -164,6 +164,8 @@ class Main {
             let suborder = projectData.buildTypes?projectData.buildTypes.buildType.length:0
 
             Object.entries(projectData.projects.project).forEach(([key, subProject]) => {
+                if (this.selection.exclude_projects.includes(subProject.id))
+                    return
                 subProject.parentProjectData = [ ...parentProjectData ]
                 this.projectHandler(subProject.id, suborder+key, subProject.parentProjectData)
             }) 
